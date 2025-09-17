@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows10.0.19041.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <RootNamespace>FinanceApp</RootNamespace>
+    <ApplicationTitle>FinanceApp</ApplicationTitle>
+    <ApplicationId>com.company.financeapp</ApplicationId>
+    <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+	<WindowsPackageType Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">None</WindowsPackageType>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MauiFont Include="Resources\Fonts\OpenSans-Regular.ttf" Alias="OpenSansRegular" />
+    <MauiFont Include="Resources\Fonts\OpenSans-Semibold.ttf" Alias="OpenSansSemibold" />
+    <MauiFont Include="Resources\Fonts\ClashGrotesk-Semibold.ttf" Alias="GroteskSemibold" />
+    <MauiFont Include="Resources\Fonts\ClashGrotesk-Regular.ttf" Alias="GroteskRegular" />
+    <MauiFont Include="Resources\Fonts\ClashGrotesk-Light.ttf" Alias="GroteskLight" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc6.1" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
+  </ItemGroup>
+
+</Project>

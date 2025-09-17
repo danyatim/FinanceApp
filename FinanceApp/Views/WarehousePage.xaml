@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FinanceApp.ViewModels"
+             xmlns:models="clr-namespace:FinanceApp.Models"
+             x:Class="FinanceApp.Views.WarehousePage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:WarehouseViewModel">
+    <ContentPage.Background>
+        <!--Градиент заднего фона-->
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#B3DDF1" Offset="0.0" />
+            <GradientStop Color="#76C8F6" Offset="0.5" />
+            <GradientStop Color="#B3DDF1" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <VerticalStackLayout Padding="16" Spacing="8">
+        <Button Text="Добавить товар" Command="{Binding AddProductCommand}" />
+
+        <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" Padding="0,8" ColumnSpacing="8">
+            <Label Text="Наименование" Style="{StaticResource WarehouseText}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="Name" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="1" Text="Остаток" Style="{StaticResource WarehouseText}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="Quantity" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="2" Text="Цена продажи" Style="{StaticResource WarehouseText}"/>
+            <Label Grid.Column="3" Text="Комиссия %" Style="{StaticResource WarehouseText}"/>
+            <Label Grid.Column="4" Text="Закупка" Style="{StaticResource WarehouseText}"/>
+            <Label Grid.Column="5" Text="Доставка" Style="{StaticResource WarehouseText}"/>
+            <Label Grid.Column="6" Text="Мин. цена" Style="{StaticResource WarehouseText}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="7" Text="Рекоменд." Style="{StaticResource WarehouseText}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="8" Text="Сохранить" Style="{StaticResource WarehouseText}"/>
+        </Grid>
+
+        <CollectionView ItemsSource="{Binding Products}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Product" xmlns:models="clr-namespace:FinanceApp.Models">
+                    <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
+                        <Entry Text="{Binding Name}" />
+                        <Entry Grid.Column="1" Text="{Binding Quantity}" Keyboard="Numeric" WidthRequest="80" HorizontalOptions="Start"/>
+                        <Entry Grid.Column="2" Text="{Binding SellPrice}" Keyboard="Numeric" WidthRequest="100" HorizontalOptions="Start"/>
+                        <Entry Grid.Column="3" Text="{Binding FeePercent}" Keyboard="Numeric" WidthRequest="90" HorizontalOptions="Start"/>
+                        <Entry Grid.Column="4" Text="{Binding BuyPrice}" Keyboard="Numeric" WidthRequest="100" HorizontalOptions="Start"/>
+                        <Entry Grid.Column="5" Text="{Binding DeliveryPrice}" Keyboard="Numeric" WidthRequest="100" HorizontalOptions="Start"/>
+                        <Label Grid.Column="6" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="7" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" VerticalTextAlignment="Center"/>
+                        <Button Grid.Column="8" Text="💾" WidthRequest="55"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=SaveInlineCommand}"
+                    CommandParameter="{Binding .}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

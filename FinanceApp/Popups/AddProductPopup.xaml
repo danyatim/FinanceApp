@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="FinanceApp.Popups.AddProductPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Color="#88D4F2"
+               Size="420,440">
+    
+  <VerticalStackLayout Padding="16" Spacing="10">
+        <Entry x:Name="NameEntry" Placeholder="Наименование" />
+        <Entry x:Name="QtyEntry" Placeholder="Остаток" Keyboard="Numeric" />
+        <Entry x:Name="SellPriceEntry" Placeholder="Цена продажи" Keyboard="Numeric" />
+        <Entry x:Name="BuyPriceEntry" Placeholder="Цена закупки" Keyboard="Numeric" />
+        <Entry x:Name="DeliveryPriceEntry" Placeholder="Цена доставки" Keyboard="Numeric" />
+        <Entry x:Name="FeeEntry" Placeholder="Комиссия, %" Keyboard="Numeric" Text="0" />
+    <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+            <Button Text="Отмена" Clicked="OnCancel" />
+            <Button Text="Сохранить" Clicked="OnSave" />
+    </HorizontalStackLayout>
+  </VerticalStackLayout>
+</toolkit:Popup>

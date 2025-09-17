@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:helpers="clr-namespace:FinanceApp.Helpers"
+               x:Class="FinanceApp.Popups.AddTransactionPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Color="#88D4F2"
+               Size="420,460">
+
+    <VerticalStackLayout Padding="16" Spacing="12">
+        <Picker ItemsSource="{x:Static helpers:TransactionDirectionValues.All}" x:Name="DirectionPicker" />
+    <DatePicker x:Name="DatePicker" />
+        <Entry x:Name="AmountEntry" Placeholder="Сумма" Keyboard="Numeric" />
+        <Entry x:Name="AccountEntry" Placeholder="Счёт" />
+        <Entry x:Name="SourceEntry" Placeholder="Источник" />
+        <Editor x:Name="NoteEditor" Placeholder="Заметка" AutoSize="TextChanges" />
+    <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+            <Button Text="Отмена" Clicked="OnCancel"/>
+            <Button Text="Сохранить" Clicked="OnSave" />
+    </HorizontalStackLayout>
+  </VerticalStackLayout>
+</toolkit:Popup>

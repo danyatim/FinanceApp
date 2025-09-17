@@ -1,0 +1,14 @@
+using FinanceApp.Models;
+using FinanceApp.Services;
+
+namespace FinanceApp.ViewModels;
+
+public partial class ExpenseViewModel : DetailViewModel
+{
+    public ExpenseViewModel(ITransactionService tx, IDateRangeService ranges) : base(tx, ranges)
+    {
+        Title = "Расходы";
+    }
+
+    protected override TransactionDirection? DirectionForList => TransactionDirection.Expense;
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FinanceApp.ViewModels"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:models="clr-namespace:FinanceApp.Models"
+             x:Class="FinanceApp.Views.ProfitPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:ProfitViewModel">
+    <ContentPage.Background>
+        <!--Градиент заднего фона-->
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#B3DDF1" Offset="0.0" />
+            <GradientStop Color="#76C8F6" Offset="0.5" />
+            <GradientStop Color="#B3DDF1" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+
+            <HorizontalStackLayout Spacing="8">
+                <DatePicker Date="{Binding FromDate}" />
+                <DatePicker Date="{Binding ToDate}" />
+                <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0"/>
+            </HorizontalStackLayout>
+
+            <CollectionView ItemsSource="{Binding SourcesTotals}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <Border Style="{StaticResource MainBorder}">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Key}" Style="{StaticResource GroteskSemiboldText}"/>
+                                <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <lvc:CartesianChart Series="{Binding Series}"
+                                XAxes="{Binding XAxes}"
+                                YAxes="{Binding YAxes}"
+                                Style="{StaticResource CartesianChart}"
+                                HeightRequest="240" />
+
+            <!--
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.Header>
+                    <Grid ColumnDefinitions="220,220,220,220" Padding="0,6">
+                        <Label Grid.Column="0" Text="Дата" Style="{StaticResource ListHeaderStyle}"/>
+                        <Label Grid.Column="1" Text="Счёт" Style="{StaticResource ListHeaderStyle}"/>
+                        <Label Grid.Column="2" Text="Источник" Style="{StaticResource ListHeaderStyle}"/>
+                        <Label Grid.Column="3" Text="Сумма" HorizontalTextAlignment="End" Style="{StaticResource ListHeaderStyle}"/>
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Transaction" xmlns:models="clr-namespace:FinanceApp.Models">
+                        <Grid ColumnDefinitions="220,220,220,220" Padding="0,8">
+                            <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" />
+                            <Label Grid.Column="1" Text="{Binding Account}" />
+                            <Label Grid.Column="2" Text="{Binding Source}" />
+                            <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            -->
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

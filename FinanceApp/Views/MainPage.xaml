@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FinanceApp.ViewModels"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:helpers="clr-namespace:FinanceApp.Helpers"
+             x:Class="FinanceApp.Views.MainPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="vm:MainViewModel">
+
+    <ContentPage.Background>
+        <!--Градиент заднего фона-->
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#B3DDF1" Offset="0.0" />
+            <GradientStop Color="#76C8F6" Offset="0.5" />
+            <GradientStop Color="#B3DDF1" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                <HorizontalStackLayout Grid.Column="0" Spacing="8">
+                    <DatePicker Date="{Binding FromDate}" />
+                    <DatePicker Date="{Binding ToDate}" />
+                    <Button Text="Обновить" HeightRequest="40" Command="{Binding LoadCommand}" Margin="16,0"/>
+                </HorizontalStackLayout>
+                <Picker Grid.Column="1"
+                WidthRequest="160"
+                ItemsSource="{x:Static helpers:TimeGroupingValues.All}"
+                SelectedItem="{Binding Grouping}"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+                <Border Style="{StaticResource MainBorder}">
+                    <VerticalStackLayout>
+                        <Label Text="Выручка" Style="{StaticResource GroteskSemiboldText}"/>
+                        <Label Text="{Binding IncomeTotal, StringFormat='{}{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateRevenueCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource MainBorder}">
+                    <VerticalStackLayout>
+                        <Label Text="Расходы" Style="{StaticResource GroteskSemiboldText}"/>
+                        <Label Text="{Binding ExpenseTotal, StringFormat='{}{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateExpenseCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource MainBorder}">
+                    <VerticalStackLayout>
+                        <Label Text="Прибыль" Style="{StaticResource GroteskSemiboldText}"/>
+                        <Label Text="{Binding ProfitTotal, StringFormat='{}{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+            </Grid>
+
+            <lvc:CartesianChart Series="{Binding Series}"
+                                XAxes="{Binding XAxes}"
+                                YAxes="{Binding YAxes}"
+                                Style="{StaticResource CartesianChart}"
+                                HeightRequest="340"/>
+
+            <Button Text="Добавить транзакцию" Command="{Binding AddTransactionCommand}" HorizontalOptions="End"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
