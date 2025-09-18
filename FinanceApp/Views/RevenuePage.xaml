@@ -63,7 +63,7 @@
 
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="220,220,220,220" Padding="0,8">
+                    <Grid ColumnDefinitions="220,220,220,220,*" Padding="0,8">
                         <Label Text="Дата" Style="{StaticResource ListHeaderStyle}"/>
                         <Label Grid.Column="1" Text="Счёт" Style="{StaticResource ListHeaderStyle}"/>
                         <Label Grid.Column="2" Text="Источник" Style="{StaticResource ListHeaderStyle}"/>
@@ -74,10 +74,17 @@
                     <DataTemplate x:DataType="models:Transaction" xmlns:models="clr-namespace:FinanceApp.Models">
                         <VerticalStackLayout>
                             <Grid ColumnDefinitions="220,220,220,220" Padding="0,8">
-                                <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" />
-                                <Label Grid.Column="1" Text="{Binding Account}" />
-                                <Label Grid.Column="2" Text="{Binding Source}" />
-                                <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" />
+                                <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="1" Text="{Binding Account}" VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="2" Text="{Binding Source}" VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                                <Button Grid.Column="4" Text="x"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RevenueViewModel}}, Path=DeleteTransactionCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Background="Transparent"
+                                        VerticalOptions="Center"
+                                        BorderColor="Transparent"
+                                        TextColor="Red"/>
                             </Grid>
                             <Line Stroke="Black" Opacity="0.1" X1="0" X2="880" />
                         </VerticalStackLayout>

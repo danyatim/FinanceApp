@@ -10,7 +10,7 @@
     <ApplicationId>com.company.financeapp</ApplicationId>
     <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
-	<WindowsPackageType>None</WindowsPackageType>
+	<WindowsPackageType Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">None</WindowsPackageType>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>

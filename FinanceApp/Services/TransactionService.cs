@@ -10,6 +10,8 @@ public class TransactionService : ITransactionService
 
     public Task AddAsync(Transaction t) => _repo.InsertAsync(t);
 
+    public Task DeleteAsync(Transaction t) => _repo.DeleteAsync(t);
+
     public Task<List<Transaction>> GetAsync(DateRange range, TransactionDirection? dir = null, string? account = null, string? source = null)
         => _repo.GetByRangeAsync(range, dir, account, source);
 

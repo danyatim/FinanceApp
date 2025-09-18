@@ -194,4 +194,18 @@ public abstract partial class DetailViewModel : BaseViewModel
         }
         finally { IsBusy = false; }
     }
+
+    [RelayCommand]
+    public async Task DeleteTransactionAsync(Transaction t)
+    {
+        if (t is null || t.Id <= 0) return;
+
+        IsBusy = true;
+        try
+        {
+            await _tx.DeleteAsync(t);
+            await LoadAsync();
+        }
+        finally { IsBusy = false; }
+    }
 }
