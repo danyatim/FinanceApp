@@ -6,23 +6,41 @@ namespace FinanceApp.Data.Repositories;
 
 public class TransactionRepository
 {
-    private readonly SQLiteAsyncConnection _db;
-    public TransactionRepository(IDatabase database) => _db = database.GetConnection();
+    private readonly IDatabase _database;
+    public TransactionRepository(IDatabase database) => _database = database;
 
-    public Task<int> InsertAsync(Transaction t) => _db.InsertAsync(t);
-    public Task<int> UpdateAsync(Transaction t) => _db.UpdateAsync(t);
-    public Task<int> DeleteAsync(Transaction t) => _db.DeleteAsync(t);
+    private SQLiteAsyncConnection Conn => _database.GetConnection();
 
-    public Task<List<Transaction>> GetByRangeAsync(DateRange range, TransactionDirection? dir = null, string? account = null, string? source = null)
+    public async Task<int> InsertAsync(Transaction t)
     {
-        var query = _db.Table<Transaction>()
+        await _database.EnsureCreatedAsync();
+        return await Conn.InsertAsync(t);
+    }
+
+    public async Task<int> UpdateAsync(Transaction t)
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.UpdateAsync(t);
+    }
+
+    public async Task<int> DeleteAsync(Transaction t)
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.DeleteAsync(t);
+    }
+
+    public async Task<List<Transaction>> GetByRangeAsync(DateRange range, TransactionDirection? dir = null, string? account = null, string? source = null)
+    {
+        await _database.EnsureCreatedAsync();
+
+        var query = Conn.Table<Transaction>()
             .Where(t => t.Date >= range.From && t.Date <= range.To);
 
         if (dir.HasValue) query = query.Where(t => t.Direction == dir.Value);
         if (!string.IsNullOrWhiteSpace(account)) query = query.Where(t => t.Account == account);
         if (!string.IsNullOrWhiteSpace(source)) query = query.Where(t => t.Source == source);
 
-        return query.OrderByDescending(t => t.Date).ToListAsync();
+        return await query.OrderByDescending(t => t.Date).ToListAsync();
     }
 
     public async Task<decimal> SumAsync(DateRange range, TransactionDirection dir, string? account = null, string? source = null)
@@ -34,23 +52,23 @@ public class TransactionRepository
     public async Task<Dictionary<string, decimal>> SumBySourceAsync(DateRange range, TransactionDirection dir, string? account = null)
     {
         var list = await GetByRangeAsync(range, dir, account, null);
-        return list.GroupBy(t => t.Source)
-                   .ToDictionary(g => g.Key, g => g.Sum(x => x.Amount));
+        return list.GroupBy(t => t.Source).ToDictionary(g => g.Key, g => g.Sum(x => x.Amount));
     }
 
     public async Task<List<(DateTime Bucket, decimal Sum)>> GroupedSumAsync(
-    DateRange range, TransactionDirection? dir, Models.TimeGrouping grouping)
+        DateRange range, TransactionDirection? dir, Models.TimeGrouping grouping)
     {
+        await _database.EnsureCreatedAsync();
+
         string bucketExpr = grouping switch
         {
-            Models.TimeGrouping.Daily => "date(Date)",                 // YYYY-MM-DD
-            Models.TimeGrouping.Weekly => "strftime('%Y-W%W', Date)",   // YYYY-Www
-            Models.TimeGrouping.Monthly => "strftime('%Y-%m-01', Date)", // 1-е число мес€ца
-            Models.TimeGrouping.Yearly => "strftime('%Y-01-01', Date)", // 1-е €нвар€
+            Models.TimeGrouping.Daily => "date(Date)",
+            Models.TimeGrouping.Weekly => "strftime('%Y-W%W', Date)",
+            Models.TimeGrouping.Monthly => "strftime('%Y-%m-01', Date)",
+            Models.TimeGrouping.Yearly => "strftime('%Y-01-01', Date)",
             _ => "date(Date)"
         };
 
-        // —равниваем date(Date) с date(?) Ч и параметры передаем ISO-датами без времени.
         string dirFilter = dir.HasValue ? " AND Direction = ?" : string.Empty;
 
         string sql = $@"
@@ -62,13 +80,13 @@ public class TransactionRepository
         ORDER BY Bucket ASC;";
 
         var args = new List<object>
-    {
-        range.From.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-        range.To.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-    };
+        {
+            range.From.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+            range.To.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+        };
         if (dir.HasValue) args.Add((int)dir.Value);
 
-        var rows = await _db.QueryAsync<GroupRow>(sql, args.ToArray());
+        var rows = await Conn.QueryAsync<GroupRow>(sql, args.ToArray());
 
         var result = rows
             .Where(r => !string.IsNullOrWhiteSpace(r.Bucket))

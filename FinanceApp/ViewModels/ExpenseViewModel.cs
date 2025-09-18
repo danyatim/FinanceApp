@@ -5,7 +5,7 @@ namespace FinanceApp.ViewModels;
 
 public partial class ExpenseViewModel : DetailViewModel
 {
-    public ExpenseViewModel(ITransactionService tx, IDateRangeService ranges) : base(tx, ranges)
+    public ExpenseViewModel(ITransactionService tx, IDateRangeService ranges, IReferenceService refs) : base(tx, ranges, refs)
     {
         Title = "Расходы";
     }

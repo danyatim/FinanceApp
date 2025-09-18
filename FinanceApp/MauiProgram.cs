@@ -37,6 +37,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<Services.IDateRangeService, Services.DateRangeService>();
         builder.Services.AddSingleton<Services.ITransactionService, Services.TransactionService>();
         builder.Services.AddSingleton<Services.IProductService, Services.ProductService>();
+        builder.Services.AddSingleton<Services.IReferenceService, Services.ReferenceService>();
 
         // VM
         builder.Services.AddSingleton<ViewModels.MainViewModel>();
@@ -44,6 +45,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ViewModels.ExpenseViewModel>();
         builder.Services.AddTransient<ViewModels.ProfitViewModel>();
         builder.Services.AddSingleton<ViewModels.WarehouseViewModel>();
+        builder.Services.AddTransient<ViewModels.SettingsViewModel>();
 
         // Pages
         builder.Services.AddSingleton<Views.MainPage>();
@@ -51,6 +53,7 @@ public static class MauiProgram
         builder.Services.AddTransient<Views.ExpensePage>();
         builder.Services.AddTransient<Views.ProfitPage>();
         builder.Services.AddSingleton<Views.WarehousePage>();
+        builder.Services.AddSingleton<Views.SettingsTabPage>();
 
         return builder.Build();
     }

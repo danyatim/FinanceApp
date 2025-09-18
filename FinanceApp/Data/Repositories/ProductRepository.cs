@@ -5,13 +5,32 @@ namespace FinanceApp.Data.Repositories;
 
 public class ProductRepository
 {
-    private readonly SQLiteAsyncConnection _db;
-    public ProductRepository(IDatabase database) => _db = database.GetConnection();
+    private readonly IDatabase _database;
+    public ProductRepository(IDatabase database) => _database = database;
 
-    public Task<int> InsertAsync(Product p) => _db.InsertAsync(p);
-    public Task<int> UpdateAsync(Product p) => _db.UpdateAsync(p);
-    public Task<int> DeleteAsync(Product p) => _db.DeleteAsync(p);
+    private SQLiteAsyncConnection Conn => _database.GetConnection();
 
-    public Task<List<Product>> GetAllAsync() =>
-        _db.Table<Product>().OrderBy(p => p.Name).ToListAsync();
+    public async Task<int> InsertAsync(Product p)
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.InsertAsync(p);
+    }
+
+    public async Task<int> UpdateAsync(Product p)
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.UpdateAsync(p);
+    }
+
+    public async Task<int> DeleteAsync(Product p)
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.DeleteAsync(p);
+    }
+
+    public async Task<List<Product>> GetAllAsync()
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.Table<Product>().OrderBy(p => p.Name).ToListAsync();
+    }
 }

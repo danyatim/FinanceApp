@@ -36,7 +36,7 @@
                 <Border Style="{StaticResource MainBorder}">
                     <VerticalStackLayout>
                         <Label Text="Выручка" Style="{StaticResource GroteskSemiboldText}"/>
-                        <Label Text="{Binding IncomeTotal, StringFormat='{}{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                        <Label Text="{Binding IncomeTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
                     </VerticalStackLayout>
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateRevenueCommand}" />
@@ -46,7 +46,7 @@
                 <Border Grid.Column="1" Style="{StaticResource MainBorder}">
                     <VerticalStackLayout>
                         <Label Text="Расходы" Style="{StaticResource GroteskSemiboldText}"/>
-                        <Label Text="{Binding ExpenseTotal, StringFormat='{}{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                        <Label Text="{Binding ExpenseTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
                     </VerticalStackLayout>
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateExpenseCommand}" />
@@ -56,7 +56,7 @@
                 <Border Grid.Column="2" Style="{StaticResource MainBorder}">
                     <VerticalStackLayout>
                         <Label Text="Прибыль" Style="{StaticResource GroteskSemiboldText}"/>
-                        <Label Text="{Binding ProfitTotal, StringFormat='{}{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                        <Label Text="{Binding ProfitTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
                     </VerticalStackLayout>
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />

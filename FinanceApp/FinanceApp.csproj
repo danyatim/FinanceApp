@@ -10,7 +10,7 @@
     <ApplicationId>com.company.financeapp</ApplicationId>
     <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
-	<WindowsPackageType Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">None</WindowsPackageType>
+	<WindowsPackageType>None</WindowsPackageType>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -23,6 +23,12 @@
     <MauiFont Include="Resources\Fonts\ClashGrotesk-Regular.ttf" Alias="GroteskRegular" />
     <MauiFont Include="Resources\Fonts\ClashGrotesk-Light.ttf" Alias="GroteskLight" />
     <MauiIcon Include="Resources\AppIcon\appicon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiImage Include="Resources\Images\analytics.svg" />
+    <MauiImage Include="Resources\Images\user_setting.svg" />
+    <MauiImage Include="Resources\Images\warehouse.svg" />
   </ItemGroup>
 
   <ItemGroup>

@@ -24,15 +24,21 @@
                 <HorizontalStackLayout Spacing="8">
                     <DatePicker Date="{Binding FromDate}" />
                     <DatePicker Date="{Binding ToDate}" />
-                    <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0" />
+                    <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0"/>
                 </HorizontalStackLayout>
-                
-                <Entry Grid.Column="2" Placeholder="Счёт" Text="{Binding SelectedAccount}" WidthRequest="160"/>
-                <Entry Grid.Column="3" Placeholder="Источник" Text="{Binding SelectedSource}" WidthRequest="160"/>
-                
+
+                <Picker Grid.Column="2"
+                        ItemsSource="{Binding AccountNames}"
+                        SelectedItem="{Binding SelectedAccount}"
+                        WidthRequest="160"/>
+                <Picker Grid.Column="3"
+                        ItemsSource="{Binding SourceNames}"
+                        SelectedItem="{Binding SelectedSource}"
+                        WidthRequest="160"/>
+
             </Grid>
 
-           
+
             <CollectionView ItemsSource="{Binding SourcesTotals}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
@@ -75,7 +81,7 @@
                             </Grid>
                             <Line Stroke="Black" Opacity="0.1" X1="0" X2="880" />
                         </VerticalStackLayout>
-                        
+
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

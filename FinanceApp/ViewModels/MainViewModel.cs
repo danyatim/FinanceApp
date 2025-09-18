@@ -17,6 +17,7 @@ public partial class MainViewModel : BaseViewModel
 {
     private readonly ITransactionService _tx;
     private readonly IDateRangeService _ranges;
+    private readonly IReferenceService _refs;
 
     [ObservableProperty] private DateRange period;
     [ObservableProperty] private TimeGrouping grouping = TimeGrouping.Daily;
@@ -32,9 +33,9 @@ public partial class MainViewModel : BaseViewModel
     [ObservableProperty] private Axis[] xAxes = Array.Empty<Axis>();
     [ObservableProperty] private Axis[] yAxes = Array.Empty<Axis>();
 
-    public MainViewModel(ITransactionService tx, IDateRangeService ranges)
+    public MainViewModel(ITransactionService tx, IDateRangeService ranges, IReferenceService refs)
     {
-        _tx = tx; _ranges = ranges;
+        _tx = tx; _ranges = ranges; _refs = refs;
 
         var rng = _ranges.CurrentMonth();
         Period = rng;
@@ -179,7 +180,7 @@ public partial class MainViewModel : BaseViewModel
         var mainPage = Application.Current?.Windows[0].Page;
         if (mainPage != null)
         {
-            var popup = new Popups.AddTransactionPopup();
+            var popup = new Popups.AddTransactionPopup(_refs);
             var result = await mainPage.ShowPopupAsync(popup);
             if (result is Models.Transaction t)
             {

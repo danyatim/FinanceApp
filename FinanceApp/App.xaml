@@ -8,6 +8,7 @@
             
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontFamily" Value="GroteskRegular" />
             </Style>
             
             <!--Стиль Кнопок-->

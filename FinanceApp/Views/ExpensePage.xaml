@@ -25,9 +25,15 @@
                     <DatePicker Date="{Binding ToDate}" />
                     <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16, 0" />
                 </HorizontalStackLayout>
-                
-                <Entry Grid.Column="2" Placeholder="Счёт" Text="{Binding SelectedAccount}" WidthRequest="160"/>
-                <Entry Grid.Column="3" Placeholder="Источник" Text="{Binding SelectedSource}" WidthRequest="160"/>
+
+                <Picker Grid.Column="2"
+                        ItemsSource="{Binding AccountNames}"
+                        SelectedItem="{Binding SelectedAccount}"
+                        WidthRequest="160"/>
+                <Picker Grid.Column="3"
+                        ItemsSource="{Binding SourceNames}"
+                        SelectedItem="{Binding SelectedSource}"
+                        WidthRequest="160"/>
             </Grid>
 
 

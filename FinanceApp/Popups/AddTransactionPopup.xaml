@@ -10,14 +10,17 @@
 
     <VerticalStackLayout Padding="16" Spacing="12">
         <Picker ItemsSource="{x:Static helpers:TransactionDirectionValues.All}" x:Name="DirectionPicker" />
-    <DatePicker x:Name="DatePicker" />
+        <DatePicker x:Name="DatePicker" />
         <Entry x:Name="AmountEntry" Placeholder="Сумма" Keyboard="Numeric" />
-        <Entry x:Name="AccountEntry" Placeholder="Счёт" />
-        <Entry x:Name="SourceEntry" Placeholder="Источник" />
+
+
+        <Picker x:Name="AccountPicker" Title="Счёт" />
+        <Picker x:Name="SourcePicker"  Title="Источник" />
+
         <Editor x:Name="NoteEditor" Placeholder="Заметка" AutoSize="TextChanges" />
-    <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+        <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
             <Button Text="Отмена" Clicked="OnCancel"/>
             <Button Text="Сохранить" Clicked="OnSave" />
-    </HorizontalStackLayout>
-  </VerticalStackLayout>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
 </toolkit:Popup>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinanceApp.Views.SettingsTabPage">
+    <ContentPage.Background>
+        <!--Градиент заднего фона-->
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#B3DDF1" Offset="0.0" />
+            <GradientStop Color="#76C8F6" Offset="0.5" />
+            <GradientStop Color="#B3DDF1" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+</ContentPage>

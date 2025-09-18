@@ -4,7 +4,7 @@ namespace FinanceApp.ViewModels;
 
 public partial class ProfitViewModel : DetailViewModel
 {
-    public ProfitViewModel(ITransactionService tx, IDateRangeService ranges) : base(tx, ranges)
+    public ProfitViewModel(ITransactionService tx, IDateRangeService ranges, IReferenceService refs) : base(tx, ranges, refs)
     {
         Title = "Прибыль";
     }

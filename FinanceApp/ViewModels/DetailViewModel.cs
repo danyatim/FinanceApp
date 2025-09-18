@@ -7,7 +7,6 @@ using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace FinanceApp.ViewModels;
@@ -16,6 +15,7 @@ public abstract partial class DetailViewModel : BaseViewModel
 {
     protected readonly ITransactionService _tx;
     protected readonly IDateRangeService _ranges;
+    protected readonly IReferenceService _refs;
 
     [ObservableProperty] private DateRange period;
     [ObservableProperty] private TimeGrouping grouping = TimeGrouping.Daily;
@@ -25,6 +25,9 @@ public abstract partial class DetailViewModel : BaseViewModel
 
     [ObservableProperty] private string? selectedAccount;
     [ObservableProperty] private string? selectedSource;
+
+    [ObservableProperty] private List<string> accountNames = new();
+    [ObservableProperty] private List<string> sourceNames = new();
 
     [ObservableProperty] private List<Transaction> items = new();
     [ObservableProperty] private Dictionary<string, decimal> sourcesTotals = new();
@@ -50,14 +53,14 @@ public abstract partial class DetailViewModel : BaseViewModel
 
     protected abstract TransactionDirection? DirectionForList { get; }
 
-    protected DetailViewModel(ITransactionService tx, IDateRangeService ranges)
+    protected DetailViewModel(ITransactionService tx, IDateRangeService ranges, IReferenceService refs)
     {
-        _tx = tx; _ranges = ranges;
+        _tx = tx; _ranges = ranges; _refs = refs;
         var rng = _ranges.CurrentMonth();
         Period = rng;
         FromDate = rng.From;
         ToDate = rng.To;
-        UpdateAxes(); // инициализируем оси
+        UpdateAxes();
     }
 
     partial void OnFromDateChanged(DateTime value) => Period = new DateRange(value, ToDate);
@@ -67,6 +70,15 @@ public abstract partial class DetailViewModel : BaseViewModel
     {
         UpdateAxes();
         _ = LoadAsync();
+    }
+
+    private async Task LoadLookupsAsync()
+    {
+        var acc = await _refs.GetAccountsAsync();
+        AccountNames = acc.Select(a => a.Name).ToList();
+
+        var src = await _refs.GetSourcesAsync(DirectionForList);
+        SourceNames = src.Select(s => s.Name).ToList();
     }
 
     [RelayCommand]
@@ -134,6 +146,8 @@ public abstract partial class DetailViewModel : BaseViewModel
         IsBusy = true;
         try
         {
+            await LoadLookupsAsync();
+
             if (DirectionForList.HasValue)
             {
                 Items = await _tx.GetAsync(Period, DirectionForList, SelectedAccount, SelectedSource);
@@ -173,7 +187,7 @@ public abstract partial class DetailViewModel : BaseViewModel
                         Amount = kv.Value,
                         Direction = TransactionDirection.Income,
                         Source = kv.Key,
-                        Account = accountDisplay
+                        Account = accountDisplay!
                     })
                     .ToList();
             }
