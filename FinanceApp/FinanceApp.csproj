@@ -39,4 +39,10 @@
     <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <MauiXaml Update="Views\ProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
 </Project>

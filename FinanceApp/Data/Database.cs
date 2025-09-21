@@ -1,44 +1,40 @@
 using SQLite;
-using System.Diagnostics;
+using FinanceApp.Models;
+using FinanceApp.Services;
+using System.Threading;
 
 namespace FinanceApp.Data;
 
 public interface IDatabase
 {
     SQLiteAsyncConnection GetConnection();
+
     Task EnsureCreatedAsync();
+
+    Task SetProfileAsync(string name);
+    string CurrentProfileName { get; }
 }
 
 public class Database : IDatabase
 {
-    private readonly SQLiteAsyncConnection _conn;
+    private readonly IProfileService _profiles;
+
+    private SQLiteAsyncConnection _conn = default!;
     private Task? _initTask;
     private readonly SemaphoreSlim _initLock = new(1, 1);
 
-    public Database()
-    {
-        var dir = FileSystem.AppDataDirectory;
-        var dbPath = Path.Combine(dir, "finance.sqlite3");
-        Debug.WriteLine(dbPath);
-        _conn = new SQLiteAsyncConnection(
-            dbPath,
-            SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache,
-            storeDateTimeAsTicks: false // ¬ј∆Ќќ: сохран€ть DateTime как ISO-8601 TEXT
-        );
-        _initTask = InitAsync();
-    }
+    public string CurrentProfileName { get; private set; } = "default";
 
-    private async Task InitAsync()
+    public Database(IProfileService profiles)
     {
-        await _conn.CreateTableAsync<Models.Transaction>();
-        await _conn.CreateTableAsync<Models.Product>();
-        await _conn.CreateTableAsync<Models.Account>();
-        await _conn.CreateTableAsync<Models.Source>();
+        _profiles = profiles;
 
-        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_date ON transactions(Date)");
-        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_direction ON transactions(Direction)");
-        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_account ON transactions(Account)");
-        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_source ON transactions(Source)");
+        var name = _profiles.GetCurrentProfileName() ?? "default";
+        CurrentProfileName = name;
+        var path = _profiles.GetDbFilePath(name);
+
+        _conn = CreateConnection(path);
+        // запуск инициализации лениво Ч через EnsureCreatedAsync
     }
 
     public SQLiteAsyncConnection GetConnection() => _conn;
@@ -56,4 +52,47 @@ public class Database : IDatabase
         }
         await _initTask!;
     }
+
+    public async Task SetProfileAsync(string name)
+    {
+        name = string.IsNullOrWhiteSpace(name) ? "default" : name.Trim();
+        if (string.Equals(CurrentProfileName, name, StringComparison.OrdinalIgnoreCase))
+        {
+            await EnsureCreatedAsync();
+            return;
+        }
+
+        CurrentProfileName = name;
+
+        try { await _conn.CloseAsync(); } catch { /* ignore */ }
+
+        var path = _profiles.GetDbFilePath(name);
+        _conn = CreateConnection(path);
+
+        // сбрасываем задачу инициализации и запускаем заново
+        _initTask = null;
+        await EnsureCreatedAsync();
+    }
+
+    private SQLiteAsyncConnection CreateConnection(string path)
+    {
+        return new SQLiteAsyncConnection(
+            path,
+            SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache,
+            storeDateTimeAsTicks: false);
+    }
+
+    private async Task InitAsync()
+    {
+        await _conn.CreateTableAsync<Transaction>();
+        await _conn.CreateTableAsync<Product>();
+        await _conn.CreateTableAsync<Account>();
+        await _conn.CreateTableAsync<Source>();
+
+        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_date ON transactions(Date)");
+        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_direction ON transactions(Direction)");
+        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_account ON transactions(Account)");
+        await _conn.ExecuteAsync("CREATE INDEX IF NOT EXISTS idx_transactions_source ON transactions(Source)");
+    }
 }
+

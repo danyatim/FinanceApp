@@ -18,22 +18,28 @@ public static class MauiProgram
             .UseSkiaSharp()
             .UseLiveCharts()
             .ConfigureFonts(fonts =>
-             {
-                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                 fonts.AddFont("ClashGrotesk-Light.ttf", "GroteskLight");
-                 fonts.AddFont("ClashGrotesk-Regular.ttf", "GroteskRegular");
-                 fonts.AddFont("ClashGrotesk-Semibold.ttf", "GroteskSemibold");
-             });
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("ClashGrotesk-Light.ttf", "GroteskLight");
+                fonts.AddFont("ClashGrotesk-Regular.ttf", "GroteskRegular");
+                fonts.AddFont("ClashGrotesk-Semibold.ttf", "GroteskSemibold");
+            });
 
-        // LiveCharts: глобальная конфигурация
         LiveCharts.Configure(cfg => cfg.AddSkiaSharp());
 
-        // DI: БД, репозитории, сервисы
-        builder.Services.AddSingleton<Data.IDatabase, Data.Database>();
+        // NEW: профили
+        builder.Services.AddSingleton<Services.IProfileService, Services.ProfileService>();
+
+        // БД теперь зависит от профиля
+        builder.Services.AddSingleton<Data.IDatabase>(sp =>
+            new Data.Database(sp.GetRequiredService<Services.IProfileService>()));
+
+        // Repositories
         builder.Services.AddSingleton<Data.Repositories.TransactionRepository>();
         builder.Services.AddSingleton<Data.Repositories.ProductRepository>();
 
+        // Services
         builder.Services.AddSingleton<Services.IDateRangeService, Services.DateRangeService>();
         builder.Services.AddSingleton<Services.ITransactionService, Services.TransactionService>();
         builder.Services.AddSingleton<Services.IProductService, Services.ProductService>();
@@ -53,7 +59,9 @@ public static class MauiProgram
         builder.Services.AddTransient<Views.ExpensePage>();
         builder.Services.AddTransient<Views.ProfitPage>();
         builder.Services.AddSingleton<Views.WarehousePage>();
-        builder.Services.AddSingleton<Views.SettingsTabPage>();
+
+        // NEW: Profile page
+        builder.Services.AddSingleton<Views.ProfilePage>();
 
         return builder.Build();
     }

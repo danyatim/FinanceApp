@@ -46,7 +46,7 @@
             <Label Grid.Column="8" Text="Сохранить" Style="{StaticResource WarehouseText}"/>
         </Grid>
 
-        <CollectionView ItemsSource="{Binding Products}">
+        <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Product" xmlns:models="clr-namespace:FinanceApp.Models">
                     <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">

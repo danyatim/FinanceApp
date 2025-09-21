@@ -6,9 +6,10 @@
        x:Class="FinanceApp.AppShell"
        Title="FinanceApp">
     <TabBar>
+        <ShellContent Icon="user_setting.png" Title="Профиль" ContentTemplate="{DataTemplate views:ProfilePage}" />
         <ShellContent Icon="analytics.png" Title="Аналитика" ContentTemplate="{DataTemplate views:MainPage}" />
         <ShellContent Icon="warehouse.png" Title="Склад" ContentTemplate="{DataTemplate views:WarehousePage}" />
 
-        <ShellContent Icon="user_setting.png" Title="Профиль" ContentTemplate="{DataTemplate views:SettingsTabPage}"/>
+        <ShellContent Icon="user_setting.png" Title="Настройки" ContentTemplate="{DataTemplate views:SettingsTabPage}"/>
     </TabBar>
 </Shell>

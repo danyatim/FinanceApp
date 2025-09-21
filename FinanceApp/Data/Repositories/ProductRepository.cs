@@ -6,9 +6,9 @@ namespace FinanceApp.Data.Repositories;
 public class ProductRepository
 {
     private readonly IDatabase _database;
-    public ProductRepository(IDatabase database) => _database = database;
-
     private SQLiteAsyncConnection Conn => _database.GetConnection();
+
+    public ProductRepository(IDatabase database) => _database = database;
 
     public async Task<int> InsertAsync(Product p)
     {

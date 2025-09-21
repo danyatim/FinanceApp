@@ -25,7 +25,7 @@
                 <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0"/>
             </HorizontalStackLayout>
 
-            <CollectionView ItemsSource="{Binding SourcesTotals}">
+            <CollectionView ItemsSource="{Binding SourcesTotals}" SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
                 </CollectionView.ItemsLayout>

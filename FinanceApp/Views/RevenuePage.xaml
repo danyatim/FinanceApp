@@ -61,7 +61,7 @@
                                 Style="{StaticResource CartesianChart}"
                                 HeightRequest="240" />
 
-            <CollectionView ItemsSource="{Binding Items}">
+            <CollectionView ItemsSource="{Binding Items}" SelectionMode="Single">
                 <CollectionView.Header>
                     <Grid ColumnDefinitions="220,220,220,220,*" Padding="0,8">
                         <Label Text="Дата" Style="{StaticResource ListHeaderStyle}"/>
