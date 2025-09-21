@@ -15,16 +15,18 @@ public class Database : IDatabase
     private Task? _initTask;
     private readonly SemaphoreSlim _initLock = new(1, 1);
 
-    public Database()
+    public Database(string profile)
     {
-        var dir = FileSystem.AppDataDirectory;
-        var dbPath = Path.Combine(dir, "finance.sqlite3");
+        var dbPath = Path.Combine(FileSystem.AppDataDirectory, profile ?? "finance" + ".sqlite3");
         Debug.WriteLine(dbPath);
+        Debug.WriteLine(profile);
+
         _conn = new SQLiteAsyncConnection(
             dbPath,
             SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache,
             storeDateTimeAsTicks: false // ВАЖНО: сохранять DateTime как ISO-8601 TEXT
         );
+
         _initTask = InitAsync();
     }
 

@@ -7,10 +7,12 @@ namespace FinanceApp.Services;
 public class ReferenceService : IReferenceService
 {
     private readonly IDatabase _database;
+    private readonly IDatabaseProvider _dbProvider;
 
-    public ReferenceService(IDatabase database)
+    public ReferenceService(IDatabaseProvider dbProvider)
     {
-        _database = database;
+        _dbProvider = dbProvider;
+        _database = _dbProvider.CurrentDatabase;
     }
 
     public async Task<IList<Account>> GetAccountsAsync()

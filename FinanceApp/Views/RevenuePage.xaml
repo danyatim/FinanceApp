@@ -63,7 +63,7 @@
 
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="220,220,220,220,*" Padding="0,8">
+                    <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,8">
                         <Label Text="Дата" Style="{StaticResource ListHeaderStyle}"/>
                         <Label Grid.Column="1" Text="Счёт" Style="{StaticResource ListHeaderStyle}"/>
                         <Label Grid.Column="2" Text="Источник" Style="{StaticResource ListHeaderStyle}"/>
@@ -73,7 +73,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Transaction" xmlns:models="clr-namespace:FinanceApp.Models">
                         <VerticalStackLayout>
-                            <Grid ColumnDefinitions="220,220,220,220" Padding="0,8">
+                            <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,8">
                                 <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" VerticalTextAlignment="Center"/>
                                 <Label Grid.Column="1" Text="{Binding Account}" VerticalTextAlignment="Center"/>
                                 <Label Grid.Column="2" Text="{Binding Source}" VerticalTextAlignment="Center"/>

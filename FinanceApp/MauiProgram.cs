@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui;
+using FinanceApp.Data;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Maui;
@@ -30,7 +31,9 @@ public static class MauiProgram
         LiveCharts.Configure(cfg => cfg.AddSkiaSharp());
 
         // DI: БД, репозитории, сервисы
+        builder.Services.AddSingleton<IDatabaseProvider, DatabaseProvider>();
         builder.Services.AddSingleton<Data.IDatabase, Data.Database>();
+        
         builder.Services.AddSingleton<Data.Repositories.TransactionRepository>();
         builder.Services.AddSingleton<Data.Repositories.ProductRepository>();
 
@@ -38,6 +41,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<Services.ITransactionService, Services.TransactionService>();
         builder.Services.AddSingleton<Services.IProductService, Services.ProductService>();
         builder.Services.AddSingleton<Services.IReferenceService, Services.ReferenceService>();
+        
 
         // VM
         builder.Services.AddSingleton<ViewModels.MainViewModel>();

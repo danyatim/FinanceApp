@@ -7,7 +7,12 @@ namespace FinanceApp.Data.Repositories;
 public class TransactionRepository
 {
     private readonly IDatabase _database;
-    public TransactionRepository(IDatabase database) => _database = database;
+    private readonly IDatabaseProvider _dbProvider;
+    public TransactionRepository(IDatabaseProvider dbProvider)
+    {
+        _dbProvider = dbProvider;
+        _database = _dbProvider.CurrentDatabase;
+    }
 
     private SQLiteAsyncConnection Conn => _database.GetConnection();
 
