@@ -17,6 +17,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\add_plus.svg" />
+    <None Remove="Resources\Images\burger_menu.svg" />
+    <None Remove="Resources\Images\delete_user.svg" />
+    <None Remove="Resources\Images\options.svg" />
+    <None Remove="Resources\Images\refresh.svg" />
+    <None Remove="Resources\Images\upload.svg" />
+    <None Remove="Resources\Images\user.svg" />
+    <None Remove="Resources\Images\user_add.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <MauiFont Include="Resources\Fonts\OpenSans-Regular.ttf" Alias="OpenSansRegular" />
     <MauiFont Include="Resources\Fonts\OpenSans-Semibold.ttf" Alias="OpenSansSemibold" />
     <MauiFont Include="Resources\Fonts\ClashGrotesk-Semibold.ttf" Alias="GroteskSemibold" />
@@ -26,7 +37,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiImage Include="Resources\Images\add_plus.svg" />
     <MauiImage Include="Resources\Images\analytics.svg" />
+    <MauiImage Include="Resources\Images\burger_menu.svg" />
+    <MauiImage Include="Resources\Images\delete_user.svg" />
+    <MauiImage Include="Resources\Images\options.svg" />
+    <MauiImage Include="Resources\Images\refresh.svg" />
+    <MauiImage Include="Resources\Images\upload.svg" />
+    <MauiImage Include="Resources\Images\user.svg" />
+    <MauiImage Include="Resources\Images\user_add.svg" />
     <MauiImage Include="Resources\Images\user_setting.svg" />
     <MauiImage Include="Resources\Images\warehouse.svg" />
   </ItemGroup>
@@ -43,6 +62,11 @@
     <MauiXaml Update="Views\ProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\" />
+    <Folder Include="Handlers\" />
   </ItemGroup>
 
 </Project>

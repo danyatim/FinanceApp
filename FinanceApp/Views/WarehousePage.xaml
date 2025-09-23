@@ -8,7 +8,7 @@
              x:DataType="vm:WarehouseViewModel">
     <ContentPage.Background>
         <!--Градиент заднего фона-->
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
             <GradientStop Color="#B3DDF1" Offset="0.0" />
             <GradientStop Color="#76C8F6" Offset="0.5" />
             <GradientStop Color="#B3DDF1" Offset="1.0" />

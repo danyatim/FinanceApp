@@ -1,10 +1,13 @@
-using FinanceApp.Services;
+using CommunityToolkit.Maui.Views;
 using FinanceApp.Data;
+using FinanceApp.Popups;
+using FinanceApp.Services;
 
 namespace FinanceApp.Views;
 
 public partial class ProfilePage : ContentPage
 {
+    private bool _opened;
     private readonly IProfileService _profiles;
     private readonly IDatabase _db;
 
@@ -22,7 +25,7 @@ public partial class ProfilePage : ContentPage
         var list = await _profiles.GetProfilesAsync();
         ProfilesCv.ItemsSource = list;
         var cur = _profiles.GetCurrentProfileName() ?? "(не выбран)";
-        CurrentLabel.Text = $"Текущий профиль: {cur}";
+        CurrentLabel.Text = cur;
     }
 
     private async void OnCreateAndUse(object? sender, EventArgs e)
@@ -67,5 +70,14 @@ public partial class ProfilePage : ContentPage
     private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         // Не используется сейчас; кнопки управляют действиями
+    }
+    private async void OnButtonSettings(object? sender, EventArgs e)
+    {
+        var popup = new SettingsPopup();
+        await this.ShowPopupAsync(popup);
+
+        //// Возврат на первую вкладку после закрытия
+        //if (Shell.Current is Shell shell && shell.Items.FirstOrDefault() is TabBar bar)
+        //    shell.CurrentItem = bar.Items.FirstOrDefault();
     }
 }

@@ -2,7 +2,16 @@ using CommunityToolkit.Maui;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Maui;
+using Microsoft.Maui.Handlers;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+
+
+#if WINDOWS
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+using Windows.UI; // для Colors.Transparent; в WinUI 3 можно также Microsoft.UI.Colors
+#endif
 
 namespace FinanceApp;
 
@@ -10,6 +19,7 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+
         var builder = MauiApp.CreateBuilder();
 
         builder
@@ -25,6 +35,26 @@ public static class MauiProgram
                 fonts.AddFont("ClashGrotesk-Regular.ttf", "GroteskRegular");
                 fonts.AddFont("ClashGrotesk-Semibold.ttf", "GroteskSemibold");
             });
+        builder.ConfigureMauiHandlers(handlers =>
+        {
+#if WINDOWS
+            EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+                if (handler.PlatformView is TextBox tb)
+                {
+                    // Убираем рамку/подчёркивание
+                    tb.BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
+                    tb.BorderBrush = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
+                    tb.Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(0, 0, 0, 0));
+
+                    // На всякий случай глушим стили состояний (PointerOver/Focused)
+                    tb.Resources["TextControlBorderBrush"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
+                    tb.Resources["TextControlBorderBrushPointerOver"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
+                    tb.Resources["TextControlBorderBrushFocused"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
+                }
+            });
+#endif
+        });
 
         LiveCharts.Configure(cfg => cfg.AddSkiaSharp());
 
