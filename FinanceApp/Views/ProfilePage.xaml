@@ -16,26 +16,27 @@
             <FlexLayout JustifyContent="SpaceBetween" Padding="0,0,12,0">
                 <HorizontalStackLayout Padding="16,8,0,8" Spacing="12">
                     <Image Source="user.png" WidthRequest="50" HeightRequest="50"/>
-                    <Label x:Name="CurrentLabel" FontSize="22" FontAttributes="Bold" VerticalTextAlignment="Start"/>
+                    <Label x:Name="CurrentLabel" FontSize="22" FontFamily="MontserratSemiBold" TextColor="Black" VerticalTextAlignment="Start"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Padding="0,14,0,14" Spacing="12">
                     <Entry x:Name="NewProfileEntry" Placeholder="Новый профиль (например, shop1)" FontAutoScalingEnabled="False" />
                     <Button Clicked="OnCreateAndUse" ImageSource="add_plus.png" Background="Transparent" BorderColor="Transparent"/>
+                    <Button ImageSource="user_setting.png" Clicked="OnButtonSettings" Background="Transparent" BorderColor="Transparent" VerticalOptions="Center" Padding="120,0,30,0"/>
                 </HorizontalStackLayout>
                 
-                <Button ImageSource="user_setting.png" Clicked="OnButtonSettings" Background="Transparent" BorderColor="Transparent" VerticalOptions="Center"/>
+                
             </FlexLayout>
         </Border>
 
         <VerticalStackLayout Padding="16" Spacing="12">
-            <Label Text="Доступные профили:" FontAttributes="Bold" />
+            <Label Text="Выберите профиль" Style="{StaticResource ListHeaderStyle}"/>
             <CollectionView x:Name="ProfilesCv" HeightRequest="220" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="*,Auto,Auto" Padding="4">
-                            <Label Text="{Binding .}" VerticalTextAlignment="Center" />
-                            <Button Grid.Column="1" Clicked="OnUseProfile" CommandParameter="{Binding .}" ImageSource="upload.png"/>
-                            <Button Grid.Column="2" Clicked="OnDeleteProfile" CommandParameter="{Binding .}" ImageSource="delete_user.png"/>
+                            <Label Text="{Binding .}" VerticalTextAlignment="Center" Style="{StaticResource ProfileItemListStyle}"/>
+                            <Button Grid.Column="1" Clicked="OnUseProfile" CommandParameter="{Binding .}" ImageSource="upload.png" Style="{StaticResource GreenButtonStyle}" />
+                            <Button Grid.Column="2" Clicked="OnDeleteProfile" CommandParameter="{Binding .}" ImageSource="delete_user.png" Style="{StaticResource RedButtonStyle}" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -1,6 +1,8 @@
 using CommunityToolkit.Maui.Views;
 using FinanceApp.Models;
 using FinanceApp.Services;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace FinanceApp.Popups;
 
@@ -61,5 +63,10 @@ public partial class AddTransactionPopup : Popup
             Note = NoteEditor.Text
         };
         Close(t);
+    }
+
+    private void AmountEntry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        AmountEntry.Text = AmountEntry.Text.Replace(".", ",");
     }
 }

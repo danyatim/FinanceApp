@@ -15,8 +15,8 @@
         <Entry x:Name="DeliveryPriceEntry" Placeholder="Цена доставки" Keyboard="Numeric" />
         <Entry x:Name="FeeEntry" Placeholder="Комиссия, %" Keyboard="Numeric" Text="0" />
     <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
-            <Button Text="Отмена" Clicked="OnCancel" />
-            <Button Text="Сохранить" Clicked="OnSave" />
+            <Button Text="Отмена" Clicked="OnCancel" Style="{StaticResource RedButtonStyle}" />
+            <Button Text="Сохранить" Clicked="OnSave" Style="{StaticResource GreenButtonStyle}" />
     </HorizontalStackLayout>
   </VerticalStackLayout>
 </toolkit:Popup>

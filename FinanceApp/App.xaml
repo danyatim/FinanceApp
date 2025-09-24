@@ -6,31 +6,51 @@
     <Application.Resources>
         <ResourceDictionary>
             
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontFamily" Value="GroteskRegular" />
+            <Color x:Key="GreenButton">#15C880</Color>
+            <Color x:Key="RedButton">#EF4B40</Color>
+
+            <Style x:Key="BasicFont" TargetType="Label">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="TextColor" Value="Black"/>
             </Style>
             
-            <!--Стиль Кнопок-->
-            <Style TargetType="Button">
-                <Setter Property="Background">
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="#239AFF" Offset="0.0" />
-                        <GradientStop Color="#0173ED" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Setter>
+            <Style x:Key="HeadlinesLargeNumbers" TargetType="Label">
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+
+            <Style x:Key="Accents" TargetType="Label">
+                <Setter Property="FontFamily" Value="Georgia"/>
+            </Style>
+
+            <Style x:Key="Headlines" TargetType="Label">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="Padding" Value="22,14,0,0"/>
+            </Style>
+
+            <!--#region СТИЛИ КНОПОК -->
+            <Style x:Key="BaseButton" TargetType="Button">
+                <Setter Property="BorderWidth" Value="3"/>
                 <Setter Property="CornerRadius" Value="9"/>
-                <Setter Property="FontFamily" Value="GroteskLight"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontAutoScalingEnabled" Value="True"/>
             </Style>
             
+            <Style x:Key="GreenButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="{StaticResource GreenButton}"/>
+            </Style>
+
+            <Style x:Key="RedButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="{StaticResource RedButton}"/>
+            </Style>
+            <!--#endregion СТИЛИ КНОПОК -->
+
+
             <!--Стиль PICKER-->
             <Style TargetType="DatePicker">
-                <Setter Property="Background">
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="#239AFF" Offset="0.75" />
-                        <GradientStop Color="#0173ED" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Setter>
+                <Setter Property="Background" Value="#239AFF"/>
                 <Setter Property="TextColor" Value="#F2F2F2"/>
             </Style>
             
@@ -46,42 +66,45 @@
                 <Setter Property="BackgroundColor" Value="#F2F2F2"/>
             </Style>
             
-            <!--Основной стиль всех чисел-->
-            <Style x:Key="StyleNumders" TargetType="Label">
-                <Setter Property="TextColor" Value="Black"/>
-
-            </Style>
             <!--Стиль чисел на Блоках информации-->
-            <Style x:Key="BorderNumbersStyle" BasedOn="{StaticResource StyleNumders}" TargetType="Label">
-                <Setter Property="FontFamily" Value="GroteskLight"/>
+            <Style x:Key="BorderNumbersStyle" BasedOn="{StaticResource HeadlinesLargeNumbers}" TargetType="Label">
                 <Setter Property="FontSize" Value="26"/>
                 <Setter Property="Padding" Value="32,16,28,22"/>
             </Style>
             
-            <!--Стиль чисел в списке транзакций-->
-            <Style x:Key="TransactionListNumbersStyle" BasedOn="{StaticResource StyleNumders}" TargetType="Label">
+            <!--Стиль элементов транзакции в листе транзакций-->
+            <Style x:Key="InfoItemListStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="GroteskRegular"/>
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            
+            <!--Стиль элементов списков профилей-->
+            <Style x:Key="ProfileItemListStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Justify"/>
+            </Style>
+            
+            <!--Стиль чисел в списке транзакций-->
+            <Style x:Key="TransactionListNumbersStyle" BasedOn="{StaticResource HeadlinesLargeNumbers}" TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
             </Style>
             
             <!--Стиль Заголовков в списке транзакций-->
             <Style x:Key="ListHeaderStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="FontFamily" Value="GroteskSemibold"/>
-            </Style>
-            
-            <!--Стиль текста на блоках информации-->
-            <Style x:Key="GroteskSemiboldText" TargetType="Label">
-                <Setter Property="FontFamily" Value="GroteskRegular"/>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Padding" Value="22,14,0,0"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
 
-            <Style x:Key="WarehouseText" TargetType="Label">
-                <Setter Property="FontFamily" Value="GroteskSemibold"/>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            </Style>
+            <!--Стиль полей для ввода-->
             <Style TargetType="Entry">
                 <Setter Property="IsSpellCheckEnabled" Value="False"/>
                 <Setter Property="IsTextPredictionEnabled" Value="False"/>
@@ -89,6 +112,7 @@
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="PlaceholderColor" Value="Grey"/>
             </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

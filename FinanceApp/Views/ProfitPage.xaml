@@ -22,7 +22,7 @@
             <HorizontalStackLayout Spacing="8">
                 <DatePicker Date="{Binding FromDate}" />
                 <DatePicker Date="{Binding ToDate}" />
-                <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0"/>
+                <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}"/>
             </HorizontalStackLayout>
 
             <CollectionView ItemsSource="{Binding SourcesTotals}" SelectionMode="Single">
@@ -33,7 +33,7 @@
                     <DataTemplate x:DataType="{x:Null}">
                         <Border Style="{StaticResource MainBorder}">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Key}" Style="{StaticResource GroteskSemiboldText}"/>
+                                <Label Text="{Binding Key}" Style="{StaticResource Headlines}"/>
                                 <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
                             </VerticalStackLayout>
                         </Border>
@@ -46,29 +46,6 @@
                                 YAxes="{Binding YAxes}"
                                 Style="{StaticResource CartesianChart}"
                                 HeightRequest="240" />
-
-            <!--
-            <CollectionView ItemsSource="{Binding Items}">
-                <CollectionView.Header>
-                    <Grid ColumnDefinitions="220,220,220,220" Padding="0,6">
-                        <Label Grid.Column="0" Text="Дата" Style="{StaticResource ListHeaderStyle}"/>
-                        <Label Grid.Column="1" Text="Счёт" Style="{StaticResource ListHeaderStyle}"/>
-                        <Label Grid.Column="2" Text="Источник" Style="{StaticResource ListHeaderStyle}"/>
-                        <Label Grid.Column="3" Text="Сумма" HorizontalTextAlignment="End" Style="{StaticResource ListHeaderStyle}"/>
-                    </Grid>
-                </CollectionView.Header>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Transaction" xmlns:models="clr-namespace:FinanceApp.Models">
-                        <Grid ColumnDefinitions="220,220,220,220" Padding="0,8">
-                            <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" />
-                            <Label Grid.Column="1" Text="{Binding Account}" />
-                            <Label Grid.Column="2" Text="{Binding Source}" />
-                            <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            -->
 
         </VerticalStackLayout>
     </ScrollView>

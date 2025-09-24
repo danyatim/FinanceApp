@@ -23,7 +23,7 @@
                 <HorizontalStackLayout Spacing="8">
                     <DatePicker Date="{Binding FromDate}" />
                     <DatePicker Date="{Binding ToDate}" />
-                    <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16, 0" />
+                    <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16, 0" Style="{StaticResource GreenButtonStyle}"/>
                 </HorizontalStackLayout>
 
                 <Picker Grid.Column="2"
@@ -46,7 +46,7 @@
                     <DataTemplate x:DataType="{x:Null}">
                         <Border WidthRequest="220" Style="{StaticResource MainBorder}">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Key}" Style="{StaticResource GroteskSemiboldText}"/>
+                                <Label Text="{Binding Key}" Style="{StaticResource Headlines}"/>
                                 <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
                             </VerticalStackLayout>
                         </Border>
@@ -62,27 +62,24 @@
 
             <CollectionView ItemsSource="{Binding Items}" SelectionMode="Single">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,6">
-                        <Label Text="Счёт" />
-                        <Label Grid.Column="1" Text="Дата" />
-                        <Label Grid.Column="2" Text="Источник" />
-                        <Label Grid.Column="3" Text="Сумма" HorizontalTextAlignment="End" />
+                    <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,6" ColumnSpacing="8">
+                        <Label Text="Счёт" Style="{StaticResource ListHeaderStyle}" />
+                        <Label Grid.Column="1" Text="Дата" Style="{StaticResource ListHeaderStyle}" />
+                        <Label Grid.Column="2" Text="Источник" Style="{StaticResource ListHeaderStyle}" />
+                        <Label Grid.Column="3" Text="Сумма" HorizontalTextAlignment="End" Style="{StaticResource ListHeaderStyle}" />
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Transaction" xmlns:models="clr-namespace:FinanceApp.Models">
-                        <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,8">
-                            <Label Text="{Binding Account}" VerticalTextAlignment="Center"/>
-                            <Label Grid.Column="1" Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" VerticalTextAlignment="Center"/>
-                            <Label Grid.Column="2" Text="{Binding Source}" VerticalTextAlignment="Center"/>
-                            <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{}{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                        <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,8" ColumnSpacing="8">
+                            <Label Text="{Binding Account}" Style="{StaticResource InfoItemListStyle}"/>
+                            <Label Grid.Column="1" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Style="{StaticResource InfoItemListStyle}"/>
+                            <Label Grid.Column="2" Text="{Binding Source}" Style="{StaticResource InfoItemListStyle}"/>
+                            <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
                             <Button Grid.Column="4" Text="x"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ExpenseViewModel}}, Path=DeleteTransactionCommand}"
                                     CommandParameter="{Binding .}"
-                                    Background="Transparent"
-                                    VerticalOptions="Center"
-                                    BorderColor="Transparent"
-                                    TextColor="Red"/>
+                                    Style="{StaticResource RedButtonStyle}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

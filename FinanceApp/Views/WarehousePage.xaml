@@ -16,34 +16,34 @@
     </ContentPage.Background>
 
     <VerticalStackLayout Padding="16" Spacing="8">
-        <Button Text="Добавить товар" Command="{Binding AddProductCommand}" />
+        <Button Text="Добавить товар" Command="{Binding AddProductCommand}" Style="{StaticResource GreenButtonStyle}" />
 
         <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" Padding="0,8" ColumnSpacing="8">
-            <Label Text="Наименование" Style="{StaticResource WarehouseText}">
+            <Label Text="Наименование" Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="Name" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="1" Text="Остаток" Style="{StaticResource WarehouseText}">
+            <Label Grid.Column="1" Text="Остаток" Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="Quantity" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="2" Text="Цена продажи" Style="{StaticResource WarehouseText}"/>
-            <Label Grid.Column="3" Text="Комиссия %" Style="{StaticResource WarehouseText}"/>
-            <Label Grid.Column="4" Text="Закупка" Style="{StaticResource WarehouseText}"/>
-            <Label Grid.Column="5" Text="Доставка" Style="{StaticResource WarehouseText}"/>
-            <Label Grid.Column="6" Text="Мин. цена" Style="{StaticResource WarehouseText}">
+            <Label Grid.Column="2" Text="Цена продажи" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="3" Text="Комиссия %" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="4" Text="Закупка" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="5" Text="Доставка" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="6" Text="Мин. цена" Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="7" Text="Рекоменд." Style="{StaticResource WarehouseText}">
+            <Label Grid.Column="7" Text="Рекоменд." Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="8" Text="Сохранить" Style="{StaticResource WarehouseText}"/>
+            <Label Grid.Column="8" Text="Сохранить" Style="{StaticResource ListHeaderStyle}"/>
         </Grid>
 
         <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single">
@@ -58,7 +58,7 @@
                         <Entry Grid.Column="5" Text="{Binding DeliveryPrice}" Keyboard="Numeric" WidthRequest="100" HorizontalOptions="Start"/>
                         <Label Grid.Column="6" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" VerticalTextAlignment="Center"/>
                         <Label Grid.Column="7" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" VerticalTextAlignment="Center"/>
-                        <Button Grid.Column="8" Text="💾" WidthRequest="55"
+                        <Button Grid.Column="8" Text="💾" WidthRequest="55" Style="{StaticResource RedButtonStyle}"
                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=SaveInlineCommand}"
                     CommandParameter="{Binding .}" />
                     </Grid>

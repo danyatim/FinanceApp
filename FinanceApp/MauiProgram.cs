@@ -3,15 +3,8 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Maui;
 using Microsoft.Maui.Handlers;
-using SkiaSharp.Views.Maui.Controls.Hosting;
-
-
-#if WINDOWS
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using Windows.UI; // для Colors.Transparent; в WinUI 3 можно также Microsoft.UI.Colors
-#endif
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace FinanceApp;
 
@@ -31,9 +24,23 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+
                 fonts.AddFont("ClashGrotesk-Light.ttf", "GroteskLight");
                 fonts.AddFont("ClashGrotesk-Regular.ttf", "GroteskRegular");
                 fonts.AddFont("ClashGrotesk-Semibold.ttf", "GroteskSemibold");
+
+                fonts.AddFont("Montserrat-Black.ttf", "MontserratBlack");
+                fonts.AddFont("Montserrat-Bold.ttf", "Montserrat-Bold");
+                fonts.AddFont("Montserrat-ExtraBold.ttf", "MontserratExtraBold");
+                fonts.AddFont("Montserrat-ExtraLight.ttf", "MontserratExtraLight");
+                fonts.AddFont("Montserrat-Light.ttf", "MontserratLight");
+                fonts.AddFont("Montserrat-Medium.ttf", "MontserratMedium");
+                fonts.AddFont("Montserrat-SemiBold.ttf", "MontserratSemiBold");
+                fonts.AddFont("Montserrat-Thin.ttf", "MontserratThin");
+
+                fonts.AddFont("arialmt.ttf", "Arial");
+
+                fonts.AddFont("georgia.ttf", "Georgia");
             });
         builder.ConfigureMauiHandlers(handlers =>
         {

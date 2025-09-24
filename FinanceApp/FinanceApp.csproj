@@ -19,6 +19,7 @@
   <ItemGroup>
     <None Remove="Resources\Images\add_plus.svg" />
     <None Remove="Resources\Images\burger_menu.svg" />
+    <None Remove="Resources\Images\cross.svg" />
     <None Remove="Resources\Images\delete_user.svg" />
     <None Remove="Resources\Images\options.svg" />
     <None Remove="Resources\Images\refresh.svg" />
@@ -40,6 +41,7 @@
     <MauiImage Include="Resources\Images\add_plus.svg" />
     <MauiImage Include="Resources\Images\analytics.svg" />
     <MauiImage Include="Resources\Images\burger_menu.svg" />
+    <MauiImage Include="Resources\Images\cross.svg" />
     <MauiImage Include="Resources\Images\delete_user.svg" />
     <MauiImage Include="Resources\Images\options.svg" />
     <MauiImage Include="Resources\Images\refresh.svg" />
@@ -67,6 +69,9 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Handlers\" />
+    <Folder Include="Resources\Fonts\MontserratFont\" />
+    <Folder Include="Resources\Fonts\ArialFont\" />
+    <Folder Include="Resources\Fonts\GeorgiaFont\" />
   </ItemGroup>
 
 </Project>
