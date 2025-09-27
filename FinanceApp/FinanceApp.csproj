@@ -8,7 +8,7 @@
     <RootNamespace>FinanceApp</RootNamespace>
     <ApplicationTitle>FinanceApp</ApplicationTitle>
     <ApplicationId>com.company.financeapp</ApplicationId>
-    <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
+    <ApplicationDisplayVersion>1.0.8</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
 	<WindowsPackageType Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">None</WindowsPackageType>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
@@ -18,11 +18,9 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add_plus.svg" />
-    <None Remove="Resources\Images\burger_menu.svg" />
     <None Remove="Resources\Images\cross.svg" />
     <None Remove="Resources\Images\delete_user.svg" />
     <None Remove="Resources\Images\options.svg" />
-    <None Remove="Resources\Images\refresh.svg" />
     <None Remove="Resources\Images\upload.svg" />
     <None Remove="Resources\Images\user.svg" />
     <None Remove="Resources\Images\user_add.svg" />
@@ -35,11 +33,9 @@
   <ItemGroup>
     <MauiImage Include="Resources\Images\add_plus.svg" />
     <MauiImage Include="Resources\Images\analytics.svg" />
-    <MauiImage Include="Resources\Images\burger_menu.svg" />
     <MauiImage Include="Resources\Images\cross.svg" />
     <MauiImage Include="Resources\Images\delete_user.svg" />
     <MauiImage Include="Resources\Images\options.svg" />
-    <MauiImage Include="Resources\Images\refresh.svg" />
     <MauiImage Include="Resources\Images\upload.svg" />
     <MauiImage Include="Resources\Images\user.svg" />
     <MauiImage Include="Resources\Images\user_add.svg" />

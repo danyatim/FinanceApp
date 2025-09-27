@@ -56,8 +56,8 @@
                         <Entry Grid.Column="3" Text="{Binding FeePercent}" Keyboard="Numeric" HorizontalOptions="Center"/>
                         <Entry Grid.Column="4" Text="{Binding BuyPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
                         <Entry Grid.Column="5" Text="{Binding DeliveryPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Label Grid.Column="6" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="7" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="6" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="7" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
                         <Button Grid.Column="8" Text="💾" Style="{StaticResource GreenButtonStyle}" 
                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=SaveInlineCommand}"
                     CommandParameter="{Binding .}" />
