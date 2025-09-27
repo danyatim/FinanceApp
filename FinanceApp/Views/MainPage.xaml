@@ -32,7 +32,7 @@
                 SelectedItem="{Binding Grouping}"/>
             </Grid>
 
-            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12">
                 <Border Style="{StaticResource MainBorder}">
                     <VerticalStackLayout>
                         <Label Text="Выручка" Style="{StaticResource Headlines}"/>
@@ -58,6 +58,22 @@
                         <Label Text="Прибыль" Style="{StaticResource Headlines}"/>
                         <Label Text="{Binding ProfitTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
                     </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+                
+                <Border Grid.Column="3" Style="{StaticResource MainBorder}">
+                    <CollectionView ItemsSource="{Binding }">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout>
+                                    <Label Text="" Style="{StaticResource Headlines}"/>
+                                    <Label Text="{Binding ProfitTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
                     </Border.GestureRecognizers>

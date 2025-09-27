@@ -29,11 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiFont Include="Resources\Fonts\OpenSans-Regular.ttf" Alias="OpenSansRegular" />
-    <MauiFont Include="Resources\Fonts\OpenSans-Semibold.ttf" Alias="OpenSansSemibold" />
-    <MauiFont Include="Resources\Fonts\ClashGrotesk-Semibold.ttf" Alias="GroteskSemibold" />
-    <MauiFont Include="Resources\Fonts\ClashGrotesk-Regular.ttf" Alias="GroteskRegular" />
-    <MauiFont Include="Resources\Fonts\ClashGrotesk-Light.ttf" Alias="GroteskLight" />
     <MauiIcon Include="Resources\AppIcon\appicon.svg" />
   </ItemGroup>
 

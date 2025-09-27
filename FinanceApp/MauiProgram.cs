@@ -22,13 +22,6 @@ public static class MauiProgram
             .UseLiveCharts()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-
-                fonts.AddFont("ClashGrotesk-Light.ttf", "GroteskLight");
-                fonts.AddFont("ClashGrotesk-Regular.ttf", "GroteskRegular");
-                fonts.AddFont("ClashGrotesk-Semibold.ttf", "GroteskSemibold");
-
                 fonts.AddFont("Montserrat-Black.ttf", "MontserratBlack");
                 fonts.AddFont("Montserrat-Bold.ttf", "Montserrat-Bold");
                 fonts.AddFont("Montserrat-ExtraBold.ttf", "MontserratExtraBold");

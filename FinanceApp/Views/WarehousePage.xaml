@@ -18,7 +18,7 @@
     <VerticalStackLayout Padding="16" Spacing="8">
         <Button Text="Добавить товар" Command="{Binding AddProductCommand}" Style="{StaticResource GreenButtonStyle}" />
 
-        <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" Padding="0,8" ColumnSpacing="8">
+        <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
             <Label Text="Наименование" Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="Name" />
@@ -51,14 +51,14 @@
                 <DataTemplate x:DataType="models:Product" xmlns:models="clr-namespace:FinanceApp.Models">
                     <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
                         <Entry Text="{Binding Name}" />
-                        <Entry Grid.Column="1" Text="{Binding Quantity}" Keyboard="Numeric" WidthRequest="80" HorizontalOptions="Start"/>
-                        <Entry Grid.Column="2" Text="{Binding SellPrice}" Keyboard="Numeric" WidthRequest="100" HorizontalOptions="Start"/>
-                        <Entry Grid.Column="3" Text="{Binding FeePercent}" Keyboard="Numeric" WidthRequest="90" HorizontalOptions="Start"/>
-                        <Entry Grid.Column="4" Text="{Binding BuyPrice}" Keyboard="Numeric" WidthRequest="100" HorizontalOptions="Start"/>
-                        <Entry Grid.Column="5" Text="{Binding DeliveryPrice}" Keyboard="Numeric" WidthRequest="100" HorizontalOptions="Start"/>
-                        <Label Grid.Column="6" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="7" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" VerticalTextAlignment="Center"/>
-                        <Button Grid.Column="8" Text="💾" WidthRequest="55" Style="{StaticResource RedButtonStyle}"
+                        <Entry Grid.Column="1" Text="{Binding Quantity}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="2" Text="{Binding SellPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="3" Text="{Binding FeePercent}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="4" Text="{Binding BuyPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="5" Text="{Binding DeliveryPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Label Grid.Column="6" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="7" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Button Grid.Column="8" Text="💾" Style="{StaticResource GreenButtonStyle}" 
                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=SaveInlineCommand}"
                     CommandParameter="{Binding .}" />
                     </Grid>
