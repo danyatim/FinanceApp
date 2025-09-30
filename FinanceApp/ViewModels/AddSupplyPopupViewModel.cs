@@ -35,8 +35,8 @@ namespace FinanceApp.ViewModels
         [RelayCommand]
         private void AddProduct()
         {
-            if (string.IsNullOrWhiteSpace(ProductName) &&
-                string.IsNullOrWhiteSpace(ProductColor) &&
+            if (string.IsNullOrWhiteSpace(ProductName) ||
+                string.IsNullOrWhiteSpace(ProductColor) ||
                 string.IsNullOrWhiteSpace(ProductSize)) return;
 
             _ = int.TryParse(ProductQuantity.ToString(), out var quantity);

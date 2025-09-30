@@ -39,15 +39,39 @@ public static class MauiProgram
             {
                 if (handler.PlatformView is TextBox tb)
                 {
-                    // Убираем рамку/подчёркивание
-                    tb.BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
-                    tb.BorderBrush = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
-                    tb.Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(0, 0, 0, 0));
+                    // 1) Шрифт плейсхолдера = шрифт TextBox
+                    tb.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Arial");
 
-                    // На всякий случай глушим стили состояний (PointerOver/Focused)
-                    tb.Resources["TextControlBorderBrush"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
-                    tb.Resources["TextControlBorderBrushPointerOver"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
-                    tb.Resources["TextControlBorderBrushFocused"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
+                    // 2) Цвета плейсхолдера по состояниям
+                    tb.Resources["TextControlPlaceholderForeground"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(160, 200, 200, 200));
+                    tb.Resources["TextControlPlaceholderForegroundPointerOver"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(180, 210, 210, 210));
+                    tb.Resources["TextControlPlaceholderForegroundFocused"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(255, 230, 230, 230));
+                    tb.Resources["TextControlPlaceholderForegroundDisabled"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(120, 180, 180, 180));
+
+                    // 3) Фон по состояниям
+                    tb.Resources["TextControlBackground"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(30, 255, 255, 255));  // Normal
+                    tb.Resources["TextControlBackgroundPointerOver"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(40, 255, 255, 255));  // Hover
+                    tb.Resources["TextControlBackgroundFocused"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(50, 255, 255, 255));  // Focused
+                    tb.Resources["TextControlBackgroundDisabled"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(20, 255, 255, 255));  // Disabled
+
+                    // 4) Рамка по состояниям
+                    var border = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 1, 115, 237));
+                    tb.BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
+                    tb.Resources["TextControlBorderBrush"] = border;
+                    tb.Resources["TextControlBorderBrushPointerOver"] = border;
+                    tb.Resources["TextControlBorderBrushFocused"] = border;
+                    tb.Resources["TextControlBorderBrushDisabled"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(60, 1, 115, 237));
+
+                    // 5) Цвет текста по состояниям (при необходимости)
+                    tb.Resources["TextControlForeground"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 0, 0));
+                    tb.Resources["TextControlForegroundPointerOver"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 0, 0));
+                    tb.Resources["TextControlForegroundFocused"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 0, 0));
+                    tb.Resources["TextControlForegroundDisabled"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(160, 0, 0, 0));
+
+                    // 6) Скругление, выделение
+                    tb.Resources["ControlCornerRadius"] = new Microsoft.UI.Xaml.CornerRadius(0);
+                    tb.Resources["TextControlSelectionForeground"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 0, 0));
+                    tb.Resources["TextControlSelectionHighlightColor"] = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(100, 184, 184, 184));
                 }
             });
 #endif
