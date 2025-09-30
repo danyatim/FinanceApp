@@ -113,6 +113,35 @@
                 <Setter Property="PlaceholderColor" Value="Grey"/>
             </Style>
             
+            <!--Стили AddSupplyPopup-->
+            <Style x:Key="EntryLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+
+            <Style x:Key="HeaderAddSupplyPopup" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="BorderAddSupplyPopup" TargetType="Border">
+                <Setter Property="BackgroundColor" Value="#F2F2F2"/>
+                <Setter Property="WidthRequest" Value="160"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+                <Setter Property="Padding" Value="8"/>
+            </Style>
+            
+            <Style x:Key="BorderLabelAddSupplyPopup" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

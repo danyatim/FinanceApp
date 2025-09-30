@@ -10,10 +10,16 @@ public class ProductRepository
 
     public ProductRepository(IDatabase database) => _database = database;
 
-    public async Task<int> InsertAsync(Product p)
+    public async Task<int> InsertProductAsync(Product p)
     {
         await _database.EnsureCreatedAsync();
         return await Conn.InsertAsync(p);
+    }
+
+    public async Task<int> InsertSupplyAsync(Supply s)
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.InsertAsync(s);
     }
 
     public async Task<int> UpdateAsync(Product p)

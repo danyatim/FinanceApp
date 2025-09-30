@@ -7,7 +7,6 @@ namespace FinanceApp.Views;
 
 public partial class ProfilePage : ContentPage
 {
-    private bool _opened;
     private readonly IProfileService _profiles;
     private readonly IDatabase _db;
 

@@ -1,8 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using FinanceApp.Models;
 using FinanceApp.Services;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 namespace FinanceApp.Popups;
 

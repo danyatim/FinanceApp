@@ -1,7 +1,4 @@
-﻿using System.Text;
-using Microsoft.Maui.Storage;
-
-namespace FinanceApp.Services;
+﻿namespace FinanceApp.Services;
 
 public interface IProfileService
 {

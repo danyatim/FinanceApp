@@ -2,7 +2,7 @@ using SQLite;
 
 namespace FinanceApp.Models;
 
-[Table("transactions")]
+[Table("Transactions")]
 public class Transaction
 {
     [PrimaryKey, AutoIncrement] public int Id { get; set; }

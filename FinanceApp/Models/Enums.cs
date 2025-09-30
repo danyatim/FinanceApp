@@ -2,7 +2,7 @@ namespace FinanceApp.Models;
 
 public enum TransactionDirection
 {
-    Income = 1, // Выручка
+    Income = 1, // Доход
     Expense = 2 // Расход
 }
 

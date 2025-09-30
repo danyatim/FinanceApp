@@ -16,49 +16,53 @@
     </ContentPage.Background>
 
     <VerticalStackLayout Padding="16" Spacing="8">
-        <Button Text="Добавить товар" Command="{Binding AddProductCommand}" Style="{StaticResource GreenButtonStyle}" />
+        <Button Text="Добавить поставку" Command="{Binding AddSupplyCommand}" Style="{StaticResource GreenButtonStyle}" />
 
-        <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
+        <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
             <Label Text="Наименование" Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="Name" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="1" Text="Остаток" Style="{StaticResource ListHeaderStyle}">
+            <Label Grid.Column="1" Text="Цвет" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="2" Text="Размер" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="3" Text="Остаток" Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="Quantity" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="2" Text="Цена продажи" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="3" Text="Комиссия %" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="4" Text="Закупка" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="5" Text="Доставка" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="6" Text="Мин. цена" Style="{StaticResource ListHeaderStyle}">
+            <Label Grid.Column="4" Text="Цена продажи" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="5" Text="Комиссия %" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="6" Text="Закупка" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="7" Text="Доставка" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="8" Text="Мин. цена" Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="7" Text="Рекоменд." Style="{StaticResource ListHeaderStyle}">
+            <Label Grid.Column="9" Text="Рекоменд." Style="{StaticResource ListHeaderStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Grid.Column="8" Text="Сохранить" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="10" Text="Сохранить" Style="{StaticResource ListHeaderStyle}"/>
         </Grid>
 
         <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Product" xmlns:models="clr-namespace:FinanceApp.Models">
-                    <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
+                    <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
                         <Entry Text="{Binding Name}" />
-                        <Entry Grid.Column="1" Text="{Binding Quantity}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Entry Grid.Column="2" Text="{Binding SellPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Entry Grid.Column="3" Text="{Binding FeePercent}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Entry Grid.Column="4" Text="{Binding BuyPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Entry Grid.Column="5" Text="{Binding DeliveryPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Label Grid.Column="6" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="7" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                        <Button Grid.Column="8" Text="💾" Style="{StaticResource GreenButtonStyle}" 
+                        <Entry Grid.Column="1" Text="{Binding Color}" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="2" Text="{Binding Size}" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="3" Text="{Binding Quantity}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="4" Text="{Binding SellPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="5" Text="{Binding FeePercent}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="6" Text="{Binding BuyPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Label Grid.Column="7" Text="{Binding DeliveryPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="8" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="9" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Button Grid.Column="10" Text="💾" Style="{StaticResource GreenButtonStyle}" 
                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=SaveInlineCommand}"
                     CommandParameter="{Binding .}" />
                     </Grid>

@@ -1,6 +1,5 @@
 ﻿using FinanceApp.Data;
 using FinanceApp.Models;
-using SQLite;
 
 namespace FinanceApp.Services;
 

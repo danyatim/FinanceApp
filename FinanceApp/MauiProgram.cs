@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui;
+using FinanceApp.ViewModels;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Maui;
@@ -54,7 +55,7 @@ public static class MauiProgram
 
         LiveCharts.Configure(cfg => cfg.AddSkiaSharp());
 
-        // NEW: профили
+        // Profile
         builder.Services.AddSingleton<Services.IProfileService, Services.ProfileService>();
 
         // БД теперь зависит от профиля
@@ -79,14 +80,16 @@ public static class MauiProgram
         builder.Services.AddSingleton<ViewModels.WarehouseViewModel>();
         builder.Services.AddTransient<ViewModels.SettingsViewModel>();
 
+        //Popup
+        builder.Services.AddTransient<ViewModels.AddSupplyPopupViewModel>();
+        builder.Services.AddTransientPopup<Popups.AddSupplyPopup, AddSupplyPopupViewModel>();
+
         // Pages
         builder.Services.AddSingleton<Views.MainPage>();
         builder.Services.AddTransient<Views.RevenuePage>();
         builder.Services.AddTransient<Views.ExpensePage>();
         builder.Services.AddTransient<Views.ProfitPage>();
         builder.Services.AddSingleton<Views.WarehousePage>();
-
-        // NEW: Profile page
         builder.Services.AddSingleton<Views.ProfilePage>();
 
         return builder.Build();

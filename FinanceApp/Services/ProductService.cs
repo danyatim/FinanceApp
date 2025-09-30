@@ -14,6 +14,8 @@ public class ProductService : IProductService
         return orderBy?.ToLower() switch
         {
             "name" => ascending ? list.OrderBy(p => p.Name).ToList() : list.OrderByDescending(p => p.Name).ToList(),
+            "color" => ascending ? list.OrderBy(p => p.Color).ToList() : list.OrderByDescending(p => p.Color).ToList(),
+            "size" => ascending ? list.OrderBy(p => p.Size).ToList() : list.OrderByDescending(p => p.Size).ToList(),
             "quantity" => ascending ? list.OrderBy(p => p.Quantity).ToList() : list.OrderByDescending(p => p.Quantity).ToList(),
             "sellprice" => ascending ? list.OrderBy(p => p.SellPrice).ToList() : list.OrderByDescending(p => p.SellPrice).ToList(),
             "minsellprice" => ascending ? list.OrderBy(p => p.MinSellPrice).ToList() : list.OrderByDescending(p => p.MinSellPrice).ToList(),
@@ -22,7 +24,8 @@ public class ProductService : IProductService
         };
     }
 
-    public Task AddAsync(Product p) => _repo.InsertAsync(p);
+    public Task AddProductAsync(Product p) => _repo.InsertProductAsync(p);
+    public Task AddSupplyAsync(Supply p) => _repo.InsertSupplyAsync(p);
     public Task UpdateAsync(Product p) => _repo.UpdateAsync(p);
     public Task DeleteAsync(Product p) => _repo.DeleteAsync(p);
 }

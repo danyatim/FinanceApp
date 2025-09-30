@@ -1,7 +1,6 @@
-using SQLite;
 using FinanceApp.Models;
 using FinanceApp.Services;
-using System.Threading;
+using SQLite;
 
 namespace FinanceApp.Data;
 
@@ -84,7 +83,12 @@ public class Database : IDatabase
 
     private async Task InitAsync()
     {
+
+        //await _conn.DropTableAsync<Supply>();
+        //await _conn.DropTableAsync<Product>();
+
         await _conn.CreateTableAsync<Transaction>();
+        await _conn.CreateTableAsync<Supply>();
         await _conn.CreateTableAsync<Product>();
         await _conn.CreateTableAsync<Account>();
         await _conn.CreateTableAsync<Source>();

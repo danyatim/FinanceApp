@@ -5,7 +5,9 @@ namespace FinanceApp.Services;
 public interface IProductService
 {
     Task<List<Product>> GetAllAsync(string? orderBy = null, bool ascending = true);
-    Task AddAsync(Product p);
+    Task AddProductAsync(Product p);
+    Task AddSupplyAsync(Supply p);
     Task UpdateAsync(Product p);
     Task DeleteAsync(Product p);
+
 }

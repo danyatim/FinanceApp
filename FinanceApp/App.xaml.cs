@@ -1,4 +1,3 @@
-using FinanceApp.Views;
 using System.Globalization;
 
 namespace FinanceApp;

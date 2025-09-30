@@ -8,7 +8,6 @@ using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting; // SolidColorPaint
 using SkiaSharp;
-using System.Diagnostics;
 using System.Globalization; // <— добавили
 
 namespace FinanceApp.ViewModels;
@@ -188,6 +187,6 @@ public partial class MainViewModel : BaseViewModel
                 await LoadAsync();
             }
         }
-        
+
     }
 }

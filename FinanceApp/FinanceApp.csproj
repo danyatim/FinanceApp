@@ -17,6 +17,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controls\**" />
+    <Compile Remove="Handlers\**" />
+    <EmbeddedResource Remove="Controls\**" />
+    <EmbeddedResource Remove="Handlers\**" />
+    <MauiCss Remove="Controls\**" />
+    <MauiCss Remove="Handlers\**" />
+    <MauiXaml Remove="Controls\**" />
+    <MauiXaml Remove="Handlers\**" />
+    <None Remove="Controls\**" />
+    <None Remove="Handlers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\add_plus.svg" />
     <None Remove="Resources\Images\cross.svg" />
     <None Remove="Resources\Images\delete_user.svg" />
@@ -52,17 +65,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiXaml Update="Popups\AddSupplyPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\ProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controls\" />
-    <Folder Include="Handlers\" />
     <Folder Include="Resources\Fonts\MontserratFont\" />
     <Folder Include="Resources\Fonts\ArialFont\" />
     <Folder Include="Resources\Fonts\GeorgiaFont\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PRIResource Remove="Handlers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PRIResource Remove="Controls\**" />
   </ItemGroup>
 
 </Project>

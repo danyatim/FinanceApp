@@ -62,22 +62,6 @@
                         <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
                     </Border.GestureRecognizers>
                 </Border>
-                
-                <Border Grid.Column="3" Style="{StaticResource MainBorder}">
-                    <CollectionView ItemsSource="{Binding }">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <VerticalStackLayout>
-                                    <Label Text="" Style="{StaticResource Headlines}"/>
-                                    <Label Text="{Binding ProfitTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
-                                </VerticalStackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
-                    </Border.GestureRecognizers>
-                </Border>
             </Grid>
 
             <lvc:CartesianChart Series="{Binding Series}"
