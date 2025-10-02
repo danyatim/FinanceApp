@@ -16,39 +16,39 @@
     </ContentPage.Background>
 
     <VerticalStackLayout Padding="16" Spacing="8">
-        <Button Text="Добавить поставку" Command="{Binding AddSupplyCommand}" Style="{StaticResource GreenButtonStyle}" />
+        <Button Text="Добавить поставку" Command="{Binding AddSupplyCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="End"/>
 
         <Grid ColumnDefinitions="2*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
-            <Button x:Uid="Name" Grid.Column="0" Text="Наименование" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Name"/>
+            <Button Grid.Column="0" Text="Наименование" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Name"/>
             <Label Grid.Column="1" Text="Цвет" Style="{StaticResource ListHeaderStyle}"/>
             <Label Grid.Column="2" Text="Размер" Style="{StaticResource ListHeaderStyle}"/>
-            <Button x:Uid="Quantity" Grid.Column="3" Text="Остаток" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Quantity"/>
+            <Button Grid.Column="3" Text="Остаток" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Quantity"/>
             <Label Grid.Column="4" Text="Цена продажи" Style="{StaticResource ListHeaderStyle}"/>
             <Label Grid.Column="5" Text="Комиссия %" Style="{StaticResource ListHeaderStyle}"/>
             <Label Grid.Column="6" Text="Закупка" Style="{StaticResource ListHeaderStyle}"/>
             <Label Grid.Column="7" Text="Доставка" Style="{StaticResource ListHeaderStyle}"/>
-            <Button x:Uid="MinSellPrice" Grid.Column="8" Text="Мин. цена" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice"/>
-            <Button x:Uid="RecommendedPrice" Grid.Column="9" Text="Рекоменд." Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice"/>
+            <Button Grid.Column="8" Text="Мин. цена" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice"/>
+            <Button Grid.Column="9" Text="Рекоменд." Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice"/>
             <Label Grid.Column="10" Text="Сохранить" Style="{StaticResource ListHeaderStyle}"/>
         </Grid>
 
-        <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single">
+        <CollectionView ItemsSource="{Binding Products}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="3"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Product" xmlns:models="clr-namespace:FinanceApp.Models">
+                <DataTemplate x:DataType="models:Product">
                     <Grid ColumnDefinitions="2*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
                         <Entry Text="{Binding Name}" />
-                        <Label Grid.Column="1" Text="{Binding Color}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="2" Text="{Binding Size}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="{Binding Color}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="2" Text="{Binding Size}" Style="{StaticResource CollectionViewItem}" />
                         <Entry Grid.Column="3" Text="{Binding Quantity}" Keyboard="Numeric" HorizontalOptions="Center"/>
                         <Entry Grid.Column="4" Text="{Binding SellPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Label Grid.Column="5" Text="{Binding FeePercent}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        <Label Grid.Column="6" Text="{Binding BuyPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="7" Text="{Binding DeliveryPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="8" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="9" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="5" Text="{Binding FeePercent}" Style="{StaticResource CollectionViewItem}"/>
+                        <Label Grid.Column="6" Text="{Binding BuyPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="7" Text="{Binding DeliveryPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="8" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="9" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
                         <Button Grid.Column="10" Text="💾" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center" VerticalOptions="Center"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=SaveInlineCommand}"
                                 CommandParameter="{Binding .}" />

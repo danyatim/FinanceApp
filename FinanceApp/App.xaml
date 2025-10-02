@@ -93,6 +93,9 @@
             <!--Стиль чисел в списке транзакций-->
             <Style x:Key="TransactionListNumbersStyle" BasedOn="{StaticResource HeadlinesLargeNumbers}" TargetType="Label">
                 <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                
             </Style>
             
             <!--Стиль Заголовков в списке транзакций-->
@@ -125,12 +128,18 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="FlowDirection" Value="RightToLeft"/>
                 <Setter Property="BorderWidth" Value="1"/>
-                <Setter Property="BorderColor" Value="#B8B8B8"/>
+                <Setter Property="BorderColor" Value="#DBEEFE"/>
                 <Setter Property="CornerRadius" Value="12"/>
-                <Setter TargetName="Normal" Property="BackgroundColor" Value="Transparent"/>
-                <Setter TargetName="Focused" Property="BackgroundColor" Value="Transparent"/>
-                <Setter TargetName="Disabled" Property="BackgroundColor" Value="Transparent"/>
-                <Setter TargetName="PointerOver" Property="BackgroundColor" Value="LightBlue"/>
+            </Style>
+            
+            <Style x:Key="CollectionViewItem" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
 
             <!--Стили AddSupplyPopup-->
