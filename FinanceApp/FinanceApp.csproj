@@ -17,35 +17,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controls\**" />
-    <Compile Remove="Handlers\**" />
-    <EmbeddedResource Remove="Controls\**" />
-    <EmbeddedResource Remove="Handlers\**" />
-    <MauiCss Remove="Controls\**" />
-    <MauiCss Remove="Handlers\**" />
-    <MauiXaml Remove="Controls\**" />
-    <MauiXaml Remove="Handlers\**" />
-    <None Remove="Controls\**" />
-    <None Remove="Handlers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\Images\add_plus.svg" />
-    <None Remove="Resources\Images\cross.svg" />
-    <None Remove="Resources\Images\delete_user.svg" />
-    <None Remove="Resources\Images\options.svg" />
-    <None Remove="Resources\Images\upload.svg" />
-    <None Remove="Resources\Images\user.svg" />
-    <None Remove="Resources\Images\user_add.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <MauiIcon Include="Resources\AppIcon\appicon.svg" />
   </ItemGroup>
 
   <ItemGroup>
     <MauiImage Include="Resources\Images\add_plus.svg" />
     <MauiImage Include="Resources\Images\analytics.svg" />
+    <MauiImage Include="Resources\Images\arrow_down.png" />
+    <MauiImage Include="Resources\Images\arrow_up.png" />
     <MauiImage Include="Resources\Images\cross.svg" />
     <MauiImage Include="Resources\Images\delete_user.svg" />
     <MauiImage Include="Resources\Images\options.svg" />
@@ -77,14 +56,6 @@
     <Folder Include="Resources\Fonts\MontserratFont\" />
     <Folder Include="Resources\Fonts\ArialFont\" />
     <Folder Include="Resources\Fonts\GeorgiaFont\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PRIResource Remove="Handlers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PRIResource Remove="Controls\**" />
   </ItemGroup>
 
 </Project>

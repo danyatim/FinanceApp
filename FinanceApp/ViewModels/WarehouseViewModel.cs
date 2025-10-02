@@ -25,14 +25,14 @@ public partial class WarehouseViewModel : BaseViewModel
     public async Task LoadAsync() => Products = await _svc.GetAllAsync(SortField, SortAscending);
 
     [RelayCommand]
-    public async Task ToggleSortAsync(string field)
+    public async Task ToggleSortAsync(string? field)
     {
         if (SortField?.Equals(field, StringComparison.OrdinalIgnoreCase) == true)
             SortAscending = !SortAscending;
         else
         {
             SortField = field;
-            SortAscending = true;
+            SortAscending = !SortAscending;
         }
         await LoadAsync();
     }

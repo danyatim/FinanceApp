@@ -108,11 +108,31 @@
             <Style TargetType="Entry">
                 <Setter Property="IsSpellCheckEnabled" Value="False"/>
                 <Setter Property="IsTextPredictionEnabled" Value="False"/>
-                <Setter Property="BackgroundColor" Value="Transparent"/>
-                <Setter Property="TextColor" Value="Black"/>
-                <Setter Property="PlaceholderColor" Value="Grey"/>
+                <Setter Property="FontAutoScalingEnabled" Value="True"/>
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="PlaceholderColor" Value="Gray"/>
             </Style>
-            
+            <!--Стили WarehousePage-->
+            <Style x:Key="ButtonSortingStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FlowDirection" Value="RightToLeft"/>
+                <Setter Property="BorderWidth" Value="1"/>
+                <Setter Property="BorderColor" Value="#B8B8B8"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter TargetName="Normal" Property="BackgroundColor" Value="Transparent"/>
+                <Setter TargetName="Focused" Property="BackgroundColor" Value="Transparent"/>
+                <Setter TargetName="Disabled" Property="BackgroundColor" Value="Transparent"/>
+                <Setter TargetName="PointerOver" Property="BackgroundColor" Value="LightBlue"/>
+            </Style>
+
             <!--Стили AddSupplyPopup-->
             <Style x:Key="EntryLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black"/>
