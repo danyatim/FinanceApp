@@ -8,13 +8,19 @@
     <RootNamespace>FinanceApp</RootNamespace>
     <ApplicationTitle>FinanceApp</ApplicationTitle>
     <ApplicationId>com.company.financeapp</ApplicationId>
-    <ApplicationDisplayVersion>1.0.8</ApplicationDisplayVersion>
+    <ApplicationDisplayVersion>1.2.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
-	<WindowsPackageType Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">None</WindowsPackageType>
+	<WindowsPackageType>MSIX</WindowsPackageType>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
   </PropertyGroup>
+
+	<ItemGroup>
+		<MauiSplashScreen Include="Resources\Images\splashscreen.png"
+						  BaseSize="800,600" />
+	</ItemGroup>
 
   <ItemGroup>
     <MauiIcon Include="Resources\AppIcon\appicon.svg" />
@@ -28,6 +34,7 @@
     <MauiImage Include="Resources\Images\cross.svg" />
     <MauiImage Include="Resources\Images\delete_user.svg" />
     <MauiImage Include="Resources\Images\options.svg" />
+    <MauiImage Include="Resources\Images\splashscreen.png" />
     <MauiImage Include="Resources\Images\upload.svg" />
     <MauiImage Include="Resources\Images\user.svg" />
     <MauiImage Include="Resources\Images\user_add.svg" />
