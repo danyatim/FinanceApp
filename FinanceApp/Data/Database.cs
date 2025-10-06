@@ -83,10 +83,6 @@ public class Database : IDatabase
 
     private async Task InitAsync()
     {
-
-        //await _conn.DropTableAsync<Supply>();
-        //await _conn.DropTableAsync<Product>();
-
         await _conn.CreateTableAsync<Transaction>();
         await _conn.CreateTableAsync<Supply>();
         await _conn.CreateTableAsync<Product>();

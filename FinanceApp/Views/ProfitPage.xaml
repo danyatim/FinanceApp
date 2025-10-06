@@ -7,6 +7,7 @@
              x:Class="FinanceApp.Views.ProfitPage"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:ProfitViewModel">
+    
     <ContentPage.Background>
         <!--Градиент заднего фона-->
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -16,37 +17,35 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="12">
+    <VerticalStackLayout Padding="16" Spacing="12">
 
-            <HorizontalStackLayout Spacing="8">
-                <DatePicker Date="{Binding FromDate}" />
-                <DatePicker Date="{Binding ToDate}" />
-                <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}"/>
-            </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="8">
+            <DatePicker Date="{Binding FromDate}" />
+            <DatePicker Date="{Binding ToDate}" />
+            <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}"/>
+        </HorizontalStackLayout>
 
-            <CollectionView ItemsSource="{Binding SourcesTotals}" SelectionMode="Single">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Null}">
-                        <Border Style="{StaticResource MainBorder}">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Key}" Style="{StaticResource Headlines}"/>
-                                <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+        <CollectionView ItemsSource="{Binding SourcesTotals}" SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Null}">
+                    <Border Style="{StaticResource MainBorder}">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Key}" Style="{StaticResource Headlines}"/>
+                            <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-            <lvc:CartesianChart Series="{Binding Series}"
-                                XAxes="{Binding XAxes}"
-                                YAxes="{Binding YAxes}"
-                                Style="{StaticResource CartesianChart}"
-                                HeightRequest="240" />
+        <lvc:CartesianChart Series="{Binding Series}"
+                        XAxes="{Binding XAxes}"
+                        YAxes="{Binding YAxes}"
+                        Style="{StaticResource CartesianChart}"
+                        HeightRequest="240" />
 
-        </VerticalStackLayout>
-    </ScrollView>
+    </VerticalStackLayout>
 </ContentPage>

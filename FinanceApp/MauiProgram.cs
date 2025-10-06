@@ -89,6 +89,7 @@ public static class MauiProgram
         // Repositories
         builder.Services.AddSingleton<Data.Repositories.TransactionRepository>();
         builder.Services.AddSingleton<Data.Repositories.ProductRepository>();
+        builder.Services.AddSingleton<Services.OzonXlsxParserService>();
 
         // Services
         builder.Services.AddSingleton<Services.IDateRangeService, Services.DateRangeService>();

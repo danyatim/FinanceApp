@@ -6,20 +6,16 @@ using FinanceApp.Services;
 
 namespace FinanceApp.ViewModels;
 
-public partial class WarehouseViewModel : BaseViewModel
+public partial class WarehouseViewModel(IProductService svc, IPopupService popupService) : BaseViewModel
 {
-    private readonly IProductService _svc;
-    private readonly IPopupService _popupService;
+    private readonly IProductService _svc = svc;
+    private readonly IPopupService _popupService = popupService;
 
-    [ObservableProperty] private List<Product> products = new();
+    [ObservableProperty] private bool isArticle = false;
+
+    [ObservableProperty] private List<Product> products = [];
     [ObservableProperty] private string? sortField = "Name";
     [ObservableProperty] private bool sortAscending = true;
-
-    public WarehouseViewModel(IProductService svc, IPopupService popupService)
-    {
-        _svc = svc;
-        _popupService = popupService;
-    }
 
     [RelayCommand]
     public async Task LoadAsync() => Products = await _svc.GetAllAsync(SortField, SortAscending);
@@ -60,6 +56,39 @@ public partial class WarehouseViewModel : BaseViewModel
     public async Task SaveInlineAsync(Product p)
     {
         await _svc.UpdateAsync(p);
+        await LoadAsync();
+    }
+
+    [RelayCommand]
+    public async Task ImportXlsxAsync()
+    {
+        var XlsxFileType = new FilePickerFileType(
+                new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.WinUI, new[] { ".xlsx" } }, // file extension
+                });
+        var options = new PickOptions { FileTypes = XlsxFileType };
+
+        var fileResult = await FilePicker.PickAsync(options);
+
+        var filePath = fileResult?.FullPath;
+        if (filePath == null) return;
+
+        var prices = OzonXlsxParserService.ParsePrices(filePath);
+        foreach (var p in prices)
+        {
+            for (int i = 0; i <= Products.Count-1; i++)
+            {
+                var product = Products[i];
+                if (product.Article == p.Article)
+                {
+                    product.FeePercent = p.OzonRewardFBS;
+                    product.OzonExpensesSum = p.ExpensesSum;
+                    product.OzonPercent = p.OzonRewardFBS;
+                }
+                await _svc.UpdateAsync(product);
+            }
+        }
         await LoadAsync();
     }
 }

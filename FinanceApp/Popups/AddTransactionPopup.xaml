@@ -11,11 +11,12 @@
     <VerticalStackLayout Padding="16" Spacing="12">
         <Picker ItemsSource="{x:Static helpers:TransactionDirectionValues.All}" x:Name="DirectionPicker" />
         <DatePicker x:Name="DatePicker" />
-        <Entry x:Name="AmountEntry" Placeholder="Сумма" Keyboard="Numeric" TextChanged="AmountEntry_TextChanged" />
+        <Entry x:Name="AmountEntry" Placeholder="Сумма" Keyboard="Numeric"/>
 
-
-        <Picker x:Name="AccountPicker" Title="Счёт" />
-        <Picker x:Name="SourcePicker"  Title="Источник" />
+        <Label Text="Счёт" Style="{StaticResource PopupHeader}"/>
+        <Picker x:Name="AccountPicker" />
+        <Label Text="Источник" Style="{StaticResource PopupHeader}"/>
+        <Picker x:Name="SourcePicker" />
 
         <Editor x:Name="NoteEditor" Placeholder="Заметка" AutoSize="TextChanges" />
         <HorizontalStackLayout HorizontalOptions="End" Spacing="8">

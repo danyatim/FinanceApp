@@ -15,6 +15,7 @@ namespace FinanceApp.ViewModels
         [ObservableProperty] private int countProduct = 0;
         [ObservableProperty] private decimal supplyDeliveryPrice;
 
+        [ObservableProperty] private string? productArticle;
         [ObservableProperty] private string? productName;
         [ObservableProperty] private string? productColor;
         [ObservableProperty] private string? productSize;
@@ -47,6 +48,7 @@ namespace FinanceApp.ViewModels
 
             var p = new Product
             {
+                Article = string.IsNullOrWhiteSpace(ProductArticle) ? "" : ProductArticle.Trim(),
                 Name = ProductName.Trim(),
                 Color = ProductColor.Trim(),
                 Size = ProductSize.Trim(),
@@ -57,24 +59,36 @@ namespace FinanceApp.ViewModels
                 FeePercent = feePercent,
             };
             Products.Add(p);
+            ProductArticle = "";
+            ProductColor = "";
+            ProductQuantity = 0;
         }
 
         [RelayCommand]
         private void OnSave()
         {
-            _ = int.TryParse(CountProduct.ToString(), out var countProduct);
-            _ = decimal.TryParse(SupplyDeliveryPrice.ToString(), out var deliveryPrice);
+            var count = CountProduct > 0 ? CountProduct : Products.Sum(p => Math.Max(1, p.Quantity));
+            var deliveryPrice = SupplyDeliveryPrice;
+
+            if (count <= 0)
+            {
+                RequestClose?.Invoke(this, new AddSupplyResult { productsResult = Products, supplyResult = null });
+                return;
+            }
 
             var supply = new Supply
             {
-                CountProduct = countProduct,
+                CountProduct = count,
                 DeliveryPrice = deliveryPrice,
             };
+
             foreach (var product in Products)
             {
-                product.DeliveryPrice = Math.Round(deliveryPrice / countProduct, 2);
+                var pieces = Math.Max(1, product.Quantity);
+                product.DeliveryPrice = Math.Round((deliveryPrice / count) * pieces, 2);
                 product.Supply = supply;
             }
+
             RequestClose?.Invoke(this, new AddSupplyResult { productsResult = Products, supplyResult = supply });
         }
     }

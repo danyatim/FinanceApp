@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using FinanceApp.Models;
 using FinanceApp.Services;
+using System.Globalization;
 
 namespace FinanceApp.Popups;
 
@@ -44,9 +45,8 @@ public partial class AddTransactionPopup : Popup
 
     private void OnSave(object? sender, EventArgs e)
     {
-        if (!decimal.TryParse(AmountEntry.Text, out var amount)) return;
+        if (!decimal.TryParse(AmountEntry.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out var amount)) return;
         if (DirectionPicker.SelectedItem is not TransactionDirection dir) return;
-
         var account = AccountPicker.SelectedItem as string;
         var source = SourcePicker.SelectedItem as string;
         if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(source)) return;
@@ -61,10 +61,5 @@ public partial class AddTransactionPopup : Popup
             Note = NoteEditor.Text
         };
         Close(t);
-    }
-
-    private void AmountEntry_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        AmountEntry.Text = AmountEntry.Text.Replace(".", ",");
     }
 }

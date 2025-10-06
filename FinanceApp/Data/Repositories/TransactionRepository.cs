@@ -45,14 +45,46 @@ public class TransactionRepository
 
     public async Task<decimal> SumAsync(DateRange range, TransactionDirection dir, string? account = null, string? source = null)
     {
-        var list = await GetByRangeAsync(range, dir, account, source);
-        return list.Sum(t => t.Amount);
+        await _database.EnsureCreatedAsync();
+
+        var sql = @"
+        SELECT IFNULL(SUM(Amount), 0)
+        FROM Transactions
+        WHERE Date BETWEEN ? AND ?
+          AND Direction = ?
+          {0} {1};";
+
+        var byAccount = string.IsNullOrWhiteSpace(account) ? "" : "AND Account = ?";
+        var bySource = string.IsNullOrWhiteSpace(source) ? "" : "AND Source  = ?";
+        sql = string.Format(sql, byAccount, bySource);
+
+        var args = new List<object> { range.From, range.To, (int)dir };
+        if (!string.IsNullOrWhiteSpace(account)) args.Add(account!);
+        if (!string.IsNullOrWhiteSpace(source)) args.Add(source!);
+
+        return await Conn.ExecuteScalarAsync<decimal>(sql, args.ToArray());
     }
 
     public async Task<Dictionary<string, decimal>> SumBySourceAsync(DateRange range, TransactionDirection dir, string? account = null)
     {
-        var list = await GetByRangeAsync(range, dir, account, null);
-        return list.GroupBy(t => t.Source).ToDictionary(g => g.Key, g => g.Sum(x => x.Amount));
+        await _database.EnsureCreatedAsync();
+
+        var sql = @"
+        SELECT Source, IFNULL(SUM(Amount), 0) AS Total
+        FROM Transactions
+        WHERE Date BETWEEN ? AND ?
+          AND Direction = ?
+          {0}
+        GROUP BY Source;";
+
+        var byAccount = string.IsNullOrWhiteSpace(account) ? "" : "AND Account = ?";
+        sql = string.Format(sql, byAccount);
+
+        var args = new List<object> { range.From, range.To, (int)dir };
+        if (!string.IsNullOrWhiteSpace(account)) args.Add(account!);
+
+        var rows = await Conn.QueryAsync<(string Source, decimal Total)>(sql, args.ToArray());
+        return rows.ToDictionary(r => r.Source, r => r.Total);
     }
 
     public async Task<List<(DateTime Bucket, decimal Sum)>> GroupedSumAsync(
@@ -105,11 +137,12 @@ public class TransactionRepository
     private static DateTime FirstDateOfIsoWeek(string yWeek)
     {
         var parts = yWeek.Split("-W");
-        int year = int.Parse(parts[0]); int week = int.Parse(parts[1]);
+        int year = int.Parse(parts[0]);
+        int week = int.Parse(parts[1]);
         var jan4 = new DateTime(year, 1, 4);
         int delta = DayOfWeek.Monday - jan4.DayOfWeek;
         var week1 = jan4.AddDays(delta);
-        return week1.AddDays(week * 7);
+        return week1.AddDays((week - 1) * 7); // фикс off-by-one
     }
 
     private class GroupRow

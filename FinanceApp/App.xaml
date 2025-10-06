@@ -8,6 +8,28 @@
             
             <Color x:Key="GreenButton">#15C880</Color>
             <Color x:Key="RedButton">#EF4B40</Color>
+            <Color x:Key="GreenButtonFocus">#19E694</Color>
+            <Color x:Key="RedButtonFocus">#FF7972</Color>
+            <Color x:Key="BaseItemBackground">#F2F2F2</Color>
+            <Color x:Key="BaseItemBackgroundPointerOver">#E6E6E6</Color>
+            <Color x:Key="PickerBackground">#469AFF</Color>
+            <Color x:Key="PickerBackgroundPointerOver">#78B7FF</Color>
+
+            <!--Стиль CartesianChart-->
+            <Style x:Key="CartesianChart" TargetType="lvc:CartesianChart">
+                <Setter Property="BackgroundColor" Value="#F2F2F2"/>
+            </Style>
+            <!--Стиль полей для ввода-->
+            <Style TargetType="Entry">
+                <Setter Property="IsSpellCheckEnabled" Value="False"/>
+                <Setter Property="IsTextPredictionEnabled" Value="False"/>
+                <Setter Property="FontAutoScalingEnabled" Value="True"/>
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="PlaceholderColor" Value="Gray"/>
+            </Style>
 
             <Style x:Key="BasicFont" TargetType="Label">
                 <Setter Property="FontFamily" Value="Arial"/>
@@ -37,41 +59,206 @@
                 <Setter Property="FontFamily" Value="Arial"/>
                 <Setter Property="FontAutoScalingEnabled" Value="True"/>
             </Style>
-            
+
             <Style x:Key="GreenButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="{StaticResource GreenButton}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource GreenButton}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource GreenButtonFocus}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
 
             <Style x:Key="RedButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="{StaticResource RedButton}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource RedButton}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource RedButtonFocus}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
             <!--#endregion СТИЛИ КНОПОК -->
 
 
-            <!--Стиль PICKER-->
+            <!--#region СТИЛИ PICKER-->
             <Style TargetType="DatePicker">
-                <Setter Property="Background" Value="#239AFF"/>
-                <Setter Property="TextColor" Value="#F2F2F2"/>
+                <Setter Property="TextColor" Value="{StaticResource BaseItemBackground}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource PickerBackground}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource PickerBackgroundPointerOver}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
-            
-            <!--Стиль BorderInfo-->
+
+            <Style TargetType="Picker">
+                <Setter Property="TextColor" Value="{StaticResource BaseItemBackground}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource PickerBackground}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource PickerBackgroundPointerOver}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <!--#endregion СТИЛИ PICKER-->
+
+            <!--#region MainPage/ExpensePage/ProfitPage/RevenuePage-->
             <Style x:Key="MainBorder" TargetType="Border">
-                <Setter Property="BackgroundColor" Value="#F2F2F2"/>
                 <Setter Property="StrokeThickness" Value="0"/>
                 <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource BaseItemBackground}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource BaseItemBackgroundPointerOver}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
             
-            <!--Стиль CartesianChart-->
-            <Style x:Key="CartesianChart" TargetType="lvc:CartesianChart">
-                <Setter Property="BackgroundColor" Value="#F2F2F2"/>
-            </Style>
-            
-            <!--Стиль чисел на Блоках информации-->
-            <Style x:Key="BorderNumbersStyle" BasedOn="{StaticResource HeadlinesLargeNumbers}" TargetType="Label">
+            <!--Стиль чисел в информационных блоках-->
+            <Style x:Key="BorderNumbersStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontSize" Value="26"/>
                 <Setter Property="Padding" Value="32,16,28,22"/>
             </Style>
             
+            <!--Стиль чисел в списке транзакций-->
+            <Style x:Key="TransactionListNumbersStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+
+            <!--Стиль Заголовков в списке транзакций-->
+            <Style x:Key="ListHeaderStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+            <!--#endregion MainPage/ExpensePage/ProfitPage/RevenuePage-->
+            
+            <!--#region POPUP-->
+            <Style x:Key="CloseButton" TargetType="Button">
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource RedButton}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style x:Key="SettingsButton" TargetType="Button">
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource BaseItemBackground}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style x:Key="PopupHeader" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+
             <!--Стиль элементов транзакции в листе транзакций-->
             <Style x:Key="InfoItemListStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="16"/>
@@ -89,49 +276,37 @@
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="HorizontalTextAlignment" Value="Justify"/>
             </Style>
-            
-            <!--Стиль чисел в списке транзакций-->
-            <Style x:Key="TransactionListNumbersStyle" BasedOn="{StaticResource HeadlinesLargeNumbers}" TargetType="Label">
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="VerticalTextAlignment" Value="Center"/>
-                
-            </Style>
-            
-            <!--Стиль Заголовков в списке транзакций-->
-            <Style x:Key="ListHeaderStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="Black"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="VerticalTextAlignment" Value="Center"/>
-            </Style>
 
-            <!--Стиль полей для ввода-->
-            <Style TargetType="Entry">
-                <Setter Property="IsSpellCheckEnabled" Value="False"/>
-                <Setter Property="IsTextPredictionEnabled" Value="False"/>
-                <Setter Property="FontAutoScalingEnabled" Value="True"/>
-                <Setter Property="HeightRequest" Value="30"/>
-                <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="PlaceholderColor" Value="Gray"/>
-            </Style>
-            <!--Стили WarehousePage-->
+            <!--#region WarehousePage-->
             <Style x:Key="ButtonSortingStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontSize" Value="18"/>
                 <Setter Property="FontFamily" Value="Montserrat-Bold"/>
-                <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="FlowDirection" Value="RightToLeft"/>
-                <Setter Property="BorderWidth" Value="1"/>
-                <Setter Property="BorderColor" Value="#DBEEFE"/>
                 <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource BaseItemBackground}"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
-            
+
             <Style x:Key="CollectionViewItem" TargetType="Label">
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontSize" Value="16"/>
@@ -142,7 +317,17 @@
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
 
-            <!--Стили AddSupplyPopup-->
+            <Style x:Key="CollectViewHeader" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+            <!--#endregion WarehousePage-->
+
+
+            <!--#region AddSupplyPopup-->
             <Style x:Key="EntryLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontFamily" Value="MontserratLight"/>
@@ -170,6 +355,7 @@
                 <Setter Property="FontFamily" Value="Arial"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
+            <!--#endregion AddSupplyPopup-->
 
         </ResourceDictionary>
     </Application.Resources>

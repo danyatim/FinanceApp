@@ -43,9 +43,10 @@
                 <Entry Text="{Binding CountProduct}" Placeholder="Количество товаров" />
             </VerticalStackLayout>
 
-
             <VerticalStackLayout Spacing="5">
                 <Label Text="Информация о товаре" Style="{StaticResource HeaderAddSupplyPopup}" />
+                <Label Text="Артикул" Style="{StaticResource EntryLabel}"/>
+                <Entry Text="{Binding ProductArticle}" Placeholder="Артикул" />
                 <Label Text="Наименование" Style="{StaticResource EntryLabel}"/>
                 <Entry Text="{Binding ProductName}" Placeholder="Наименование" />
                 <Label Text="Цвет" Style="{StaticResource EntryLabel}"/>
@@ -61,7 +62,6 @@
                 <Label Text="Комиссия, %" Style="{StaticResource EntryLabel}"/>
                 <Entry Text="{Binding ProductFeePercent}" Placeholder="Комиссия, %" />
             </VerticalStackLayout>
-
 
             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" Spacing="8">
                 <Button Text="Отмена" Command="{Binding CancelCommand}" Style="{StaticResource RedButtonStyle}" />

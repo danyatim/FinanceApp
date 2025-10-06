@@ -158,7 +158,8 @@ public abstract partial class DetailViewModel : BaseViewModel
                     new LineSeries<DateTimePoint>
                     {
                         Values = seriesData.Select(p => new DateTimePoint(p.Bucket, (double)p.Sum)).ToArray(),
-                        Name = DirectionForList == TransactionDirection.Income ? "Выручка" : "Расходы"
+                        Name = DirectionForList == TransactionDirection.Income ? "Выручка" : "Расходы",
+                        AnimationsSpeed = TimeSpan.Zero
                     }
                 };
             }

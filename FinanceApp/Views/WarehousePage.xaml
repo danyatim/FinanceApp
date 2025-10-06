@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:FinanceApp.ViewModels"
              xmlns:models="clr-namespace:FinanceApp.Models"
+             xmlns:local="clr-namespace:FinanceApp.Helpers"
              x:Class="FinanceApp.Views.WarehousePage"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:WarehouseViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Background>
         <!--Градиент заднего фона-->
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -16,20 +23,30 @@
     </ContentPage.Background>
 
     <VerticalStackLayout Padding="16" Spacing="8">
+        <Button Text="Загрузить XLSX" Command="{Binding ImportXlsxCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="End"/>
         <Button Text="Добавить поставку" Command="{Binding AddSupplyCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="End"/>
+        <HorizontalStackLayout Spacing="8">
+            <Label Text="Показать артикул" Style="{StaticResource CollectViewHeader}"/>
+            <Switch IsToggled="{Binding IsArticle}" OnColor="AliceBlue"/>
+        </HorizontalStackLayout>
+        
 
         <Grid ColumnDefinitions="2*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
-            <Button Grid.Column="0" Text="Наименование" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Name"/>
-            <Label Grid.Column="1" Text="Цвет" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="2" Text="Размер" Style="{StaticResource ListHeaderStyle}"/>
+
+            <Button Grid.Column="0" Text="Наименование" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Name"
+                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle, Converter={StaticResource InverseBooleanConverter}}"/>
+            <Label Grid.Column="0" Text="Артикул" Style="{StaticResource CollectViewHeader}"
+                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle}"/>
+            <Label Grid.Column="1" Text="Цвет" Style="{StaticResource CollectViewHeader}"/>
+            <Label Grid.Column="2" Text="Размер" Style="{StaticResource CollectViewHeader}"/>
             <Button Grid.Column="3" Text="Остаток" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Quantity"/>
-            <Label Grid.Column="4" Text="Цена продажи" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="5" Text="Комиссия %" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="6" Text="Закупка" Style="{StaticResource ListHeaderStyle}"/>
-            <Label Grid.Column="7" Text="Доставка" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="4" Text="Цена продажи" Style="{StaticResource CollectViewHeader}"/>
+            <Label Grid.Column="5" Text="Комиссия %" Style="{StaticResource CollectViewHeader}"/>
+            <Label Grid.Column="6" Text="Закупка" Style="{StaticResource CollectViewHeader}"/>
+            <Label Grid.Column="7" Text="Доставка" Style="{StaticResource CollectViewHeader}"/>
             <Button Grid.Column="8" Text="Мин. цена" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice"/>
             <Button Grid.Column="9" Text="Рекоменд." Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice"/>
-            <Label Grid.Column="10" Text="Сохранить" Style="{StaticResource ListHeaderStyle}"/>
+            <Label Grid.Column="10" Text="Сохранить" Style="{StaticResource CollectViewHeader}"/>
         </Grid>
 
         <CollectionView ItemsSource="{Binding Products}">
@@ -39,7 +56,9 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Product">
                     <Grid ColumnDefinitions="2*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
-                        <Entry Text="{Binding Name}" />
+                        <Entry Text="{Binding Name}" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle, Converter={StaticResource InverseBooleanConverter}}" />
+                        <Entry Text="{Binding Article}" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle}" />
+
                         <Label Grid.Column="1" Text="{Binding Color}" Style="{StaticResource CollectionViewItem}" />
                         <Label Grid.Column="2" Text="{Binding Size}" Style="{StaticResource CollectionViewItem}" />
                         <Entry Grid.Column="3" Text="{Binding Quantity}" Keyboard="Numeric" HorizontalOptions="Center"/>

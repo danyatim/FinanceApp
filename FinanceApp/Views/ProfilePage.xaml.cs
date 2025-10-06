@@ -66,17 +66,9 @@ public partial class ProfilePage : ContentPage
         }
     }
 
-    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        // Не используется сейчас; кнопки управляют действиями
-    }
     private async void OnButtonSettings(object? sender, EventArgs e)
     {
         var popup = new SettingsPopup();
         await this.ShowPopupAsync(popup);
-
-        //// Возврат на первую вкладку после закрытия
-        //if (Shell.Current is Shell shell && shell.Items.FirstOrDefault() is TabBar bar)
-        //    shell.CurrentItem = bar.Items.FirstOrDefault();
     }
 }

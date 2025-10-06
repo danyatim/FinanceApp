@@ -133,13 +133,13 @@ public partial class MainViewModel : BaseViewModel
                 {
                     Name = "Выручка",
                     Values = inc.Select(p => new DateTimePoint(p.Bucket, (double)p.Sum)).ToArray(),
-                    GeometrySize = 4
+                    AnimationsSpeed = TimeSpan.Zero
                 },
                 new LineSeries<DateTimePoint>
                 {
                     Name = "Расходы",
                     Values = exp.Select(p => new DateTimePoint(p.Bucket, (double)p.Sum)).ToArray(),
-                    GeometrySize = 4
+                    AnimationsSpeed = TimeSpan.Zero
                 }
             ];
 

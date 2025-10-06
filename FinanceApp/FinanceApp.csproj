@@ -1,68 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net9.0-windows10.0.19041.0</TargetFrameworks>
-    <OutputType>Exe</OutputType>
-    <UseMaui>true</UseMaui>
-    <SingleProject>true</SingleProject>
-    <RootNamespace>FinanceApp</RootNamespace>
-    <ApplicationTitle>FinanceApp</ApplicationTitle>
-    <ApplicationId>com.company.financeapp</ApplicationId>
-    <ApplicationDisplayVersion>1.2.0</ApplicationDisplayVersion>
-    <ApplicationVersion>1</ApplicationVersion>
-	<WindowsPackageType>MSIX</WindowsPackageType>
-    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-	<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net9.0-windows10.0.19041.0</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<RootNamespace>FinanceApp</RootNamespace>
+		<ApplicationTitle>FinanceApp</ApplicationTitle>
+		<ApplicationId>com.company.financeapp</ApplicationId>
+		<ApplicationDisplayVersion>1.2.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+		<WindowsPackageType>MSIX</WindowsPackageType>
+		<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<PublishReadyToRun>true</PublishReadyToRun>
+		<TieredPGO>true</TieredPGO>
+
+		<DebugType>None</DebugType>
+
+
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	</PropertyGroup>
 
 	<ItemGroup>
-		<MauiSplashScreen Include="Resources\Images\splashscreen.png"
-						  BaseSize="800,600" />
+		<MauiSplashScreen Include="Resources\Images\splashscreen.png" BaseSize="800,600" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" />
-  </ItemGroup>
+	<ItemGroup>
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <MauiImage Include="Resources\Images\add_plus.svg" />
-    <MauiImage Include="Resources\Images\analytics.svg" />
-    <MauiImage Include="Resources\Images\arrow_down.png" />
-    <MauiImage Include="Resources\Images\arrow_up.png" />
-    <MauiImage Include="Resources\Images\cross.svg" />
-    <MauiImage Include="Resources\Images\delete_user.svg" />
-    <MauiImage Include="Resources\Images\options.svg" />
-    <MauiImage Include="Resources\Images\splashscreen.png" />
-    <MauiImage Include="Resources\Images\upload.svg" />
-    <MauiImage Include="Resources\Images\user.svg" />
-    <MauiImage Include="Resources\Images\user_add.svg" />
-    <MauiImage Include="Resources\Images\user_setting.svg" />
-    <MauiImage Include="Resources\Images\warehouse.svg" />
-  </ItemGroup>
+	<ItemGroup>
+		<MauiImage Include="Resources\Images\add_plus.svg" />
+		<MauiImage Include="Resources\Images\analytics.svg" />
+		<MauiImage Include="Resources\Images\arrow_down.png" />
+		<MauiImage Include="Resources\Images\arrow_up.png" />
+		<MauiImage Include="Resources\Images\cross.svg" />
+		<MauiImage Include="Resources\Images\delete_user.svg" />
+		<MauiImage Include="Resources\Images\options.svg" />
+		<MauiImage Include="Resources\Images\splashscreen.png" />
+		<MauiImage Include="Resources\Images\upload.svg" />
+		<MauiImage Include="Resources\Images\user.svg" />
+		<MauiImage Include="Resources\Images\user_add.svg" />
+		<MauiImage Include="Resources\Images\user_setting.svg" />
+		<MauiImage Include="Resources\Images\warehouse.svg" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc6.1" />
-    <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="EPPlus" Version="8.2.0" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc6.1" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <MauiXaml Update="Popups\AddSupplyPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Views\ProfilePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Fonts\MontserratFont\" />
-    <Folder Include="Resources\Fonts\ArialFont\" />
-    <Folder Include="Resources\Fonts\GeorgiaFont\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Resources\Fonts\MontserratFont\" />
+		<Folder Include="Resources\Fonts\ArialFont\" />
+		<Folder Include="Resources\Fonts\GeorgiaFont\" />
+	</ItemGroup>
 
 </Project>

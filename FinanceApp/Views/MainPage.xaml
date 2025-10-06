@@ -17,61 +17,60 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="16">
+    <VerticalStackLayout Padding="16" Spacing="16">
 
-            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
-                <HorizontalStackLayout Grid.Column="0" Spacing="8">
-                    <DatePicker Date="{Binding FromDate}" />
-                    <DatePicker Date="{Binding ToDate}" />
-                    <Button Text="Обновить" HeightRequest="40" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}" />
-                </HorizontalStackLayout>
-                <Picker Grid.Column="1"
-                WidthRequest="160"
-                ItemsSource="{x:Static helpers:TimeGroupingValues.All}"
-                SelectedItem="{Binding Grouping}"/>
-            </Grid>
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+            <HorizontalStackLayout Grid.Column="0" Spacing="8">
+                <DatePicker Date="{Binding FromDate}" />
+                <DatePicker Date="{Binding ToDate}" />
+                <Button Text="Обновить" HeightRequest="40" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}" />
+            </HorizontalStackLayout>
+            <Picker Grid.Column="1"
+        WidthRequest="160"
+        ItemsSource="{x:Static helpers:TimeGroupingValues.All}"
+        SelectedItem="{Binding Grouping}"/>
+        </Grid>
 
-            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12">
-                <Border Style="{StaticResource MainBorder}">
-                    <VerticalStackLayout>
-                        <Label Text="Выручка" Style="{StaticResource Headlines}"/>
-                        <Label Text="{Binding IncomeTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
-                    </VerticalStackLayout>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateRevenueCommand}" />
-                    </Border.GestureRecognizers>
-                </Border>
+        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12">
+            <Border Style="{StaticResource MainBorder}">
+                <VerticalStackLayout>
+                    <Label Text="Выручка" Style="{StaticResource Headlines}"/>
+                    <Label Text="{Binding IncomeTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                </VerticalStackLayout>
 
-                <Border Grid.Column="1" Style="{StaticResource MainBorder}">
-                    <VerticalStackLayout>
-                        <Label Text="Расходы" Style="{StaticResource Headlines}"/>
-                        <Label Text="{Binding ExpenseTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
-                    </VerticalStackLayout>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateExpenseCommand}" />
-                    </Border.GestureRecognizers>
-                </Border>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateRevenueCommand}" />
+                </Border.GestureRecognizers>
+            </Border>
 
-                <Border Grid.Column="2" Style="{StaticResource MainBorder}">
-                    <VerticalStackLayout>
-                        <Label Text="Прибыль" Style="{StaticResource Headlines}"/>
-                        <Label Text="{Binding ProfitTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
-                    </VerticalStackLayout>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
-                    </Border.GestureRecognizers>
-                </Border>
-            </Grid>
+            <Border Grid.Column="1" Style="{StaticResource MainBorder}">
+                <VerticalStackLayout>
+                    <Label Text="Расходы" Style="{StaticResource Headlines}"/>
+                    <Label Text="{Binding ExpenseTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                </VerticalStackLayout>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateExpenseCommand}" />
+                </Border.GestureRecognizers>
+            </Border>
 
-            <lvc:CartesianChart Series="{Binding Series}"
-                                XAxes="{Binding XAxes}"
-                                YAxes="{Binding YAxes}"
-                                Style="{StaticResource CartesianChart}"
-                                HeightRequest="340"/>
+            <Border Grid.Column="2" Style="{StaticResource MainBorder}">
+                <VerticalStackLayout>
+                    <Label Text="Прибыль" Style="{StaticResource Headlines}"/>
+                    <Label Text="{Binding ProfitTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                </VerticalStackLayout>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
+                </Border.GestureRecognizers>
+            </Border>
+        </Grid>
 
-            <Button Text="Добавить транзакцию" Command="{Binding AddTransactionCommand}" HorizontalOptions="End" Style="{StaticResource GreenButtonStyle}"/>
+        <lvc:CartesianChart Series="{Binding Series}"
+                        XAxes="{Binding XAxes}"
+                        YAxes="{Binding YAxes}"
+                        Style="{StaticResource CartesianChart}"
+                        HeightRequest="340"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <Button Text="Добавить транзакцию" Command="{Binding AddTransactionCommand}" HorizontalOptions="End" Style="{StaticResource GreenButtonStyle}"/>
+
+    </VerticalStackLayout>
 </ContentPage>

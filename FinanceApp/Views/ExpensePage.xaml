@@ -7,6 +7,7 @@
              x:Class="FinanceApp.Views.ExpensePage"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:ExpenseViewModel">
+    
     <ContentPage.Background>
         <!--Градиент заднего фона-->
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -16,75 +17,72 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="12">
+    <VerticalStackLayout Padding="16" Spacing="12">
 
-            <Grid ColumnDefinitions="*,*,Auto,Auto" ColumnSpacing="8">
-                <HorizontalStackLayout Spacing="8">
-                    <DatePicker Date="{Binding FromDate}" />
-                    <DatePicker Date="{Binding ToDate}" />
-                    <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16, 0" Style="{StaticResource GreenButtonStyle}"/>
-                </HorizontalStackLayout>
+        <Grid ColumnDefinitions="*,*,Auto,Auto" ColumnSpacing="8">
+            <HorizontalStackLayout Spacing="8">
+                <DatePicker Date="{Binding FromDate}"/>
+                <DatePicker Date="{Binding ToDate}" />
+                <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16, 0" Style="{StaticResource GreenButtonStyle}" VerticalOptions="Center"/>
+            </HorizontalStackLayout>
 
-                <Picker Grid.Column="2"
-                        ItemsSource="{Binding AccountNames}"
-                        SelectedItem="{Binding SelectedAccount}"
-                        WidthRequest="160"/>
-                <Picker Grid.Column="3"
-                        ItemsSource="{Binding SourceNames}"
-                        SelectedItem="{Binding SelectedSource}"
-                        WidthRequest="160"/>
-            </Grid>
-
+            <Picker Grid.Column="2" Title="Сортировка по счетам" TitleColor="Black"
+                ItemsSource="{Binding AccountNames}"
+                SelectedItem="{Binding SelectedAccount}"
+                WidthRequest="180"/>
+            <Picker Grid.Column="3" Title="Сортировка по Источникам" TitleColor="Black"
+                ItemsSource="{Binding SourceNames}"
+                SelectedItem="{Binding SelectedSource}"
+                WidthRequest="220"/>
+        </Grid>
 
 
-            <CollectionView ItemsSource="{Binding SourcesTotals}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Null}">
-                        <Border WidthRequest="220" Style="{StaticResource MainBorder}">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Key}" Style="{StaticResource Headlines}"/>
-                                <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
 
-            <lvc:CartesianChart Series="{Binding Series}"
-                                XAxes="{Binding XAxes}"
-                                YAxes="{Binding YAxes}"
-                                Style="{StaticResource CartesianChart}"
-                                HeightRequest="240" />
+        <CollectionView ItemsSource="{Binding SourcesTotals}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Null}">
+                    <Border WidthRequest="220" Style="{StaticResource MainBorder}">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Key}" Style="{StaticResource Headlines}"/>
+                            <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-            <CollectionView ItemsSource="{Binding Items}" SelectionMode="Single">
-                <CollectionView.Header>
-                    <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,6" ColumnSpacing="8">
-                        <Label Text="Счёт" Style="{StaticResource ListHeaderStyle}" />
-                        <Label Grid.Column="1" Text="Дата" Style="{StaticResource ListHeaderStyle}" />
-                        <Label Grid.Column="2" Text="Источник" Style="{StaticResource ListHeaderStyle}" />
-                        <Label Grid.Column="3" Text="Сумма" HorizontalTextAlignment="End" Style="{StaticResource ListHeaderStyle}" />
+        <lvc:CartesianChart Series="{Binding Series}"
+                        XAxes="{Binding XAxes}"
+                        YAxes="{Binding YAxes}"
+                        Style="{StaticResource CartesianChart}"
+                        HeightRequest="240" />
+
+        <CollectionView ItemsSource="{Binding Items}" SelectionMode="Single">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,6" ColumnSpacing="8">
+                    <Label Text="Счёт" Style="{StaticResource ListHeaderStyle}" />
+                    <Label Grid.Column="1" Text="Дата" Style="{StaticResource ListHeaderStyle}" />
+                    <Label Grid.Column="2" Text="Источник" Style="{StaticResource ListHeaderStyle}" />
+                    <Label Grid.Column="3" Text="Сумма" HorizontalTextAlignment="End" Style="{StaticResource ListHeaderStyle}" />
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Transaction" xmlns:models="clr-namespace:FinanceApp.Models">
+                    <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,8" ColumnSpacing="8">
+                        <Label Text="{Binding Account}" Style="{StaticResource InfoItemListStyle}"/>
+                        <Label Grid.Column="1" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Style="{StaticResource InfoItemListStyle}"/>
+                        <Label Grid.Column="2" Text="{Binding Source}" Style="{StaticResource InfoItemListStyle}"/>
+                        <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                        <Button Grid.Column="4" Text="x"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ExpenseViewModel}}, Path=DeleteTransactionCommand}"
+                            CommandParameter="{Binding .}"
+                            Style="{StaticResource RedButtonStyle}"/>
                     </Grid>
-                </CollectionView.Header>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Transaction" xmlns:models="clr-namespace:FinanceApp.Models">
-                        <Grid ColumnDefinitions="220,220,220,220,auto" Padding="0,8" ColumnSpacing="8">
-                            <Label Text="{Binding Account}" Style="{StaticResource InfoItemListStyle}"/>
-                            <Label Grid.Column="1" Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Style="{StaticResource InfoItemListStyle}"/>
-                            <Label Grid.Column="2" Text="{Binding Source}" Style="{StaticResource InfoItemListStyle}"/>
-                            <Label Grid.Column="3" Text="{Binding Amount, StringFormat='{0:C2}'}" Style="{StaticResource TransactionListNumbersStyle}" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
-                            <Button Grid.Column="4" Text="x"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ExpenseViewModel}}, Path=DeleteTransactionCommand}"
-                                    CommandParameter="{Binding .}"
-                                    Style="{StaticResource RedButtonStyle}"/>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-        </VerticalStackLayout>
-    </ScrollView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinanceApp.Views.ProfilePage"
              Shell.NavBarIsVisible="False">
+    
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
             <GradientStop Color="#B3DDF1" Offset="0.0" />
@@ -19,18 +20,16 @@
                     <Label x:Name="CurrentLabel" FontSize="22" FontFamily="MontserratSemiBold" TextColor="Black" VerticalTextAlignment="Start"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Padding="0,14,0,14" Spacing="12">
-                    <Entry x:Name="NewProfileEntry" Placeholder="Новый профиль (например, shop1)" FontAutoScalingEnabled="False" />
-                    <Button Clicked="OnCreateAndUse" ImageSource="add_plus.png" Background="Transparent" BorderColor="Transparent"/>
-                    <Button ImageSource="user_setting.png" Clicked="OnButtonSettings" Background="Transparent" BorderColor="Transparent" VerticalOptions="Center" Padding="120,0,30,0"/>
+                    <Entry x:Name="NewProfileEntry" Placeholder="Новый профиль (например, shop1)" FontAutoScalingEnabled="True"/>
+                    <Button Clicked="OnCreateAndUse" ImageSource="add_plus.png" Style="{StaticResource SettingsButton}"/>
                 </HorizontalStackLayout>
-                
-                
+                <Button ImageSource="user_setting.png" Clicked="OnButtonSettings" VerticalOptions="Center" Style="{StaticResource SettingsButton}"/>
             </FlexLayout>
         </Border>
 
         <VerticalStackLayout Padding="16" Spacing="12">
             <Label Text="Выберите профиль" Style="{StaticResource ListHeaderStyle}"/>
-            <CollectionView x:Name="ProfilesCv" HeightRequest="220" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+            <CollectionView x:Name="ProfilesCv" HeightRequest="220">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="*,Auto,Auto" Padding="4">
