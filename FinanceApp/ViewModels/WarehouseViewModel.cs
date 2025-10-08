@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FinanceApp.Models;
 using FinanceApp.Services;
+using System.Diagnostics;
 
 namespace FinanceApp.ViewModels;
 
@@ -79,13 +80,12 @@ public partial class WarehouseViewModel(IProductService svc, IPopupService popup
         {
             for (int i = 0; i <= Products.Count-1; i++)
             {
+                if (Products[i].Article != p.Article) continue;
                 var product = Products[i];
-                if (product.Article == p.Article)
-                {
-                    product.FeePercent = p.OzonRewardFBS;
-                    product.OzonExpensesSum = p.ExpensesSum;
-                    product.OzonPercent = p.OzonRewardFBS;
-                }
+                product.SellPrice = p.Price;
+                product.FeePercent = p.OzonRewardFBS;
+                product.OzonExpensesSum = p.ExpensesSum;
+                product.OzonPercent = p.OzonRewardFBS;
                 await _svc.UpdateAsync(product);
             }
         }

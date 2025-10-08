@@ -1,4 +1,5 @@
 using SQLite;
+using System.Diagnostics;
 
 namespace FinanceApp.Models;
 
@@ -25,8 +26,8 @@ public class Product
     public decimal MinSellPrice =>
         (1m - (FeePercent / 100m)) <= 0m
             ? decimal.MaxValue
-            : Math.Round(((BuyPrice + (DeliveryPrice / Quantity)) + (SellPrice * (OzonPercent / 100m)) / (1m - (FeePercent / 100m))), 2);
+            : Math.Round((BuyPrice + (DeliveryPrice / Quantity)) + OzonExpensesSum, 2);
 
     [Ignore]
-    public decimal RecommendedPrice => Math.Round((MinSellPrice * 1.30m) + OzonExpensesSum, 2);
+    public decimal RecommendedPrice => Math.Round(MinSellPrice * 1.30m, 2);
 }

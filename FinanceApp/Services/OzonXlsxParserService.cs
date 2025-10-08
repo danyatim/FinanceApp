@@ -43,7 +43,7 @@ namespace FinanceApp.Services
 
                 // Проверяем наличие необходимых колонок
                 string[] requiredHeaders = {
-                "Артикул", "Эквайринг", "Вознаграждение Ozon, FBS, %",
+                "Артикул", "Цена с учетом акции или стратегии, руб.", "Эквайринг", "Вознаграждение Ozon, FBS, %",
                 "Обработка отправления, максимум FBS", "Логистика Ozon, максимум, FBS",
                 "Доставка до места выдачи, FBS"};
 
@@ -68,6 +68,7 @@ namespace FinanceApp.Services
                 }
 
                 int articleCol = headers["Артикул"];
+                int priceCol = headers["Цена с учетом акции или стратегии, руб."];
                 int acquiringCol = headers["Эквайринг"];
                 int rewardCol = headers["Вознаграждение Ozon, FBS, %"];
                 int shipmentCol = headers["Обработка отправления, максимум FBS"];
@@ -79,6 +80,7 @@ namespace FinanceApp.Services
                 {
                     var article = worksheet.Cells[row, articleCol].Text;
                     // Обработка числовых значений
+                    decimal price = ParseDecimal(worksheet.Cells[row, priceCol].Text);
                     decimal acquiring = ParseDecimal(worksheet.Cells[row, acquiringCol].Text);
                     decimal reward = ParseDecimal(worksheet.Cells[row, rewardCol].Text);
                     decimal shipment = ParseDecimal(worksheet.Cells[row, shipmentCol].Text);
@@ -88,6 +90,7 @@ namespace FinanceApp.Services
                     var priceObj = new OzonSellerXlsxPrice
                     {
                         Article = string.IsNullOrWhiteSpace(article) ? null : article,
+                        Price = price,
                         Acquiring = acquiring,
                         OzonRewardFBS = reward,
                         ShipmentProcessingFBS = shipment,
