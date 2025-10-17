@@ -1,64 +1,121 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:vm="clr-namespace:FinanceApp.ViewModels"
+               xmlns:models="clr-namespace:FinanceApp.Models"
                x:Class="FinanceApp.Popups.SettingsPopup"
+               x:DataType="vm:SettingsViewModel"
                CanBeDismissedByTappingOutsideOfPopup="False"
                Color="#88D4F2"
                Size="600,700">
 
     <VerticalStackLayout Padding="16" Spacing="16">
         <FlexLayout JustifyContent="SpaceBetween">
-            <Label Text="Настройки справочников" Style="{StaticResource ListHeaderStyle}" />
-            <Button ImageSource="cross.png" Command="{Binding CloseCommand}" Style="{StaticResource CloseButton}"/>
+            <Label Text="Настройки справочников"
+                   Style="{StaticResource ListHeaderStyle}" />
+            
+            <Button ImageSource="cross.png"
+                    Command="{Binding CloseCommand}"
+                    Style="{StaticResource CloseButton}"/>
         </FlexLayout>
 
-        <HorizontalStackLayout Spacing="8">
-            <Entry Placeholder="Название счета" Text="{Binding NewAccountName}" WidthRequest="288" />
-            <Button Text="Добавить" Command="{Binding AddAccountCommand}" Style="{StaticResource GreenButtonStyle}"/>
+        <HorizontalStackLayout Spacing="18">
+            <Entry Placeholder="Название счета"
+                   Text="{Binding NewAccountName}"
+                   WidthRequest="288" />
+
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="Добавить"
+                        Command="{Binding AddAccountCommand}"
+                        Style="{StaticResource GreenButtonStyle}"
+                        VerticalOptions="Center"/>
+
+                <Button Grid.Column="1"
+                        Text="Удалить"
+                        Style="{StaticResource RedButtonStyle}"
+                        Command="{Binding DeleteAccountCommand}"
+                        VerticalOptions="Center"/>
+            </HorizontalStackLayout>
         </HorizontalStackLayout>
 
         <Label Text="Счета:" Style="{StaticResource CollectViewHeader}"/>
 
-        <CollectionView ItemsSource="{Binding Accounts}" HeightRequest="120">
+        <CollectionView ItemsSource="{Binding Accounts}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedAccount}"
+                        HeightRequest="120">
+            
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="3"/>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="3"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <FlexLayout JustifyContent="SpaceBetween" >
-                        <Label Text="{Binding Name}" FontSize="16" VerticalTextAlignment="Center" Style="{StaticResource CollectionViewItem}"/>
-                        <Button Grid.Column="1" Text="Удалить" Style="{StaticResource RedButtonStyle}"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type toolkit:Popup}}, Path=BindingContext.DeleteAccountCommand}"
-                                        CommandParameter="{Binding Id}" Background="Transparent"/>
+                <DataTemplate x:DataType="models:Account">
+                    <FlexLayout JustifyContent="SpaceAround" Padding="8" Style="{StaticResource SelectedFlexLayout}">
+                        <Label Text="{Binding Name}"
+                               FontSize="16"
+                               VerticalTextAlignment="Center"
+                               Style="{StaticResource CollectionViewItem}"/>
                     </FlexLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <HorizontalStackLayout Spacing="8">
-            <Entry Placeholder="Название источника" WidthRequest="280"
-                           Text="{Binding NewSourceName}"/>
-            <Picker ItemsSource="{Binding SourceTypes}"
+        <HorizontalStackLayout Spacing="18">
+            <HorizontalStackLayout Spacing="8">
+                <Entry Placeholder="Название источника"
+                       WidthRequest="260"
+                       Text="{Binding NewSourceName}"/>
+                
+                <Picker ItemsSource="{Binding SourceTypes}"
                         SelectedItem="{Binding NewSourceType}"/>
-            <Button Text="Добавить" Command="{Binding AddSourceCommand}" Style="{StaticResource GreenButtonStyle}"/>
+            </HorizontalStackLayout>
+            
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="Добавить"
+                        Command="{Binding AddSourceCommand}"
+                        Style="{StaticResource GreenButtonStyle}"
+                        VerticalOptions="Center"/>
+
+                <Button Text="Удалить"
+                        Style="{StaticResource RedButtonStyle}"
+                        Command="{Binding DeleteSourceCommand}"
+                        VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+            
         </HorizontalStackLayout>
 
-        <Label Text="Источники (доход/расход):" Style="{StaticResource CollectViewHeader}"/>
+        <Label Text="Источники (доход/расход):"
+               Style="{StaticResource CollectViewHeader}"/>
 
-        <CollectionView ItemsSource="{Binding Sources}" HeightRequest="160">
+        <CollectionView ItemsSource="{Binding Sources}"
+                        HeightRequest="160"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedSource}">
+
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="3"/>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="3"/>
             </CollectionView.ItemsLayout>
+            
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <FlexLayout JustifyContent="SpaceBetween">
-                        <Label Text="{Binding Name}" VerticalOptions="Center" FontSize="16" Style="{StaticResource CollectionViewItem}"/>
-                        <Label Grid.Column="1" Text="{Binding Type}" VerticalOptions="Center" FontSize="14" Padding="0,0,10,0" Style="{StaticResource CollectionViewItem}"/>
-                        <Button Grid.Column="2" Text="Удалить" Style="{StaticResource RedButtonStyle}"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type toolkit:Popup}}, Path=BindingContext.DeleteSourceCommand}"
-                                        CommandParameter="{Binding Id}" Background="Transparent" VerticalOptions="Center"/>
+                
+                <DataTemplate x:DataType="models:Source">
+                    <FlexLayout JustifyContent="SpaceAround" Padding="8" Style="{StaticResource SelectedFlexLayout}">
+                        <Label Text="{Binding Name}"
+                               VerticalOptions="Center"
+                               FontSize="16"
+                               Style="{StaticResource CollectionViewItem}"/>
+
+                        <Label Grid.Column="1"
+                               Text="{Binding Type}"
+                               VerticalOptions="Center"
+                               FontSize="14"
+                               Padding="0,0,10,0"
+                               Style="{StaticResource CollectionViewItem}"/>
                     </FlexLayout>
                 </DataTemplate>
+                
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>

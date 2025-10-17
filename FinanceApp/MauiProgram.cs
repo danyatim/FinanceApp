@@ -104,10 +104,15 @@ public static class MauiProgram
         builder.Services.AddTransient<ViewModels.ProfitViewModel>();
         builder.Services.AddSingleton<ViewModels.WarehouseViewModel>();
         builder.Services.AddTransient<ViewModels.SettingsViewModel>();
+        builder.Services.AddSingleton<ViewModels.ProfilePageViewModel>();
 
         //Popup
         builder.Services.AddTransient<ViewModels.AddSupplyPopupViewModel>();
         builder.Services.AddTransientPopup<Popups.AddSupplyPopup, AddSupplyPopupViewModel>();
+        builder.Services.AddTransient<ViewModels.SettingsViewModel>();
+        builder.Services.AddTransientPopup<Popups.SettingsPopup, SettingsViewModel>();
+        builder.Services.AddTransient<ViewModels.AddSalePopupViewModel>();
+        builder.Services.AddTransientPopup<Popups.AddSalePopup, AddSalePopupViewModel>();
 
         // Pages
         builder.Services.AddSingleton<Views.MainPage>();

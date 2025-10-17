@@ -26,6 +26,7 @@ public class ProductService : IProductService
 
     public Task AddProductAsync(Product p) => _repo.InsertProductAsync(p);
     public Task AddSupplyAsync(Supply p) => _repo.InsertSupplyAsync(p);
+    public Task<Supply> GetSupplyAsync(int id) => _repo.GetSupplyAsync(id);
     public Task UpdateAsync(Product p) => _repo.UpdateAsync(p);
     public Task DeleteAsync(Product p) => _repo.DeleteAsync(p);
 }

@@ -6,9 +6,9 @@ using FinanceApp.Services;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Painting; // SolidColorPaint
+using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
-using System.Globalization; // <— добавили
+using System.Globalization;
 
 namespace FinanceApp.ViewModels;
 
@@ -27,6 +27,8 @@ public partial class MainViewModel : BaseViewModel
     [ObservableProperty] private decimal incomeTotal;
     [ObservableProperty] private decimal expenseTotal;
     [ObservableProperty] private decimal profitTotal;
+    [ObservableProperty] private List<Transaction> items = new();
+    [ObservableProperty] private List<Account> accounts = new();
 
     [ObservableProperty] private ISeries[] series = Array.Empty<ISeries>();
     [ObservableProperty] private Axis[] xAxes = Array.Empty<Axis>();
@@ -61,8 +63,8 @@ public partial class MainViewModel : BaseViewModel
         {
             TimeGrouping.Daily => TimeSpan.FromDays(1).Ticks,
             TimeGrouping.Weekly => TimeSpan.FromDays(7).Ticks,
-            TimeGrouping.Monthly => TimeSpan.FromDays(30).Ticks,   // упрощённо
-            TimeGrouping.Yearly => TimeSpan.FromDays(365).Ticks,  // упрощённо
+            TimeGrouping.Monthly => TimeSpan.FromDays(30).Ticks,
+            TimeGrouping.Yearly => TimeSpan.FromDays(365).Ticks,
             _ => TimeSpan.FromDays(1).Ticks
         };
 
@@ -115,6 +117,28 @@ public partial class MainViewModel : BaseViewModel
     private void SetupAxes() => UpdateAxes();
 
     [RelayCommand]
+    private async Task LoadAccountsAndBalancesAsync()
+    {
+        // Получаем все счета
+        var accounts = await _refs.GetAccountsAsync();
+
+        var accountBalances = new List<Account>();
+        foreach (var account in accounts)
+        {
+            // Получаем сумму транзакций по каждому счету
+            var balance = await _tx.SumAsync(Period, TransactionDirection.Income, account.Name);
+            var expense = await _tx.SumAsync(Period, TransactionDirection.Expense, account.Name);
+            var currentBalance = balance - expense;
+            accountBalances.Add(new Account
+            {
+                Name = account.Name,
+                CurrentBalance = currentBalance
+            });
+        }
+        Accounts = accountBalances;
+    }
+
+    [RelayCommand]
     public async Task LoadAsync()
     {
         try
@@ -165,6 +189,7 @@ public partial class MainViewModel : BaseViewModel
                 // переустанавливаем массив, чтобы MAUI/LiveCharts уловили обновление ссылки
                 XAxes = new[] { axis };
             }
+            await LoadAccountsAndBalancesAsync();
         }
         finally { IsBusy = false; }
     }
@@ -187,6 +212,5 @@ public partial class MainViewModel : BaseViewModel
                 await LoadAsync();
             }
         }
-
     }
 }

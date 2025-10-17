@@ -7,4 +7,5 @@ public class Account
 {
     [PrimaryKey, AutoIncrement] public int Id { get; set; }
     [Indexed(Unique = true)] public string Name { get; set; } = "";
+    public decimal CurrentBalance { get; set; }
 }

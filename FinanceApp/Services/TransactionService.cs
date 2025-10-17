@@ -21,7 +21,7 @@ public class TransactionService : ITransactionService
     public Task<List<(DateTime Bucket, decimal Sum)>> SeriesAsync(DateRange range, TransactionDirection? dir, TimeGrouping g)
         => _repo.GroupedSumAsync(range, dir, g);
 
-    public Task<Dictionary<string, decimal>> SumBySourceAsync(DateRange range, TransactionDirection dir, string? account = null)
+    public Task<List<TopItem>> SumBySourceAsync(DateRange range, TransactionDirection dir, string? account = null)
         => _repo.SumBySourceAsync(range, dir, account);
 
     public async Task<decimal> ProfitAsync(DateRange range)

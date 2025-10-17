@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:FinanceApp.ViewModels"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              xmlns:helpers="clr-namespace:FinanceApp.Helpers"
+             xmlns:models="clr-namespace:FinanceApp.Models"
              x:Class="FinanceApp.Views.MainPage"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:MainViewModel">
@@ -19,23 +20,11 @@
 
     <VerticalStackLayout Padding="16" Spacing="16">
 
-        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
-            <HorizontalStackLayout Grid.Column="0" Spacing="8">
-                <DatePicker Date="{Binding FromDate}" />
-                <DatePicker Date="{Binding ToDate}" />
-                <Button Text="Обновить" HeightRequest="40" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}" />
-            </HorizontalStackLayout>
-            <Picker Grid.Column="1"
-        WidthRequest="160"
-        ItemsSource="{x:Static helpers:TimeGroupingValues.All}"
-        SelectedItem="{Binding Grouping}"/>
-        </Grid>
-
-        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12">
-            <Border Style="{StaticResource MainBorder}">
-                <VerticalStackLayout>
+        <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="auto,auto" ColumnSpacing="12" RowSpacing="16">
+            <Border Style="{StaticResource SelectedMainBorder}">
+                <VerticalStackLayout >
                     <Label Text="Выручка" Style="{StaticResource Headlines}"/>
-                    <Label Text="{Binding IncomeTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                    <Label Text="{Binding IncomeTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}"/>
                 </VerticalStackLayout>
 
                 <Border.GestureRecognizers>
@@ -43,7 +32,7 @@
                 </Border.GestureRecognizers>
             </Border>
 
-            <Border Grid.Column="1" Style="{StaticResource MainBorder}">
+            <Border Grid.Column="1" Style="{StaticResource SelectedMainBorder}">
                 <VerticalStackLayout>
                     <Label Text="Расходы" Style="{StaticResource Headlines}"/>
                     <Label Text="{Binding ExpenseTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
@@ -53,7 +42,7 @@
                 </Border.GestureRecognizers>
             </Border>
 
-            <Border Grid.Column="2" Style="{StaticResource MainBorder}">
+            <Border Grid.Column="2" Style="{StaticResource SelectedMainBorder}">
                 <VerticalStackLayout>
                     <Label Text="Прибыль" Style="{StaticResource Headlines}"/>
                     <Label Text="{Binding ProfitTotal, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
@@ -62,15 +51,52 @@
                     <TapGestureRecognizer Command="{Binding NavigateProfitCommand}" />
                 </Border.GestureRecognizers>
             </Border>
+
+            <Border Grid.Column="3" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
+                <VerticalStackLayout>
+                    <Label Text="Остаток:" Style="{StaticResource Headlines}"/>
+
+                    <CollectionView ItemsSource="{Binding Accounts}" HeightRequest="428">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Account">
+                                <FlexLayout JustifyContent="SpaceBetween">
+                                    <Label Text="{Binding Name}" Style="{StaticResource AccountName}"/>
+                                    <Label Text="{Binding CurrentBalance, StringFormat='{0:C2}'}" Style="{StaticResource AccountBalance}"/>
+                                </FlexLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="Добавить транзакцию" Command="{Binding AddTransactionCommand}" VerticalOptions="End" HorizontalOptions="End" Margin="8" Style="{StaticResource GreenButtonStyle}"/>
+
+                </VerticalStackLayout>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource MainBorder}" Padding="8">
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                        <HorizontalStackLayout Grid.Column="0" Spacing="8">
+                            <DatePicker Date="{Binding FromDate}" />
+                            <DatePicker Date="{Binding ToDate}" />
+                            <Button Text="Обновить" Command="{Binding LoadCommand}" Style="{StaticResource GreenButtonStyle}" />
+                        </HorizontalStackLayout>
+                        <Picker Grid.Column="1"
+                                WidthRequest="160"
+                                ItemsSource="{x:Static helpers:TimeGroupingValues.All}"
+                                SelectedItem="{Binding Grouping}"/>
+                    </Grid>
+
+                    <lvc:CartesianChart 
+                                        Series="{Binding Series}"
+                                        XAxes="{Binding XAxes}"
+                                        YAxes="{Binding YAxes}"
+                                        Style="{StaticResource CartesianChart}"
+                                        HeightRequest="340"/>
+                </VerticalStackLayout>
+            </Border>
+            
         </Grid>
-
-        <lvc:CartesianChart Series="{Binding Series}"
-                        XAxes="{Binding XAxes}"
-                        YAxes="{Binding YAxes}"
-                        Style="{StaticResource CartesianChart}"
-                        HeightRequest="340"/>
-
-        <Button Text="Добавить транзакцию" Command="{Binding AddTransactionCommand}" HorizontalOptions="End" Style="{StaticResource GreenButtonStyle}"/>
-
     </VerticalStackLayout>
 </ContentPage>

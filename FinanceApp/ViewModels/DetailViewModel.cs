@@ -25,12 +25,14 @@ public abstract partial class DetailViewModel : BaseViewModel
 
     [ObservableProperty] private string? selectedAccount;
     [ObservableProperty] private string? selectedSource;
+    [ObservableProperty] private Transaction? selectedTransaction;
 
     [ObservableProperty] private List<string> accountNames = new();
     [ObservableProperty] private List<string> sourceNames = new();
 
     [ObservableProperty] private List<Transaction> items = new();
-    [ObservableProperty] private Dictionary<string, decimal> sourcesTotals = new();
+    //[ObservableProperty] private Dictionary<string, decimal> sourcesTotals = new();
+    [ObservableProperty] private List<TopItem> sourcesTotals = new();
 
     [ObservableProperty] private ISeries[] series = Array.Empty<ISeries>();
 
@@ -173,38 +175,42 @@ public abstract partial class DetailViewModel : BaseViewModel
                     new LineSeries<DateTimePoint>{ Name="Расходы", Values = exp.Select(p => new DateTimePoint(p.Bucket, (double)p.Sum)).ToArray() }
                 };
 
-                var incBySrc = await _tx.SumBySourceAsync(Period, TransactionDirection.Income, SelectedAccount);
-                var expBySrc = await _tx.SumBySourceAsync(Period, TransactionDirection.Expense, SelectedAccount);
-                SourcesTotals = incBySrc.Keys.Union(expBySrc.Keys)
-                    .ToDictionary(k => k, k => incBySrc.GetValueOrDefault(k) - expBySrc.GetValueOrDefault(k));
+                var incItems = await _tx.SumBySourceAsync(Period, TransactionDirection.Income, SelectedAccount);
+                var expItems = await _tx.SumBySourceAsync(Period, TransactionDirection.Expense, SelectedAccount);
+                // Формируем объединенную коллекцию источников
+                var allSources = incItems.Select(item => item.Name)
+                    .Union(expItems.Select(item => item.Name))
+                    .Distinct();
+
+                // Создаем список TopItem с разницей между доходами и расходами по каждому источнику
+                SourcesTotals = allSources
+                    .Select(source => new TopItem
+                    {
+                        Name = source,
+                        Summ = (incItems.FirstOrDefault(i => i.Name == source)?.Summ ?? 0) -
+                               (expItems.FirstOrDefault(e => e.Name == source)?.Summ ?? 0)
+                    })
+                    .OrderByDescending(item => item.Summ)
+                    .ToList();
+
+                // Используйте sourcesTotals далее по необходимости
+                // Например, присвоить свойству Items или другому свойству
 
                 var accountDisplay = string.IsNullOrWhiteSpace(SelectedAccount) ? "Все счета" : SelectedAccount;
-
-                Items = SourcesTotals
-                    .OrderByDescending(kv => kv.Value)
-                    .Select(kv => new Transaction
-                    {
-                        Date = Period.To,
-                        Amount = kv.Value,
-                        Direction = TransactionDirection.Income,
-                        Source = kv.Key,
-                        Account = accountDisplay!
-                    })
-                    .ToList();
             }
         }
         finally { IsBusy = false; }
     }
 
     [RelayCommand]
-    public async Task DeleteTransactionAsync(Transaction t)
+    public async Task DeleteTransactionAsync()
     {
-        if (t is null || t.Id <= 0) return;
+        if (SelectedTransaction is null || SelectedTransaction.Id <= 0) return;
 
         IsBusy = true;
         try
         {
-            await _tx.DeleteAsync(t);
+            await _tx.DeleteAsync(SelectedTransaction);
             await LoadAsync();
         }
         finally { IsBusy = false; }

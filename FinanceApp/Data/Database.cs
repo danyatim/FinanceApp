@@ -1,6 +1,7 @@
 using FinanceApp.Models;
 using FinanceApp.Services;
 using SQLite;
+using System.Diagnostics;
 
 namespace FinanceApp.Data;
 
@@ -31,7 +32,6 @@ public class Database : IDatabase
         var name = _profiles.GetCurrentProfileName() ?? "default";
         CurrentProfileName = name;
         var path = _profiles.GetDbFilePath(name);
-
         _conn = CreateConnection(path);
         // запуск инициализации лениво — через EnsureCreatedAsync
     }

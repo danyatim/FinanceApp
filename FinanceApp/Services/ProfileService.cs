@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using FinanceApp.Models;
+using System.Text.RegularExpressions;
 
 namespace FinanceApp.Services;
 
@@ -18,7 +19,7 @@ public class ProfileService : IProfileService
         return Task.CompletedTask;
     }
 
-    public async Task<IList<string>> GetProfilesAsync()
+    public async Task<List<Profile>> GetProfilesAsync()
     {
         var dir = FileSystem.AppDataDirectory;
         var files = Directory.GetFiles(dir, "finance*.sqlite3", SearchOption.TopDirectoryOnly);
@@ -40,7 +41,12 @@ public class ProfileService : IProfileService
         if (list.Count == 0) list.Add("default");
         var result = list.ToList();
         result.Sort(StringComparer.OrdinalIgnoreCase);
-        return await Task.FromResult(result);
+        List<Profile> resultat = [];
+        foreach(var f in result)
+        {
+            resultat.Add(new Profile() { Name = f });
+        }
+        return await Task.FromResult(resultat);
     }
 
     public async Task CreateProfileAsync(string name)

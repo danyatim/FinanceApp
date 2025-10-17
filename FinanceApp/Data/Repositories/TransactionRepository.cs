@@ -1,6 +1,8 @@
 using FinanceApp.Models;
 using SQLite;
+using System;
 using System.Globalization;
+using System.Security.Principal;
 
 namespace FinanceApp.Data.Repositories;
 
@@ -65,7 +67,7 @@ public class TransactionRepository
         return await Conn.ExecuteScalarAsync<decimal>(sql, args.ToArray());
     }
 
-    public async Task<Dictionary<string, decimal>> SumBySourceAsync(DateRange range, TransactionDirection dir, string? account = null)
+    public async Task<List<TopItem>> SumBySourceAsync(DateRange range, TransactionDirection dir, string? account = null)
     {
         await _database.EnsureCreatedAsync();
 
@@ -84,7 +86,11 @@ public class TransactionRepository
         if (!string.IsNullOrWhiteSpace(account)) args.Add(account!);
 
         var rows = await Conn.QueryAsync<(string Source, decimal Total)>(sql, args.ToArray());
-        return rows.ToDictionary(r => r.Source, r => r.Total);
+        return [.. rows.Select(r => new TopItem
+        {
+            Name = r.Source,
+            Summ = r.Total
+        })];
     }
 
     public async Task<List<(DateTime Bucket, decimal Sum)>> GroupedSumAsync(
@@ -118,7 +124,7 @@ public class TransactionRepository
         };
         if (dir.HasValue) args.Add((int)dir.Value);
 
-        var rows = await Conn.QueryAsync<GroupRow>(sql, args.ToArray());
+        var rows = await Conn.QueryAsync<GroupRow>(sql, [.. args]);
 
         var result = rows
             .Where(r => !string.IsNullOrWhiteSpace(r.Bucket))

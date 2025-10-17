@@ -1,3 +1,5 @@
+using Microsoft.Maui;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace FinanceApp;
@@ -15,8 +17,14 @@ public partial class App : Application
 
 
     }
-    protected override Window CreateWindow(IActivationState? activationState)
-    {
-        return new Window(new AppShell());
-    }
+    protected override Window CreateWindow(IActivationState? activationState) =>
+        new Window(new AppShell())
+        {
+            Width = 1920,
+            Height = 1080,
+            MinimumWidth = 1920,
+            MinimumHeight = 1080,
+            X = 0,
+            Y = 0
+        };
 }

@@ -2,9 +2,9 @@
 
 namespace FinanceApp.Models
 {
-    public sealed class AddSupplyResult
+    public class AddSupplyResult
     {
-        public ObservableCollection<Product>? productsResult;
-        public Supply? supplyResult;
+        public ObservableCollection<Product>? ProductsResult { get; set; }
+        public Supply? SupplyResult { get; set; }
     }
 }

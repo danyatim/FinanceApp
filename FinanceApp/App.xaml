@@ -14,16 +14,17 @@
             <Color x:Key="BaseItemBackgroundPointerOver">#E6E6E6</Color>
             <Color x:Key="PickerBackground">#469AFF</Color>
             <Color x:Key="PickerBackgroundPointerOver">#78B7FF</Color>
+            <Color x:Key="SelectedItem">#138AF2</Color>
 
             <!--Стиль CartesianChart-->
             <Style x:Key="CartesianChart" TargetType="lvc:CartesianChart">
                 <Setter Property="BackgroundColor" Value="#F2F2F2"/>
             </Style>
+            
             <!--Стиль полей для ввода-->
             <Style TargetType="Entry">
                 <Setter Property="IsSpellCheckEnabled" Value="False"/>
                 <Setter Property="IsTextPredictionEnabled" Value="False"/>
-                <Setter Property="FontAutoScalingEnabled" Value="True"/>
                 <Setter Property="HeightRequest" Value="30"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
@@ -47,17 +48,16 @@
 
             <Style x:Key="Headlines" TargetType="Label">
                 <Setter Property="FontFamily" Value="Arial"/>
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="26"/>
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="Padding" Value="22,14,0,0"/>
             </Style>
 
             <!--#region СТИЛИ КНОПОК -->
             <Style x:Key="BaseButton" TargetType="Button">
-                <Setter Property="BorderWidth" Value="3"/>
-                <Setter Property="CornerRadius" Value="9"/>
-                <Setter Property="FontFamily" Value="Arial"/>
-                <Setter Property="FontAutoScalingEnabled" Value="True"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="CornerRadius" Value="7"/>
+                <Setter Property="FontFamily" Value="Georgia"/>
             </Style>
 
             <Style x:Key="GreenButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButton}">
@@ -68,6 +68,13 @@
                             <VisualState Name="Normal">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{StaticResource GreenButton}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.8" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource GreenButtonFocus}" />
                                 </VisualState.Setters>
                             </VisualState>
 
@@ -90,6 +97,13 @@
                             <VisualState Name="Normal">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{StaticResource RedButton}" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.8" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource RedButtonFocus}" />
                                 </VisualState.Setters>
                             </VisualState>
 
@@ -158,6 +172,10 @@
             <Style x:Key="MainBorder" TargetType="Border">
                 <Setter Property="StrokeThickness" Value="0"/>
                 <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource BaseItemBackground}"/>
+            </Style>
+
+            <Style x:Key="SelectedMainBorder" TargetType="Border" BasedOn="{StaticResource MainBorder}">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup Name="CommonStates">
@@ -184,7 +202,26 @@
                 <Setter Property="FontFamily" Value="MontserratLight"/>
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontSize" Value="26"/>
-                <Setter Property="Padding" Value="32,16,28,22"/>
+                <Setter Property="Padding" Value="38,16,28,18"/>
+            </Style>
+
+            <!--Стиль названия счета-->
+            <Style x:Key="AccountName" TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="26"/>
+                <Setter Property="FontFamily" Value="Montserrat-Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="24,0,0,0"/>
+            </Style>
+            <!--Стиль баланса счета-->
+            <Style x:Key="AccountBalance" TargetType="Label">
+                <Setter Property="FontFamily" Value="MontserratLight"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="26"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0,0,36,0"/>
             </Style>
             
             <!--Стиль чисел в списке транзакций-->
@@ -356,6 +393,59 @@
                 <Setter Property="FontSize" Value="16"/>
             </Style>
             <!--#endregion AddSupplyPopup-->
+
+            <Style x:Key="ItemSelected" TargetType="HorizontalStackLayout">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Gray"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style TargetType="FlexLayout" x:Key="SelectedFlexLayout">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="Background"
+                                            Value="{StaticResource SelectedItem}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Grid" x:Key="SelectedGrid">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="Background"
+                                            Value="{StaticResource SelectedItem}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

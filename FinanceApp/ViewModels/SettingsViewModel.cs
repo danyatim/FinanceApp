@@ -1,31 +1,32 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FinanceApp.Models;
 using FinanceApp.Services;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace FinanceApp.ViewModels;
 
-public partial class SettingsViewModel : ObservableObject
+public partial class SettingsViewModel(IReferenceService refs, IPopupService popupService) : ObservableObject
 {
-    private readonly IReferenceService _refs;
+    private readonly IReferenceService _refs = refs;
+    private readonly IPopupService _popupService = popupService;
 
     [ObservableProperty] private string? newAccountName;
     [ObservableProperty] private string? newSourceName;
+    [ObservableProperty] private Account? selectedAccount;
+    [ObservableProperty] private Source? selectedSource;
     [ObservableProperty] private TransactionDirection newSourceType = TransactionDirection.Expense;
 
-    public ObservableCollection<Account> Accounts { get; } = new();
-    public ObservableCollection<Source> Sources { get; } = new();
+    public ObservableCollection<Account> Accounts { get; } = [];
+    public ObservableCollection<Source> Sources { get; } = [];
+
 
     public IEnumerable<TransactionDirection> SourceTypes { get; } =
         Enum.GetValues(typeof(TransactionDirection)).Cast<TransactionDirection>();
 
     public Action? CloseRequested { get; set; }
-
-    public SettingsViewModel(IReferenceService refs)
-    {
-        _refs = refs;
-    }
 
     public async Task LoadAsync()
     {
@@ -48,9 +49,10 @@ public partial class SettingsViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task DeleteAccountAsync(int id)
+    private async Task DeleteAccountAsync()
     {
-        await _refs.DeleteAccountAsync(id);
+        if (SelectedAccount == null) return;
+        await _refs.DeleteAccountAsync(SelectedAccount.Id);
         await LoadAsync();
     }
 
@@ -66,9 +68,10 @@ public partial class SettingsViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task DeleteSourceAsync(int id)
+    private async Task DeleteSourceAsync()
     {
-        await _refs.DeleteSourceAsync(id);
+        if (SelectedSource == null) return;
+        await _refs.DeleteSourceAsync(SelectedSource.Id);
         await LoadAsync();
     }
 

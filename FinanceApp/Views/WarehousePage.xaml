@@ -7,11 +7,6 @@
              x:Class="FinanceApp.Views.WarehousePage"
              Shell.NavBarIsVisible="False"
              x:DataType="vm:WarehouseViewModel">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ContentPage.Background>
         <!--Градиент заднего фона-->
@@ -23,54 +18,59 @@
     </ContentPage.Background>
 
     <VerticalStackLayout Padding="16" Spacing="8">
-        <Button Text="Загрузить XLSX" Command="{Binding ImportXlsxCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="End"/>
-        <Button Text="Добавить поставку" Command="{Binding AddSupplyCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="End"/>
-        <HorizontalStackLayout Spacing="8">
-            <Label Text="Показать артикул" Style="{StaticResource CollectViewHeader}"/>
-            <Switch IsToggled="{Binding IsArticle}" OnColor="AliceBlue"/>
-        </HorizontalStackLayout>
+        <FlexLayout JustifyContent="SpaceEvenly">
+            <Border Style="{StaticResource MainBorder}" Padding="32,8,32,32">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Работа с Ozon" Style="{StaticResource CollectViewHeader}"/>
+                    <Button Text="Загрузить XLSX Ozon 'Товары и Цены'" Command="{Binding ImportXlsxCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+            <Border Style="{StaticResource MainBorder}" Padding="32,8,32,32">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Работа с товарами" Style="{StaticResource CollectViewHeader}"/>
+                    <Button Text="Добавить поставку" Command="{Binding AddSupplyCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center"/>
+                    <Button Text="Продажа" Command="{Binding SaleProductCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+            <Border Style="{StaticResource MainBorder}" Padding="32,8,32,32">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Работа с таблицей" Style="{StaticResource CollectViewHeader}"/>
+                    <Button Text="💾 Сохранить" Style="{StaticResource GreenButtonStyle}" Command="{Binding SaveInlineCommand}" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+        </FlexLayout>
         
-
-        <Grid ColumnDefinitions="2*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
-
-            <Button Grid.Column="0" Text="Наименование" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Name"
-                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle, Converter={StaticResource InverseBooleanConverter}}"/>
-            <Label Grid.Column="0" Text="Артикул" Style="{StaticResource CollectViewHeader}"
-                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle}"/>
-            <Label Grid.Column="1" Text="Цвет" Style="{StaticResource CollectViewHeader}"/>
-            <Label Grid.Column="2" Text="Размер" Style="{StaticResource CollectViewHeader}"/>
-            <Button Grid.Column="3" Text="Остаток" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Quantity"/>
-            <Label Grid.Column="4" Text="Цена продажи" Style="{StaticResource CollectViewHeader}"/>
-            <Label Grid.Column="5" Text="Комиссия %" Style="{StaticResource CollectViewHeader}"/>
-            <Label Grid.Column="6" Text="Закупка" Style="{StaticResource CollectViewHeader}"/>
-            <Label Grid.Column="7" Text="Доставка" Style="{StaticResource CollectViewHeader}"/>
-            <Button Grid.Column="8" Text="Мин. цена" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice"/>
-            <Button Grid.Column="9" Text="Рекоменд." Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice"/>
-            <Label Grid.Column="10" Text="Сохранить" Style="{StaticResource CollectViewHeader}"/>
-        </Grid>
-
-        <CollectionView ItemsSource="{Binding Products}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="3"/>
-            </CollectionView.ItemsLayout>
+        
+        <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single" HeightRequest="700" SelectedItem="{Binding SelectedProduct}">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="2*,2*,1*,1*,1*,1*,1*,1*,1*,1*,1*" Padding="18,6,18,6" >
+                    <Label Grid.Column="0" Text="Артикул" Style="{StaticResource CollectViewHeader}"/>
+                    <Button Grid.Column="1" Text="Наименование" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Name"/>
+                    <Label Grid.Column="2" Text="Цвет" Style="{StaticResource CollectViewHeader}"/>
+                    <Label Grid.Column="3" Text="Размер" Style="{StaticResource CollectViewHeader}"/>
+                    <Button Grid.Column="4" Text="Остаток" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="Quantity"/>
+                    <Label Grid.Column="5" Text="Цена продажи" Style="{StaticResource CollectViewHeader}"/>
+                    <Label Grid.Column="6" Text="Комиссия %" Style="{StaticResource CollectViewHeader}"/>
+                    <Label Grid.Column="7" Text="Закупка" Style="{StaticResource CollectViewHeader}"/>
+                    <Label Grid.Column="8" Text="Доставка" Style="{StaticResource CollectViewHeader}"/>
+                    <Button Grid.Column="9" Text="Мин. цена" Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="MinSellPrice"/>
+                    <Button Grid.Column="10" Text="Рекоменд." Style="{StaticResource ButtonSortingStyle}" Command="{Binding ToggleSortCommand}" CommandParameter="RecommendedPrice"/>
+                </Grid>
+            </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Product">
-                    <Grid ColumnDefinitions="2*,1*,1*,1*,1*,1*,1*,1*,1*,1*,1*" ColumnSpacing="8">
-                        <Entry Text="{Binding Name}" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle, Converter={StaticResource InverseBooleanConverter}}" />
-                        <Entry Text="{Binding Article}" IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=IsArticle}" />
-
-                        <Label Grid.Column="1" Text="{Binding Color}" Style="{StaticResource CollectionViewItem}" />
-                        <Label Grid.Column="2" Text="{Binding Size}" Style="{StaticResource CollectionViewItem}" />
-                        <Entry Grid.Column="3" Text="{Binding Quantity}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Entry Grid.Column="4" Text="{Binding SellPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
-                        <Label Grid.Column="5" Text="{Binding FeePercent}" Style="{StaticResource CollectionViewItem}"/>
-                        <Label Grid.Column="6" Text="{Binding BuyPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
-                        <Label Grid.Column="7" Text="{Binding DeliveryPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
-                        <Label Grid.Column="8" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
-                        <Label Grid.Column="9" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
-                        <Button Grid.Column="10" Text="💾" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center" VerticalOptions="Center"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WarehouseViewModel}}, Path=SaveInlineCommand}"
-                                CommandParameter="{Binding .}" />
+                    <Grid ColumnDefinitions="2*,2*,1*,1*,1*,1*,1*,1*,1*,1*,1*" Padding="18,6,18,6" Style="{StaticResource SelectedGrid}">
+                        <Label Grid.Column="0" Text="{Binding Article}" Style="{StaticResource CollectionViewItem}"/>
+                        <Label Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CollectionViewItem}"/>
+                        <Label Grid.Column="2" Text="{Binding Color}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="3" Text="{Binding Size}" Style="{StaticResource CollectionViewItem}" />
+                        <Entry Grid.Column="4" Text="{Binding Quantity}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Entry Grid.Column="5" Text="{Binding SellPrice}" Keyboard="Numeric" HorizontalOptions="Center"/>
+                        <Label Grid.Column="6" Text="{Binding FeePercent}" Style="{StaticResource CollectionViewItem}"/>
+                        <Label Grid.Column="7" Text="{Binding BuyPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="8" Text="{Binding DeliveryPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="9" Text="{Binding MinSellPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
+                        <Label Grid.Column="10" Text="{Binding RecommendedPrice, StringFormat='{0:C2}'}" Style="{StaticResource CollectionViewItem}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

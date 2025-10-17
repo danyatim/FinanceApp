@@ -19,33 +19,39 @@
 
     <VerticalStackLayout Padding="16" Spacing="12">
 
-        <HorizontalStackLayout Spacing="8">
-            <DatePicker Date="{Binding FromDate}" />
-            <DatePicker Date="{Binding ToDate}" />
-            <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}"/>
-        </HorizontalStackLayout>
-
-        <CollectionView ItemsSource="{Binding SourcesTotals}" SelectionMode="Single">
+        <CollectionView x:DataType="vm:DetailViewModel" ItemsSource="{Binding SourcesTotals}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Null}">
+                <DataTemplate x:DataType="models:TopItem">
                     <Border Style="{StaticResource MainBorder}">
                         <VerticalStackLayout>
-                            <Label Text="{Binding Key}" Style="{StaticResource Headlines}"/>
-                            <Label Text="{Binding Value, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
+                            <Label Text="{Binding Name}" Style="{StaticResource Headlines}"/>
+                            <Label Text="{Binding Summ, StringFormat='{0:C2}'}" Style="{StaticResource BorderNumbersStyle}" />
                         </VerticalStackLayout>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <lvc:CartesianChart Series="{Binding Series}"
-                        XAxes="{Binding XAxes}"
-                        YAxes="{Binding YAxes}"
-                        Style="{StaticResource CartesianChart}"
-                        HeightRequest="240" />
+        <Border Style="{StaticResource MainBorder}" Padding="8">
+            <VerticalStackLayout>
+                <HorizontalStackLayout Spacing="8">
+                    <DatePicker Date="{Binding FromDate}" />
+                    <DatePicker Date="{Binding ToDate}" />
+                    <Button Text="Обновить" Command="{Binding LoadCommand}" Margin="16,0" Style="{StaticResource GreenButtonStyle}"/>
+                </HorizontalStackLayout>
+            
+                <lvc:CartesianChart Series="{Binding Series}"
+                            XAxes="{Binding XAxes}"
+                            YAxes="{Binding YAxes}"
+                            Style="{StaticResource CartesianChart}"
+                            HeightRequest="240" />
+            </VerticalStackLayout>
+            
+        </Border>
+        
 
     </VerticalStackLayout>
 </ContentPage>

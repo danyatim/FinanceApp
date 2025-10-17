@@ -30,7 +30,7 @@ namespace FinanceApp.ViewModels
         private void OnCancel()
         {
             Products.Clear();
-            RequestClose?.Invoke(this, new AddSupplyResult { productsResult = null, supplyResult = null });
+            RequestClose?.Invoke(this, new AddSupplyResult { ProductsResult = null, SupplyResult = null });
         }
 
         [RelayCommand]
@@ -72,7 +72,7 @@ namespace FinanceApp.ViewModels
 
             if (count <= 0)
             {
-                RequestClose?.Invoke(this, new AddSupplyResult { productsResult = Products, supplyResult = null });
+                RequestClose?.Invoke(this, new AddSupplyResult { ProductsResult = Products, SupplyResult = null });
                 return;
             }
 
@@ -86,10 +86,11 @@ namespace FinanceApp.ViewModels
             {
                 var pieces = Math.Max(1, product.Quantity);
                 product.DeliveryPrice = Math.Round((deliveryPrice / count) * pieces, 2);
+                product.SupplyId = supply.Id;
                 product.Supply = supply;
             }
 
-            RequestClose?.Invoke(this, new AddSupplyResult { productsResult = Products, supplyResult = supply });
+            RequestClose?.Invoke(this, new AddSupplyResult { ProductsResult = Products, SupplyResult = supply });
         }
     }
 }

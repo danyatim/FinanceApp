@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FinanceApp.ViewModels"
+             xmlns:models="clr-namespace:FinanceApp.Models"
              x:Class="FinanceApp.Views.ProfilePage"
+             x:DataType="vm:ProfilePageViewModel"
              Shell.NavBarIsVisible="False">
     
     <ContentPage.Background>
@@ -14,29 +17,38 @@
 
     <VerticalStackLayout>
         <Border BackgroundColor="#CBEEFF">
-            <FlexLayout JustifyContent="SpaceBetween" Padding="0,0,12,0">
+            <FlexLayout JustifyContent="SpaceBetween" Padding="0,0,12,0" x:DataType="vm:ProfilePageViewModel">
+                
                 <HorizontalStackLayout Padding="16,8,0,8" Spacing="12">
                     <Image Source="user.png" WidthRequest="50" HeightRequest="50"/>
-                    <Label x:Name="CurrentLabel" FontSize="22" FontFamily="MontserratSemiBold" TextColor="Black" VerticalTextAlignment="Start"/>
+                    <Label Text="{Binding CurrentLabel}" FontSize="22" FontFamily="MontserratSemiBold" TextColor="Black" VerticalTextAlignment="Start"/>
                 </HorizontalStackLayout>
+                
                 <HorizontalStackLayout Padding="0,14,0,14" Spacing="12">
-                    <Entry x:Name="NewProfileEntry" Placeholder="Новый профиль (например, shop1)" FontAutoScalingEnabled="True"/>
-                    <Button Clicked="OnCreateAndUse" ImageSource="add_plus.png" Style="{StaticResource SettingsButton}"/>
+                    <Entry Text="{Binding NewProfileEntry}" Placeholder="Новый профиль (например, shop1)"/>
+                    <Button Command="{Binding CreateAndUseCommand}" ImageSource="add_plus.png" Style="{StaticResource SettingsButton}"/>
                 </HorizontalStackLayout>
-                <Button ImageSource="user_setting.png" Clicked="OnButtonSettings" VerticalOptions="Center" Style="{StaticResource SettingsButton}"/>
+                
+                <Button ImageSource="user_setting.png" Command="{Binding ButtonSettingsCommand}" VerticalOptions="Center" Style="{StaticResource SettingsButton}"/>
+                
             </FlexLayout>
         </Border>
 
         <VerticalStackLayout Padding="16" Spacing="12">
-            <Label Text="Выберите профиль" Style="{StaticResource ListHeaderStyle}"/>
-            <CollectionView x:Name="ProfilesCv" HeightRequest="220">
+            <HorizontalStackLayout Spacing="18">
+                <Label Text="Выберите профиль" Style="{StaticResource ListHeaderStyle}" HorizontalOptions="Center"/>
+                <HorizontalStackLayout Spacing="8" HorizontalOptions="End">
+                    <Button Command="{Binding UseProfileCommand}" ImageSource="upload.png" Style="{StaticResource GreenButtonStyle}" Text="Загрузить" />
+                    <Button Command="{Binding DeleteProfileCommand}" ImageSource="delete_user.png" Style="{StaticResource RedButtonStyle}" Text="Удалить" />
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+            
+            <CollectionView HeightRequest="220" ItemsSource="{Binding ProfilesCv}" SelectionMode="Single" SelectedItem="{Binding SelectedProfile}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,Auto,Auto" Padding="4">
-                            <Label Text="{Binding .}" VerticalTextAlignment="Center" Style="{StaticResource ProfileItemListStyle}"/>
-                            <Button Grid.Column="1" Clicked="OnUseProfile" CommandParameter="{Binding .}" ImageSource="upload.png" Style="{StaticResource GreenButtonStyle}" />
-                            <Button Grid.Column="2" Clicked="OnDeleteProfile" CommandParameter="{Binding .}" ImageSource="delete_user.png" Style="{StaticResource RedButtonStyle}" />
-                        </Grid>
+                        <FlexLayout JustifyContent="Start" Style="{StaticResource SelectedFlexLayout}" HeightRequest="40">
+                            <Label x:DataType="models:Profile" Text="{Binding Name}" VerticalTextAlignment="Center" Style="{StaticResource ProfileItemListStyle}" Padding="18"/>
+                        </FlexLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

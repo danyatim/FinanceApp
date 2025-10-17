@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:models="clr-namespace:FinanceApp.Models"
+               xmlns:vm="clr-namespace:FinanceApp.ViewModels"
+               x:Class="FinanceApp.Popups.AddSalePopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               x:DataType="vm:AddSalePopupViewModel"
+               Color="#88D4F2"
+               Size="900, 700">
+    
+    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="16" Padding="16">
+        <VerticalStackLayout Grid.Column="1" Grid.RowSpan="2" Spacing="12">
+            
+            <FlexLayout JustifyContent="SpaceBetween">
+                <Label Text="Введите данные о продаже" Style="{StaticResource CollectViewHeader}" FontSize="24" />
+                <Button ImageSource="cross.png"
+                        Command="{Binding CancelCommand}"
+                        Style="{StaticResource CloseButton}"/>
+            </FlexLayout>
+            <Label Text="{Binding Product.Article, StringFormat='Артикул товара: {0}'}" Style="{StaticResource CollectionViewItem}"/>
+            <Label Text="{Binding Product.Name, StringFormat='Наименование: {0}'}" Style="{StaticResource CollectionViewItem}"/>
+            <Label Text="{Binding Product.Color, StringFormat='Цвет: {0}'}" Style="{StaticResource CollectionViewItem}"/>
+            <Label Text="{Binding Product.Size, StringFormat='Размер: {0}'}" Style="{StaticResource CollectionViewItem}"/>
+            <Label Text="{Binding Supply.Id, StringFormat='Номер поставки - №{0}'}" Style="{StaticResource CollectionViewItem}"/>
+
+            <DatePicker Date="{Binding Date}" HorizontalOptions="Center"/>
+            <VerticalStackLayout HorizontalOptions="Center">
+                <Label Text="Введите количество" Style="{StaticResource EntryLabel}"/>
+                <Entry Text="{Binding Quantity}" Placeholder="Введите количество" Keyboard="Numeric"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout HorizontalOptions="Center">
+                <Label Text="Введите цену продажи" Style="{StaticResource EntryLabel}"/>
+                <Entry Text="{Binding Price}" Placeholder="Введите Цену" Keyboard="Numeric"/>
+            </VerticalStackLayout>
+
+            <Label Text="Выбирете и заполните поля расходов" Style="{StaticResource CollectionViewItem}"/>
+            
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="Выберите счет" Style="{StaticResource EntryLabel}"/>
+                    <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount}"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="Выберите источник расхода" Style="{StaticResource EntryLabel}"/>
+                    <Picker ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}"/>
+                </VerticalStackLayout>
+                
+                <Entry Text="{Binding AmountExpenses}" Keyboard="Numeric" VerticalOptions="End"/>
+                <Button Command="{Binding AddExpensesCommand}" ImageSource="add_plus.png" Style="{StaticResource GreenButtonStyle}" VerticalOptions="End" HorizontalOptions="End"/>
+            </HorizontalStackLayout>
+            
+        </VerticalStackLayout>
+
+        <Button Grid.Column="1" Grid.Row="1" Text="Сохранить/Добавить" HorizontalOptions="End" VerticalOptions="End" Style="{StaticResource GreenButtonStyle}" Command="{Binding SaveCommand}"/>
+
+        <CollectionView Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding Expenses}" >
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ExpensesItem">
+                    <Border Style="{StaticResource MainBorder}" Padding="8">
+                        <FlexLayout JustifyContent="SpaceEvenly">
+                            <Label Text="{Binding SourceExpenses}" Style="{StaticResource Headlines}" />
+                            <Label Text="{Binding Expense, StringFormat='{0:C2}'}" Style="{StaticResource  BorderNumbersStyle}"/>
+                        </FlexLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</toolkit:Popup>

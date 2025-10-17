@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+	
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
@@ -8,13 +9,18 @@
 		<RootNamespace>FinanceApp</RootNamespace>
 		<ApplicationTitle>FinanceApp</ApplicationTitle>
 		<ApplicationId>com.company.financeapp</ApplicationId>
-		<ApplicationDisplayVersion>1.2.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>1.2.5</ApplicationDisplayVersion>
+		<ApplicationVersion>3</ApplicationVersion>
 		<WindowsPackageType>None</WindowsPackageType>
 		<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+		<PackageCertificateThumbprint>6595536C464CD68733E4D2DD5F23AA4097610D74</PackageCertificateThumbprint>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<AssemblyVersion>1.2.5.0</AssemblyVersion>
+		<FileVersion>1.2.5.0</FileVersion>
+		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -64,6 +70,12 @@
 		<Folder Include="Resources\Fonts\MontserratFont\" />
 		<Folder Include="Resources\Fonts\ArialFont\" />
 		<Folder Include="Resources\Fonts\GeorgiaFont\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Popups\AddSalePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-﻿namespace FinanceApp.Services;
+﻿using FinanceApp.Models;
+
+namespace FinanceApp.Services;
 
 public interface IProfileService
 {
@@ -7,7 +9,7 @@ public interface IProfileService
     Task SetCurrentProfileAsync(string name);
 
     // Список профилей по файлам finance_*.sqlite3 (+ "default", если есть)
-    Task<IList<string>> GetProfilesAsync();
+    Task<List<Profile>> GetProfilesAsync();
 
     // Создание — фактически просто выбор, файл создастся при EnsureCreatedAsync
     Task CreateProfileAsync(string name);

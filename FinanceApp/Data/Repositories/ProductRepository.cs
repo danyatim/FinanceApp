@@ -39,4 +39,9 @@ public class ProductRepository
         await _database.EnsureCreatedAsync();
         return await Conn.Table<Product>().OrderBy(p => p.Name).ToListAsync();
     }
+    public async Task<Supply> GetSupplyAsync(int id)
+    {
+        await _database.EnsureCreatedAsync();
+        return await Conn.Table<Supply>().Where(p => p.Id == id).FirstOrDefaultAsync();
+    }
 }

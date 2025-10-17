@@ -18,6 +18,7 @@ public class Product
     public decimal DeliveryPrice { get; set; }
     public decimal OzonExpensesSum { get; set; } = decimal.Zero;
     public decimal OzonPercent { get; set; } = decimal.Zero;
+    public int SupplyId { get; set; }
 
     [Ignore]
     public Supply? Supply { get; set; }
