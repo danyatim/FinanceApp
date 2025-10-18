@@ -64,9 +64,9 @@
             </VerticalStackLayout>
 
             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End" Spacing="8">
-                <Button Text="Отмена" Command="{Binding CancelCommand}" Style="{StaticResource RedButtonStyle}" />
-                <Button Text="Сохранить" Command="{Binding SaveCommand}" Style="{StaticResource GreenButtonStyle}" />
-                <Button Text="Добавить" Command="{Binding AddProductCommand}" Style="{StaticResource GreenButtonStyle}" />
+                <Button Text="Отмена" Command="{Binding CancelCommand}" Style="{StaticResource RedButtonStyle}" ToolTipProperties.Text="Отмена и закрытие" />
+                <Button Text="Сохранить" IsEnabled="{Binding IsSave}" Command="{Binding SaveCommand}" Style="{StaticResource GreenButtonStyle}" ToolTipProperties.Text="Сохранить и закрыть" />
+                <Button Text="Добавить" Command="{Binding AddProductCommand}" Style="{StaticResource GreenButtonStyle}" ToolTipProperties.Text="Добавить в список" />
             </HorizontalStackLayout>
         </FlexLayout>
     </Grid>

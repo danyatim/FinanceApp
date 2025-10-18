@@ -17,9 +17,22 @@ public partial class WarehouseViewModel(IProductService svc, IPopupService popup
     [ObservableProperty] private string? sortField = "Name";
     [ObservableProperty] private bool sortAscending = true;
     [ObservableProperty] private Product? selectedProduct;
+    [ObservableProperty] private bool isSale = false;
+    [ObservableProperty] private bool isSave = false;
 
     [RelayCommand]
     public async Task LoadAsync() => Products = await _svc.GetAllAsync(SortField, SortAscending);
+
+    //[RelayCommand] private Task NavigateProfileAsync() => Shell.Current.GoToAsync(nameof(Views.ProfilePage));
+    //[RelayCommand] private Task NavigateMainAsync() => Shell.Current.GoToAsync(nameof(Views.MainPage));
+
+    [RelayCommand]
+    public Task IsSelected()
+    {
+        IsSale = SelectedProduct != null;
+        IsSave = SelectedProduct != null;
+        return Task.CompletedTask;
+    }
 
     [RelayCommand]
     public async Task ToggleSortAsync(string? field)

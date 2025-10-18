@@ -16,6 +16,7 @@
             <FlexLayout JustifyContent="SpaceBetween">
                 <Label Text="Введите данные о продаже" Style="{StaticResource CollectViewHeader}" FontSize="24" />
                 <Button ImageSource="cross.png"
+                        ToolTipProperties.Text="Закрыть"
                         Command="{Binding CancelCommand}"
                         Style="{StaticResource CloseButton}"/>
             </FlexLayout>
@@ -36,24 +37,35 @@
             </VerticalStackLayout>
 
             <Label Text="Выбирете и заполните поля расходов" Style="{StaticResource CollectionViewItem}"/>
-            
+
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
-                <VerticalStackLayout HorizontalOptions="Center">
-                    <Label Text="Выберите счет" Style="{StaticResource EntryLabel}"/>
-                    <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount}"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout HorizontalOptions="Center">
-                    <Label Text="Выберите источник расхода" Style="{StaticResource EntryLabel}"/>
-                    <Picker ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}"/>
-                </VerticalStackLayout>
-                
-                <Entry Text="{Binding AmountExpenses}" Keyboard="Numeric" VerticalOptions="End"/>
-                <Button Command="{Binding AddExpensesCommand}" ImageSource="add_plus.png" Style="{StaticResource GreenButtonStyle}" VerticalOptions="End" HorizontalOptions="End"/>
+                <HorizontalStackLayout>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Выберите счет" Style="{StaticResource EntryLabel}"/>
+                        <Picker ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount}" WidthRequest="130" HorizontalOptions="Start"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Источник расхода" Style="{StaticResource EntryLabel}"/>
+                        <Picker ItemsSource="{Binding Sources}" SelectedItem="{Binding SelectedSource}" WidthRequest="130" HorizontalOptions="Start"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <Entry Text="{Binding AmountExpenses}" Keyboard="Numeric" VerticalOptions="End" WidthRequest="75"/>
+                <Button Command="{Binding AddExpensesCommand}"
+                        ToolTipProperties.Text="Добавить в список"
+                        ImageSource="add_plus.png"
+                        Style="{StaticResource GreenButtonStyle}"
+                        VerticalOptions="End" HorizontalOptions="End"/>
             </HorizontalStackLayout>
             
         </VerticalStackLayout>
 
-        <Button Grid.Column="1" Grid.Row="1" Text="Сохранить/Добавить" HorizontalOptions="End" VerticalOptions="End" Style="{StaticResource GreenButtonStyle}" Command="{Binding SaveCommand}"/>
+        <Button Grid.Column="1" Grid.Row="1"
+                Text="Сохранить/Добавить"
+                ToolTipProperties.Text="Сохранить"
+                HorizontalOptions="End" VerticalOptions="End"
+                Style="{StaticResource GreenButtonStyle}"
+                Command="{Binding SaveCommand}"/>
 
         <CollectionView Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding Expenses}" >
             <CollectionView.ItemsLayout>

@@ -198,6 +198,9 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand] private Task NavigateExpenseAsync() => Shell.Current.GoToAsync(nameof(Views.ExpensePage));
     [RelayCommand] private Task NavigateProfitAsync() => Shell.Current.GoToAsync(nameof(Views.ProfitPage));
 
+    //[RelayCommand] private Task NavigateProfileAsync() => Shell.Current.GoToAsync(nameof(Views.ProfilePage));
+    //[RelayCommand] private Task NavigateWarehouseAsync() => Shell.Current.GoToAsync(nameof(Views.WarehousePage));
+
     [RelayCommand]
     private async Task AddTransactionAsync()
     {

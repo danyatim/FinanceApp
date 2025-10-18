@@ -25,11 +25,18 @@
                 </HorizontalStackLayout>
                 
                 <HorizontalStackLayout Padding="0,14,0,14" Spacing="12">
-                    <Entry Text="{Binding NewProfileEntry}" Placeholder="Новый профиль (например, shop1)"/>
-                    <Button Command="{Binding CreateAndUseCommand}" ImageSource="add_plus.png" Style="{StaticResource SettingsButton}"/>
+                    <Entry Text="{Binding NewProfileEntry}" Placeholder="Новый профиль (например, shop1)" WidthRequest="300"/>
+                    <Button Command="{Binding CreateAndUseCommand}"
+                            ToolTipProperties.Text="Создать профиль"
+                            ImageSource="add_plus.png"
+                            Style="{StaticResource SettingsButton}"/>
                 </HorizontalStackLayout>
                 
-                <Button ImageSource="user_setting.png" Command="{Binding ButtonSettingsCommand}" VerticalOptions="Center" Style="{StaticResource SettingsButton}"/>
+                <Button ImageSource="user_setting.png"
+                        ToolTipProperties.Text="Настройки"
+                        Command="{Binding ButtonSettingsCommand}"
+                        VerticalOptions="Center"
+                        Style="{StaticResource SettingsButton}"/>
                 
             </FlexLayout>
         </Border>

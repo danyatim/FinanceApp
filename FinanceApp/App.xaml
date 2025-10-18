@@ -16,6 +16,11 @@
             <Color x:Key="PickerBackgroundPointerOver">#78B7FF</Color>
             <Color x:Key="SelectedItem">#138AF2</Color>
 
+            <Style x:Key="NavigationButton" TargetType="Button">
+            </Style>
+            <Style x:Key="CurrentNavigationButton" TargetType="Button">
+            </Style>
+
             <!--Стиль CartesianChart-->
             <Style x:Key="CartesianChart" TargetType="lvc:CartesianChart">
                 <Setter Property="BackgroundColor" Value="#F2F2F2"/>

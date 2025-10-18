@@ -18,6 +18,12 @@
     </ContentPage.Background>
 
     <VerticalStackLayout Padding="16" Spacing="8">
+        <!--<HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+            <Button Text="Профиль"  Command="{Binding NavigateProfileCommand}" Style="{StaticResource NavigationButton}"/>
+            <Button Text="Главная" Command="{Binding NavigateMainCommand}" Style="{StaticResource NavigationButton}"/>
+            <Button Text="Склад" Style="{StaticResource CurrentNavigationButton}"/>
+        </HorizontalStackLayout>-->
+
         <FlexLayout JustifyContent="SpaceEvenly">
             <Border Style="{StaticResource MainBorder}" Padding="32,8,32,32">
                 <VerticalStackLayout Spacing="8">
@@ -29,19 +35,19 @@
                 <VerticalStackLayout Spacing="8">
                     <Label Text="Работа с товарами" Style="{StaticResource CollectViewHeader}"/>
                     <Button Text="Добавить поставку" Command="{Binding AddSupplyCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center"/>
-                    <Button Text="Продажа" Command="{Binding SaleProductCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center"/>
+                    <Button Text="Продажа" IsEnabled="{Binding IsSale}" Command="{Binding SaleProductCommand}" Style="{StaticResource GreenButtonStyle}" HorizontalOptions="Center"/>
                 </VerticalStackLayout>
             </Border>
             <Border Style="{StaticResource MainBorder}" Padding="32,8,32,32">
                 <VerticalStackLayout Spacing="8">
                     <Label Text="Работа с таблицей" Style="{StaticResource CollectViewHeader}"/>
-                    <Button Text="💾 Сохранить" Style="{StaticResource GreenButtonStyle}" Command="{Binding SaveInlineCommand}" HorizontalOptions="Center"/>
+                    <Button Text="💾 Сохранить" IsEnabled="{Binding IsSave}" Style="{StaticResource GreenButtonStyle}" Command="{Binding SaveInlineCommand}" HorizontalOptions="Center"/>
                 </VerticalStackLayout>
             </Border>
         </FlexLayout>
         
         
-        <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single" HeightRequest="700" SelectedItem="{Binding SelectedProduct}">
+        <CollectionView ItemsSource="{Binding Products}" SelectionMode="Single" HeightRequest="700" SelectedItem="{Binding SelectedProduct}" SelectionChangedCommand="{Binding IsSelectedCommand}">
             <CollectionView.Header>
                 <Grid ColumnDefinitions="2*,2*,1*,1*,1*,1*,1*,1*,1*,1*,1*" Padding="18,6,18,6" >
                     <Label Grid.Column="0" Text="Артикул" Style="{StaticResource CollectViewHeader}"/>

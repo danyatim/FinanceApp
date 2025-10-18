@@ -15,6 +15,8 @@ namespace FinanceApp.ViewModels
         [ObservableProperty] private int countProduct = 0;
         [ObservableProperty] private decimal supplyDeliveryPrice;
 
+        [ObservableProperty] private bool isSave = false;
+
         [ObservableProperty] private string? productArticle;
         [ObservableProperty] private string? productName;
         [ObservableProperty] private string? productColor;
@@ -62,6 +64,7 @@ namespace FinanceApp.ViewModels
             ProductArticle = "";
             ProductColor = "";
             ProductQuantity = 0;
+            IsSave = true;
         }
 
         [RelayCommand]

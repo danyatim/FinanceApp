@@ -20,6 +20,12 @@
 
     <VerticalStackLayout Padding="16" Spacing="16">
 
+        <!--<HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+            <Button Text="Профиль"  Command="{Binding NavigateProfileCommand}" Style="{StaticResource NavigationButton}"/>
+            <Button Text="Главная" Style="{StaticResource CurrentNavigationButton}"/>
+            <Button Text="Склад"  Command="{Binding NavigateWarehouseCommand}" Style="{StaticResource NavigationButton}"/>
+        </HorizontalStackLayout>-->
+
         <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="auto,auto" ColumnSpacing="12" RowSpacing="16">
             <Border Style="{StaticResource SelectedMainBorder}">
                 <VerticalStackLayout >
